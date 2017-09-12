@@ -1,69 +1,61 @@
-Say Cheese
+The Paste
 ==========
 
-Take a webcam snapshot or paste image data and upload it to the WordPress Media Library.
+Paste image data into the Editor and upload it to the WordPress Media Library.
 
  - Developed in WP 3.8 – WP 4.8
  - Should work with WordPress 3.5+
  - German and Dutch localization. 
 
-Browser Support
----------------
+Known Browser Support
+---------------------
 
  - Chrome 32+
  - Firefox 26+
  - Safari 10+
- - IE11 (not sure about IE10)
+ - IE11
  - Edge
 
 
-Clipboard Pasting Caveats:
---------------------------
+Caveats:
+--------
 
 ### Mac OS 10.11+:
 
-| copy from / paste to  | Firefox  | Chrome   | Safari 10+ |
-|-----------------------|----------|----------|------------|
-| Mac Finder            |    1)    |    OK    |    -       |
-| Mac Finder Screenshot |    OK    |    OK    |    OK      |
-| Mac Preview           |    OK    |    OK    |    OK      |
-| Mac Photos App        |    1)    |    OK    |    2)      |
-| QuickTime Player      |    OK    |    OK    |    OK      |
-| Photoshop CS 6        |    OK    |    OK    |    ?       |
-| Photoshop CC (2017)   |    OK    |    OK    |    OK      |
-| Illustrator CC        |    1)    |    1)    |    1)      |
-| A Webpage             |    OK    |    OK    |    -       |
-| MS Word Mac           |    1)    |    OK    |    OK      |
-| LibreOffice           |    OK    |    OK    |    OK      |
-| Gimp                  |    OK    |    OK    |    OK      |
-
-**1)** Nothing happens. As a Workaround paste into Mac Preview first and then copy again.
-**2)** The file icon is pasted. Use a workaround.
-
+| copy from / paste to  | Firefox 55+ | Chrome 60+ | Safari 10+ |
+|-----------------------|------------|-------------|------------|
+| Mac Finder            | 1)         | OK          | -          |
+| Mac Finder Screenshot | OK         | OK          | OK         |
+| Mac Preview           | OK         | OK          | OK         |
+| Mac Photos App        | -          | OK          | -          |
+| QuickTime Player      | OK         | OK          | OK         |
+| Photoshop CC (2017)   | OK         | OK          | OK         |
+| Illustrator CC        | -          | -           | OK 2)      |
+| A Webpage             | OK         | OK          | OK         |
+| MS Word Mac           | -          | OK          | OK         |
+| LibreOffice           | OK         | OK          | OK         |
+| Gimp                  | OK         | OK          | OK         |
+| Affinity Designer     | OK         | OK 3)       | OK         |
 
 ### Windows 10
 
-| copy from / paste to  | Firefox  | Chrome   |   IE11   | MS Edge  |
-|-----------------------|----------|----------|----------|----------|
-| Gimp                  |    ?     |    ?     |    1)    |    1)    |
-| Pictures App          |    ?     |    ?     |    2)    |    2)    |
-| Paint                 |    ?     |    ?     |    OK    |    OK    |
+| copy from / paste to  | Firefox 55+ | Chrome 60+ | Edge 14+ | IE11    |
+|-----------------------|-------------|------------|----------|---------|
+| Screenshot            | OK          | OK         | OK       | OK      |
+| A Webpage             | OK 4)       | OK 4)      | -        | -       |
+| Gimp                  | OK          | OK         | OK       | OK      |
+| Pictures App          | OK          | OK         | OK       | OK      |
+| Paint                 | OK          | OK         | OK       | OK      |
+| Libre Office          | OK          | OK         | OK       | OK      |
+| Adobe Photoshop CC    | OK          | OK         | OK       | (OK) 5) |
+| Adobe Illustrator CC  | OK 2)       | OK 2)      | OK 2)    | -       |
+| MS Word               | ?           | ?          | ?        | ?       |
+| Corel Draw            | ?           | ?          | ?        | ?       |
+| Corel PhotoPaint      | ?           | ?          | ?        | ?       |
 
-**1)** Alpha channels are discarded
-**2)** Alpha channels are discarded and replaced by some weird artifacts.
 
-
-Filters:
---------
-The filters `saycheese_enable_pasteboard` and `saycheese_enable_snapshot` are deprecated.
-You can turn snapshot and pasteboard on and off in the media settings now.
-
-
-ToDo:
------
- - [ ] Select recording size (QVGA, VGA, SVGA, HD, FullHD)
- 	- [ ] Find reliable way to predict supported WebcamSizes
- - [x] use different default file names for paste and snapshot
- - [ ] Add Messages after upload Error
- - [x] Deprecate Flash fallback
-
+**1)** The file icon is pasted.  
+**2)** A png version of the image data is pasted.  
+**3)** The pasted image has only half the size than in the other browsers.  
+**4)** The original image HTML gets pasted too.  
+**5)** If you have to confirm clipboard access—the first time you pasting something—the image gets removed after being pasted.

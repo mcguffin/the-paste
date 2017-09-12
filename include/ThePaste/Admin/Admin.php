@@ -55,9 +55,17 @@ class Admin extends Core\Singleton {
 			),
 			'options' => array(
 				'mime_types'					=> array(
-					'image/jpeg'	=> 'jpg',
-					'image/png'		=> 'png',
-					'image/svg+xml'	=> 'svg',
+					'convert' => array(
+						'image/jpeg'		=> 'jpg',
+						'image/png'			=> 'png',
+					),
+					'paste' => array(
+						'image/jpeg'		=> 'jpg',
+						'image/png'			=> 'png',
+						'image/tiff'		=> 'tif',
+						'image/pict'		=> 'pict',
+//						'application/pdf'	=> 'pdf',
+					),
 				),
 				'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 			),

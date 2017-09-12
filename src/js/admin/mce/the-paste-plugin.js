@@ -5,7 +5,9 @@ var thepastePluginCallback;
 		var pasteBtn,
 			active = false,
 			origDomAdd,
-			thepaste = top.thepaste;
+			clipboardHasImage = false,
+			currentClipboardEvent = null,
+			preventImagePaste = false;
 
 		function domAdd() {
 			var result = origDomAdd.apply(this,arguments);
@@ -15,6 +17,10 @@ var thepastePluginCallback;
 					.on('paste',function(e){
 					})
 					.on('pasteImage',function( e, data ) {
+						if ( preventImagePaste ) {
+							e.preventDefault();
+							return false;
+						}
 						wp.media.thepaste.insertImage( data.dataURL, data.blob.type, editor );
 					});
 			}
@@ -25,6 +31,13 @@ var thepastePluginCallback;
 			origDomAdd = editor.dom.add;
 
 			editor.dom.add = domAdd;
+
+			$(editor.dom.doc).on( 'paste', function(e){
+				currentClipboardEvent = e.originalEvent;
+				console.log(currentClipboardEvent.clipboardData.types);
+				clipboardHasImage = wp.media.thepaste.clipboardHasImage(e.originalEvent.clipboardData);
+				preventImagePaste = false;
+			} );
 		}
 		editor.addCommand( 'cmd_thepaste', function() {
 			var editor_body;
@@ -42,8 +55,23 @@ var thepastePluginCallback;
 				pasteBtn = this;
 			}
 		});
+//console.log(editor);
+		editor
+			.on( 'init', setupEditorDom )
+			.on( 'BeforePastePreProcess', function(e){
+				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
+//					preventImagePaste = true;
+					e.preventDefault();
+					e.content = '';
+					console.log(currentClipboardEvent.types);
+				}
+				if ( clipboardHasImage ) {
+					e.preventDefault();
+					e.content = '';
+				}
+				return e;
 
-		editor.on( 'init', setupEditorDom );
+			} );
 
 	};
 

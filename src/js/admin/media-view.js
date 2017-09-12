@@ -40,7 +40,7 @@
 				self = this,
 				format = data.match(/data:(image\/(\w+));/)[1];
 
-			if ( ! thepaste.options.mime_types[format] ) {
+			if ( ! thepaste.options.mime_types.convert[format] ) {
 				format = this.options.defaultFileFormat;
 			}
 			
@@ -85,7 +85,7 @@
 		uploadImage : function() {
 
 			var type = this.$('[data-setting="format"] :checked').val(),
-				suffix = thepaste.options.mime_types[ type ],
+				suffix = thepaste.options.mime_types.convert[ type ],
 				name = this.$('input[data-setting="title"]').val() + '.' + suffix,
 				blob = this.image.getAsBlob( type, thepaste.options.jpeg_quality );
 
