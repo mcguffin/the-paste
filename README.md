@@ -17,8 +17,8 @@ Known Browser Support
  - Edge
 
 
-Caveats:
---------
+Applications tested so far:
+---------------------------
 
 ### Mac OS 10.11+:
 
