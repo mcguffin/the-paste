@@ -49,9 +49,11 @@ Caveats:
 | Libre Office          | OK              | OK              | OK              | OK                |
 | Adobe Photoshop CC    | OK              | OK              | OK              | (OK)<sup>5)</sup> |
 | Adobe Illustrator CC  | OK<sup>2)</sup> | OK<sup>2)</sup> | OK<sup>2)</sup> | -                 |
+<!-- 
 | MS Word               | ?               | ?               | ?               | ?                 |
 | Corel Draw            | ?               | ?               | ?               | ?                 |
 | Corel PhotoPaint      | ?               | ?               | ?               | ?                 |
+ -->
 
 
 <sup>1)</sup> The file icon is pasted.  
