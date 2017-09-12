@@ -1,28 +1,28 @@
 {
-  "name": "say-cheese",
-  "version": "0.2.0",
-  "description": "Enter description here.",
-  "main": "js/cheese.js",
+  "name": "the-paste",
+  "version": "0.0.1",
+  "description": "Image Paste Plugin for WordPress",
+  "main": "js/admin/the-paste.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcguffin/say-cheese.git"
+    "url": "git+https://github.com/mcguffin/the-paste.git"
   },
   "author": "Jörn Lund",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mcguffin/say-cheese/issues"
+    "url": "https://github.com/mcguffin/the-paste/issues"
   },
-  "homepage": "https://github.com/mcguffin/say-cheese#readme",
+  "homepage": "https://github.com/mcguffin/the-paste#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.0.0",
-    "gulp-sourcemaps": "^1.9.1",
-    "gulp-uglify": "^2.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^1.12.0",
+    "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8"
   }
 }
