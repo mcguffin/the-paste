@@ -6,5 +6,3 @@
 gulpfile.js export-ignore
 package*.json export-ignore
 /src export-ignore
-# replace version
-/index.php   filter=setversion
