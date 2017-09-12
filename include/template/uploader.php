@@ -16,7 +16,7 @@ if ( ! defined('ABSPATH') )
 			<input class="widefat" type="text" data-setting="title" />
 		</label>
 		<div class="select-format" data-setting="format">
-			<# jQuery.each( thepaste.options.mime_types, function( mime, suffix ){
+			<# jQuery.each( thepaste.options.mime_types.convert, function( mime, suffix ){
 				#>
 					<input type="radio" name="the-paste-upload-format" id="the-paste-format-{{{ suffix }}}" value="{{{ mime }}}" />
 					<label for="the-paste-format-{{{ suffix }}}">.{{{ suffix }}}</label><br />

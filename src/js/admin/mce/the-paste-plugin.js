@@ -55,15 +55,13 @@ var thepastePluginCallback;
 				pasteBtn = this;
 			}
 		});
-//console.log(editor);
+
 		editor
 			.on( 'init', setupEditorDom )
 			.on( 'BeforePastePreProcess', function(e){
 				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
-//					preventImagePaste = true;
 					e.preventDefault();
 					e.content = '';
-					console.log(currentClipboardEvent.types);
 				}
 				if ( clipboardHasImage ) {
 					e.preventDefault();

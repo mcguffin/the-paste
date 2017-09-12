@@ -65,12 +65,14 @@
 		top:0;
 		bottom:0;
 		right:0;
+		& ~ * {
+			pointer-events: none;
+		}
 		& ~ .instructions,
 		& ~ .message {
 			display:none;
 		}
 		&:focus {
-	//		background:#f00;
 			& ~ .instructions,
 			& ~ .message {
 				display:block;

@@ -159,7 +159,11 @@
 			this.imagePasted = false;
 
 			this.$pasteboard
+				.on('paste',function(e){
+console.log(e.originalEvent.clipboardData.types);
+				})
 				.on('pasteText' , function( e, data ) {
+console.log(e,data);
 					if ( self.imagePasted ) {
 						return;
 					}
@@ -167,6 +171,7 @@
 					$( this ).html('');
 				} )
 				.on('pasteImage' , function( e, data ) {
+console.log(e,data);
 					if ( self.imagePasted ) {
 						return;
 					}
