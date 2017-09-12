@@ -1,0 +1,33 @@
+
+@import '../../variables/variables';
+
+@import '../../mixins/mixins';
+
+.the-paste-image-placeholder {
+	display:inline-block;
+	max-width:100%;
+	position:relative;
+	&:before {
+		content:'';
+		position:absolute;
+		left:0;
+		top:0;
+		bottom:0;
+		right:0;
+		background:rgba(0,0,0,0.8);
+	}
+	&:after {
+		content:attr(data-progress) '%';
+		position:absolute;
+		left:0;
+		top:50%;
+		bottom:0;
+		right:0;
+		color:#fff;
+		font-size:30px;
+		text-align:center;
+	}
+	& > * {
+		max-width:100%;
+	}
+}
