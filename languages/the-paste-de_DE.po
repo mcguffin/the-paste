@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-08 16:28+0100\n"
-"PO-Revision-Date: 2017-09-08 16:30+0100\n"
+"POT-Creation-Date: 2017-09-12 21:26+0100\n"
+"PO-Revision-Date: 2017-09-12 21:26+0100\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -22,66 +22,61 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
 # @ cheese
-#: include/SayCheese/Admin/Admin.php:46
+#: include/ThePaste/Admin/Admin.php:47
 msgid "Webcam Record"
 msgstr "Webcam Schnappschuss"
 
 # @ cheese
-#: include/SayCheese/Admin/Admin.php:47
-#: include/SayCheese/Settings/SettingsMedia.php:55
+#: include/ThePaste/Admin/Admin.php:48
 msgid "Snapshot"
 msgstr "Schnappschuss"
 
 # @ cheese
-#: include/SayCheese/Admin/Admin.php:48
+#: include/ThePaste/Admin/Admin.php:49
 msgid "Take Snapshot"
 msgstr "Schnappschuss"
 
-#: include/SayCheese/Admin/Admin.php:49
+#: include/ThePaste/Admin/Admin.php:50
 msgid "Copy & Paste"
 msgstr "Kopieren & Einfügen"
 
-#: include/SayCheese/Admin/Admin.php:50
+#: include/ThePaste/Admin/Admin.php:51
 msgid "Pasted"
 msgstr "Eingefügt"
 
 # @ default
-#: include/SayCheese/Admin/Admin.php:51
+#: include/ThePaste/Admin/Admin.php:52
 msgid "Image"
 msgstr "Bild"
 
 # @ cheese
-#: include/SayCheese/Admin/Admin.php:52
+#: include/ThePaste/Admin/Admin.php:53
 msgid "No image data pasted."
 msgstr "Keine Bilddaten in der Zwischenablage."
 
-#: include/SayCheese/Admin/Admin.php:53
+#: include/ThePaste/Admin/Admin.php:54
 msgid "Error pasting image data."
 msgstr "Fehler beim Einfügen"
 
-#: include/SayCheese/Settings/SettingsMedia.php:34
-msgid "Say Cheese"
-msgstr ""
+#: include/ThePaste/Admin/Admin.php:55
+msgid "Upload pasted images"
+msgstr "Eingefügte Bilder sofort hochladen"
 
-#: include/SayCheese/Settings/SettingsMedia.php:40
+#: include/ThePaste/Admin/Admin.php:56
+msgid "Upload image"
+msgstr "Bild hochladen"
+
+#: include/ThePaste/Settings/SettingsMedia.php:31
+msgid "Pasted Images"
+msgstr "Eingefügte Bilder"
+
+#: include/ThePaste/Settings/SettingsMedia.php:45
 msgid "Pasteboard"
 msgstr "Pasteboard"
 
-#: include/SayCheese/Settings/SettingsMedia.php:46
+#: include/ThePaste/Settings/SettingsMedia.php:51
 msgid "Enable Copy-Paste image uploads."
 msgstr "Copy-Paste Bilduploads aktivieren"
-
-#: include/SayCheese/Settings/SettingsMedia.php:61
-msgid "Enable Webcam image uploads."
-msgstr "Webcam-Bildupload aktivieren."
-
-#: include/SayCheese/Settings/SettingsMedia.php:62
-msgid ""
-"In some Browsers – e.g. Chrome – this will not work with non-HTTPS "
-"connections."
-msgstr ""
-"In einigen Browsern, z.B. Chrome, wird das nicht ohne HTTPS-Verbindung "
-"funktionieren."
 
 # @ cheese
 #: include/template/pasteboard.php:9
@@ -113,12 +108,22 @@ msgstr "Nochmal"
 # @ default
 #: include/template/uploader.php:15
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 # @ cheese
-#: include/template/uploader.php:20
+#: include/template/uploader.php:28
 msgid "Upload"
 msgstr "Upload"
+
+#~ msgid "Enable Webcam image uploads."
+#~ msgstr "Webcam-Bildupload aktivieren."
+
+#~ msgid ""
+#~ "In some Browsers – e.g. Chrome – this will not work with non-HTTPS "
+#~ "connections."
+#~ msgstr ""
+#~ "In einigen Browsern, z.B. Chrome, wird das nicht ohne HTTPS-Verbindung "
+#~ "funktionieren."
 
 # @ cheese
 #~ msgid "Paste from Clipboard"
