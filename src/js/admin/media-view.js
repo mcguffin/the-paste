@@ -154,24 +154,24 @@
 			return this;
 		},
 		start : function() {
-			var self = this;
+			var self = this,
+				clipboardHasImage;
 
 			this.imagePasted = false;
 
 			this.$pasteboard
 				.on('paste',function(e){
-console.log(e.originalEvent.clipboardData.types);
+					clipboardHasImage = wp.media.thepaste.clipboardHasImage(e.originalEvent.clipboardData);
 				})
 				.on('pasteText' , function( e, data ) {
-console.log(e,data);
-					if ( self.imagePasted ) {
+
+					if ( clipboardHasImage || self.imagePasted ) {
 						return;
 					}
 					self.show_message( l10n.paste_error_no_image );
 					$( this ).html('');
 				} )
 				.on('pasteImage' , function( e, data ) {
-console.log(e,data);
 					if ( self.imagePasted ) {
 						return;
 					}
