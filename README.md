@@ -64,8 +64,3 @@ Applications tested so far:
 
 
 
-
-ToDO:
------
- - [ ] Foo thr bar
- - [ ] Quux after that.
