@@ -34,8 +34,9 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 
 == Screenshots ==
 
-1. Pasting into the rich text editor
-2. Paste into the media library
+1. Pasting into rich text editor. You can either upload the image immediately or do so later.
+2. Paste into media library ...
+3. ... and choose filename and format before you upload.
 
 == Changelog ==
 
