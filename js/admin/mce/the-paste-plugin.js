@@ -1,2 +1,531 @@
-(function(){var t,e,n,r,a;t=window.jQuery,t.paste=function(t){var n;return"undefined"!=typeof console&&null!==console&&console.log("DEPRECATED: This method is deprecated. Please use $.fn.pastableNonInputable() instead."),n=e.mountNonInputable(t),n._container},t.fn.pastableNonInputable=function(){var n,r,a,o;for(o=this,r=0,a=o.length;r<a;r++)n=o[r],n._pastable||t(n).is("textarea, input:text, [contenteditable]")||(e.mountNonInputable(n),n._pastable=!0);return this},t.fn.pastableTextarea=function(){var n,r,a,o;for(o=this,r=0,a=o.length;r<a;r++)n=o[r],n._pastable||t(n).is(":not(textarea, input:text)")||(e.mountTextarea(n),n._pastable=!0);return this},t.fn.pastableContenteditable=function(){var n,r,a,o;for(o=this,r=0,a=o.length;r<a;r++)n=o[r],n._pastable||t(n).is(":not([contenteditable])")||(e.mountContenteditable(n),n._pastable=!0);return this},r=function(t,e){var n,r,a,o,i,u,s,l,c,f,g;if(null==e&&(e=512),!(l=t.match(/^data\:([^\;]+)\;base64\,(.+)$/)))return null;for(f=l,l=f[0],u=f[1],n=f[2],o=atob(n),a=[],c=0;c<o.length;){for(g=o.slice(c,c+e),i=new Array(g.length),s=0;s<g.length;)i[s]=g.charCodeAt(s),s++;r=new Uint8Array(i),a.push(r),c+=e}return new Blob(a,{type:u})},n=function(){return t(document.createElement("div")).attr("contenteditable",!0).attr("aria-hidden",!0).attr("tabindex",-1).css({width:1,height:1,position:"fixed",left:-100,overflow:"hidden"})},a=function(e,n){var r,a,o,i,u,s;return i=void 0,u=void 0,o=void 0,a=void 0,r=void 0,"area"===(s=e.nodeName.toLowerCase())?(i=e.parentNode,u=i.name,!(!e.href||!u||"map"!==i.nodeName.toLowerCase())&&(o=t("img[usemap='#"+u+"']"),o.length>0&&o.is(":visible"))):(/^(input|select|textarea|button|object)$/.test(s)?(a=!e.disabled)&&(r=t(e).closest("fieldset")[0])&&(a=!r.disabled):a="a"===s?e.href||n:n,(a=a||t(e).is("[contenteditable]"))&&t(e).is(":visible"))},e=function(){function e(e,n){this._container=e,this._target=n,this._container=t(this._container),this._target=t(this._target).addClass("pastable"),this._container.on("paste",function(t){return function(e){var n,r,a,o,i,u,s,l,c,f,g,d,p;if(e.currentTarget!==e.target)return e.preventDefault();if(t._paste_event_fired=!0,null!=(null!=(c=e.originalEvent)?c.clipboardData:void 0))if(n=e.originalEvent.clipboardData,n.items)for(f=n.items,o=0,u=f.length;o<u;o++){if(a=f[o],a.type.match(/^image\//)){l=new FileReader,l.onload=function(e){return t._handleImage(e.target.result)};try{l.readAsDataURL(a.getAsFile())}catch(t){}e.preventDefault();break}"text/plain"===a.type&&a.getAsString(function(e){return t._target.trigger("pasteText",{text:e})})}else-1!==Array.prototype.indexOf.call(n.types,"text/plain")&&(p=n.getData("Text"),setTimeout(function(){return t._target.trigger("pasteText",{text:p})},1)),t._checkImagesInContainer(function(e){return t._handleImage(e)});if(n=window.clipboardData)if(null!=(g=p=n.getData("Text"))?g.length:void 0)setTimeout(function(){return t._target.trigger("pasteText",{text:p}),t._target.trigger("_pasteCheckContainerDone")},1);else{for(d=n.files,i=0,s=d.length;i<s;i++)r=d[i],t._handleImage(URL.createObjectURL(r));t._checkImagesInContainer(function(t){})}return null}}(this))}return e.prototype._target=null,e.prototype._container=null,e.mountNonInputable=function(r){var o;return o=new e(n().appendTo(r),r),t(r).on("click",function(t){return function(t){if(!a(t.target,!1))return o._container.focus()}}()),o._container.on("focus",function(e){return function(){return t(r).addClass("pastable-focus")}}()),o._container.on("blur",function(e){return function(){return t(r).removeClass("pastable-focus")}}())},e.mountTextarea=function(r){var a,o,i,u;return("undefined"!=typeof DataTransfer&&null!==DataTransfer?DataTransfer.prototype:void 0)&&(null!=(i=Object.getOwnPropertyDescriptor)&&null!=(u=i.call(Object,DataTransfer.prototype,"items"))?u.get:void 0)?this.mountContenteditable(r):(o=new e(n().insertBefore(r),r),a=!1,t(r).on("keyup",function(t){var e;return 17!==(e=t.keyCode)&&224!==e||(a=!1),null}),t(r).on("keydown",function(e){var n;return 17!==(n=e.keyCode)&&224!==n||(a=!0),null!=e.ctrlKey&&null!=e.metaKey&&(a=e.ctrlKey||e.metaKey),a&&86===e.keyCode&&(o._textarea_focus_stolen=!0,o._container.focus(),o._paste_event_fired=!1,setTimeout(function(e){return function(){if(!o._paste_event_fired)return t(r).focus(),o._textarea_focus_stolen=!1}}(),1)),null}),t(r).on("paste",function(t){return function(){}}()),t(r).on("focus",function(e){return function(){if(!o._textarea_focus_stolen)return t(r).addClass("pastable-focus")}}()),t(r).on("blur",function(e){return function(){if(!o._textarea_focus_stolen)return t(r).removeClass("pastable-focus")}}()),t(o._target).on("_pasteCheckContainerDone",function(e){return function(){return t(r).focus(),o._textarea_focus_stolen=!1}}()),t(o._target).on("pasteText",function(e){return function(e,n){var a,o,i;return i=t(r).prop("selectionStart"),o=t(r).prop("selectionEnd"),a=t(r).val(),t(r).val(""+a.slice(0,i)+n.text+a.slice(o)),t(r)[0].setSelectionRange(i+n.text.length,i+n.text.length),t(r).trigger("change")}}()))},e.mountContenteditable=function(n){return new e(n,n),t(n).on("focus",function(e){return function(){return t(n).addClass("pastable-focus")}}()),t(n).on("blur",function(e){return function(){return t(n).removeClass("pastable-focus")}}())},e.prototype._handleImage=function(t){var e;return t.match(/^webkit\-fake\-url\:\/\//)?this._target.trigger("pasteImageError",{message:"You are trying to paste an image in Safari, however we are unable to retieve its data."}):(this._target.trigger("pasteImageStart"),e=new Image,e.crossOrigin="anonymous",e.onload=function(t){return function(){var n,a,o,i;a=document.createElement("canvas"),a.width=e.width,a.height=e.height,o=a.getContext("2d"),o.drawImage(e,0,0,a.width,a.height),i=null;try{i=a.toDataURL("image/png"),n=r(i)}catch(t){}return i&&t._target.trigger("pasteImage",{blob:n,dataURL:i,width:e.width,height:e.height}),t._target.trigger("pasteImageEnd")}}(this),e.onerror=function(e){return function(){return e._target.trigger("pasteImageError",{message:"Failed to get image from: "+t,url:t}),e._target.trigger("pasteImageEnd")}}(this),e.src=t)},e.prototype._checkImagesInContainer=function(e){var n,r,a,o,i;for(i=Math.floor(1e3*Math.random()),o=this._container.find("img"),r=0,a=o.length;r<a;r++)n=o[r],n["_paste_marked_"+i]=!0;return setTimeout(function(r){return function(){var a,o,u;for(u=r._container.find("img"),a=0,o=u.length;a<o;a++)n=u[a],n["_paste_marked_"+i]||(e(n.src),t(n).remove());return r._target.trigger("_pasteCheckContainerDone")}}(this),1)},e}()}).call(this);
-var thepastePluginCallback;!function(t){thepastePluginCallback=function(e){function o(){var o=i.apply(this,arguments);return"mcepastebin"===t(o).attr("id")&&t(o).pastableContenteditable().on("paste",function(t){}).on("pasteImage",function(t,o){var a;if(s)return t.preventDefault(),!1;a=u.insertImage(o.dataURL,o.blob.type,e),u.options.editor.auto_upload&&u.uploadImage(a,e)}),o}function a(){i=e.dom.add,e.dom.add=o,t(e.dom.doc).on("paste",function(t){d=t.originalEvent,console.log(d.clipboardData.types),p=u.clipboardHasImage(t.originalEvent.clipboardData),s=!1})}var n,i,l,p=!1,d=null,s=!1,u=wp.media.thepaste;u.options.editor.auto_upload="false"!==localStorage.getItem("thepaste.auto_upload"),e.addCommand("cmd_thepaste",function(){u.options.editor.auto_upload=!u.options.editor.auto_upload,localStorage.setItem("thepaste.auto_upload",u.options.editor.auto_upload.toString()),n.active(u.options.editor.auto_upload)}),e.addButton("thepaste",{icon:"thepaste",tooltip:u.l10n.upload_pasted_images,cmd:"cmd_thepaste",onPostRender:function(){n=this},active:u.options.editor.auto_upload}),e.addButton("wp_img_thepaste_upload",{icon:"dashicon dashicons dashicons-upload thepaste-upload",tooltip:u.l10n.upload_image,onclick:function(){var t;t=e.selection.getNode(),u.uploadImage(t,e)}}),e.once("preinit",function(){e.wp&&e.wp._createToolbar&&(l=e.wp._createToolbar(["wp_img_alignleft","wp_img_aligncenter","wp_img_alignright","wp_img_alignnone","wp_img_thepaste_upload","wp_img_edit","wp_img_remove"]))}),e.on("wptoolbar",function(t){var o,a=!1;"IMG"!==t.element.nodeName||e.wp.isPlaceholder(t.element)||(t.toolbar=l,a=!!t.element.src.match(/^(blob|data):/),o=l.$el.find(".thepaste-upload").closest(".mce-btn"),a?o.show():o.hide())}),e.on("init",a).on("BeforePastePreProcess",function(t){return t.content.match(/&lt;svg[\s\S.]*&lt;\/svg&gt;/i)&&(t.preventDefault(),t.content=""),p&&(t.preventDefault(),t.content=""),t})},tinymce.PluginManager.add("thepaste",thepastePluginCallback)}(jQuery);
+// Generated by CoffeeScript 1.12.7
+
+/*
+paste.js is an interface to read data ( text / image ) from clipboard in different browsers. It also contains several hacks.
+
+https://github.com/layerssss/paste.js
+ */
+
+(function() {
+  var $, Paste, createHiddenEditable, dataURLtoBlob, isFocusable;
+
+  $ = window.jQuery;
+
+  $.paste = function(pasteContainer) {
+    var pm;
+    if (typeof console !== "undefined" && console !== null) {
+      console.log("DEPRECATED: This method is deprecated. Please use $.fn.pastableNonInputable() instead.");
+    }
+    pm = Paste.mountNonInputable(pasteContainer);
+    return pm._container;
+  };
+
+  $.fn.pastableNonInputable = function() {
+    var el, j, len, ref;
+    ref = this;
+    for (j = 0, len = ref.length; j < len; j++) {
+      el = ref[j];
+      if (el._pastable || $(el).is('textarea, input:text, [contenteditable]')) {
+        continue;
+      }
+      Paste.mountNonInputable(el);
+      el._pastable = true;
+    }
+    return this;
+  };
+
+  $.fn.pastableTextarea = function() {
+    var el, j, len, ref;
+    ref = this;
+    for (j = 0, len = ref.length; j < len; j++) {
+      el = ref[j];
+      if (el._pastable || $(el).is(':not(textarea, input:text)')) {
+        continue;
+      }
+      Paste.mountTextarea(el);
+      el._pastable = true;
+    }
+    return this;
+  };
+
+  $.fn.pastableContenteditable = function() {
+    var el, j, len, ref;
+    ref = this;
+    for (j = 0, len = ref.length; j < len; j++) {
+      el = ref[j];
+      if (el._pastable || $(el).is(':not([contenteditable])')) {
+        continue;
+      }
+      Paste.mountContenteditable(el);
+      el._pastable = true;
+    }
+    return this;
+  };
+
+  dataURLtoBlob = function(dataURL, sliceSize) {
+    var b64Data, byteArray, byteArrays, byteCharacters, byteNumbers, contentType, i, m, offset, ref, slice;
+    if (sliceSize == null) {
+      sliceSize = 512;
+    }
+    if (!(m = dataURL.match(/^data\:([^\;]+)\;base64\,(.+)$/))) {
+      return null;
+    }
+    ref = m, m = ref[0], contentType = ref[1], b64Data = ref[2];
+    byteCharacters = atob(b64Data);
+    byteArrays = [];
+    offset = 0;
+    while (offset < byteCharacters.length) {
+      slice = byteCharacters.slice(offset, offset + sliceSize);
+      byteNumbers = new Array(slice.length);
+      i = 0;
+      while (i < slice.length) {
+        byteNumbers[i] = slice.charCodeAt(i);
+        i++;
+      }
+      byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+      offset += sliceSize;
+    }
+    return new Blob(byteArrays, {
+      type: contentType
+    });
+  };
+
+  createHiddenEditable = function() {
+    return $(document.createElement('div')).attr('contenteditable', true).attr('aria-hidden', true).attr('tabindex', -1).css({
+      width: 1,
+      height: 1,
+      position: 'fixed',
+      left: -100,
+      overflow: 'hidden'
+    });
+  };
+
+  isFocusable = function(element, hasTabindex) {
+    var fieldset, focusableIfVisible, img, map, mapName, nodeName;
+    map = void 0;
+    mapName = void 0;
+    img = void 0;
+    focusableIfVisible = void 0;
+    fieldset = void 0;
+    nodeName = element.nodeName.toLowerCase();
+    if ('area' === nodeName) {
+      map = element.parentNode;
+      mapName = map.name;
+      if (!element.href || !mapName || map.nodeName.toLowerCase() !== 'map') {
+        return false;
+      }
+      img = $('img[usemap=\'#' + mapName + '\']');
+      return img.length > 0 && img.is(':visible');
+    }
+    if (/^(input|select|textarea|button|object)$/.test(nodeName)) {
+      focusableIfVisible = !element.disabled;
+      if (focusableIfVisible) {
+        fieldset = $(element).closest('fieldset')[0];
+        if (fieldset) {
+          focusableIfVisible = !fieldset.disabled;
+        }
+      }
+    } else if ('a' === nodeName) {
+      focusableIfVisible = element.href || hasTabindex;
+    } else {
+      focusableIfVisible = hasTabindex;
+    }
+    focusableIfVisible = focusableIfVisible || $(element).is('[contenteditable]');
+    return focusableIfVisible && $(element).is(':visible');
+  };
+
+  Paste = (function() {
+    Paste.prototype._target = null;
+
+    Paste.prototype._container = null;
+
+    Paste.mountNonInputable = function(nonInputable) {
+      var paste;
+      paste = new Paste(createHiddenEditable().appendTo(nonInputable), nonInputable);
+      $(nonInputable).on('click', (function(_this) {
+        return function(ev) {
+          if (!isFocusable(ev.target, false)) {
+            return paste._container.focus();
+          }
+        };
+      })(this));
+      paste._container.on('focus', (function(_this) {
+        return function() {
+          return $(nonInputable).addClass('pastable-focus');
+        };
+      })(this));
+      return paste._container.on('blur', (function(_this) {
+        return function() {
+          return $(nonInputable).removeClass('pastable-focus');
+        };
+      })(this));
+    };
+
+    Paste.mountTextarea = function(textarea) {
+      var ctlDown, paste, ref, ref1;
+      if ((typeof DataTransfer !== "undefined" && DataTransfer !== null ? DataTransfer.prototype : void 0) && ((ref = Object.getOwnPropertyDescriptor) != null ? (ref1 = ref.call(Object, DataTransfer.prototype, 'items')) != null ? ref1.get : void 0 : void 0)) {
+        return this.mountContenteditable(textarea);
+      }
+      paste = new Paste(createHiddenEditable().insertBefore(textarea), textarea);
+      ctlDown = false;
+      $(textarea).on('keyup', function(ev) {
+        var ref2;
+        if ((ref2 = ev.keyCode) === 17 || ref2 === 224) {
+          ctlDown = false;
+        }
+        return null;
+      });
+      $(textarea).on('keydown', function(ev) {
+        var ref2;
+        if ((ref2 = ev.keyCode) === 17 || ref2 === 224) {
+          ctlDown = true;
+        }
+        if ((ev.ctrlKey != null) && (ev.metaKey != null)) {
+          ctlDown = ev.ctrlKey || ev.metaKey;
+        }
+        if (ctlDown && ev.keyCode === 86) {
+          paste._textarea_focus_stolen = true;
+          paste._container.focus();
+          paste._paste_event_fired = false;
+          setTimeout((function(_this) {
+            return function() {
+              if (!paste._paste_event_fired) {
+                $(textarea).focus();
+                return paste._textarea_focus_stolen = false;
+              }
+            };
+          })(this), 1);
+        }
+        return null;
+      });
+      $(textarea).on('paste', (function(_this) {
+        return function() {};
+      })(this));
+      $(textarea).on('focus', (function(_this) {
+        return function() {
+          if (!paste._textarea_focus_stolen) {
+            return $(textarea).addClass('pastable-focus');
+          }
+        };
+      })(this));
+      $(textarea).on('blur', (function(_this) {
+        return function() {
+          if (!paste._textarea_focus_stolen) {
+            return $(textarea).removeClass('pastable-focus');
+          }
+        };
+      })(this));
+      $(paste._target).on('_pasteCheckContainerDone', (function(_this) {
+        return function() {
+          $(textarea).focus();
+          return paste._textarea_focus_stolen = false;
+        };
+      })(this));
+      return $(paste._target).on('pasteText', (function(_this) {
+        return function(ev, data) {
+          var content, curEnd, curStart;
+          curStart = $(textarea).prop('selectionStart');
+          curEnd = $(textarea).prop('selectionEnd');
+          content = $(textarea).val();
+          $(textarea).val("" + content.slice(0, curStart) + data.text + content.slice(curEnd));
+          $(textarea)[0].setSelectionRange(curStart + data.text.length, curStart + data.text.length);
+          return $(textarea).trigger('change');
+        };
+      })(this));
+    };
+
+    Paste.mountContenteditable = function(contenteditable) {
+      var paste;
+      paste = new Paste(contenteditable, contenteditable);
+      $(contenteditable).on('focus', (function(_this) {
+        return function() {
+          return $(contenteditable).addClass('pastable-focus');
+        };
+      })(this));
+      return $(contenteditable).on('blur', (function(_this) {
+        return function() {
+          return $(contenteditable).removeClass('pastable-focus');
+        };
+      })(this));
+    };
+
+    function Paste(_container, _target) {
+      this._container = _container;
+      this._target = _target;
+      this._container = $(this._container);
+      this._target = $(this._target).addClass('pastable');
+      this._container.on('paste', (function(_this) {
+        return function(ev) {
+          var clipboardData, file, item, j, k, len, len1, reader, ref, ref1, ref2, ref3, text;
+          if (ev.currentTarget !== ev.target) {
+            return ev.preventDefault();
+          }
+          _this._paste_event_fired = true;
+          if (((ref = ev.originalEvent) != null ? ref.clipboardData : void 0) != null) {
+            clipboardData = ev.originalEvent.clipboardData;
+            if (clipboardData.items) {
+              ref1 = clipboardData.items;
+              for (j = 0, len = ref1.length; j < len; j++) {
+                item = ref1[j];
+                if (item.type.match(/^image\//)) {
+                  reader = new FileReader();
+                  reader.onload = function(event) {
+                    return _this._handleImage(event.target.result);
+                  };
+                  try {
+                    reader.readAsDataURL(item.getAsFile());
+                  } catch (error) {}
+                  ev.preventDefault();
+                  break;
+                }
+                if (item.type === 'text/plain') {
+                  item.getAsString(function(string) {
+                    return _this._target.trigger('pasteText', {
+                      text: string
+                    });
+                  });
+                }
+              }
+            } else {
+              if (-1 !== Array.prototype.indexOf.call(clipboardData.types, 'text/plain')) {
+                text = clipboardData.getData('Text');
+                setTimeout(function() {
+                  return _this._target.trigger('pasteText', {
+                    text: text
+                  });
+                }, 1);
+              }
+              _this._checkImagesInContainer(function(src) {
+                return _this._handleImage(src);
+              });
+            }
+          }
+          if (clipboardData = window.clipboardData) {
+            if ((ref2 = (text = clipboardData.getData('Text'))) != null ? ref2.length : void 0) {
+              setTimeout(function() {
+                _this._target.trigger('pasteText', {
+                  text: text
+                });
+                return _this._target.trigger('_pasteCheckContainerDone');
+              }, 1);
+            } else {
+              ref3 = clipboardData.files;
+              for (k = 0, len1 = ref3.length; k < len1; k++) {
+                file = ref3[k];
+                _this._handleImage(URL.createObjectURL(file));
+              }
+              _this._checkImagesInContainer(function(src) {});
+            }
+          }
+          return null;
+        };
+      })(this));
+    }
+
+    Paste.prototype._handleImage = function(src) {
+      var loader;
+      if (src.match(/^webkit\-fake\-url\:\/\//)) {
+        return this._target.trigger('pasteImageError', {
+          message: "You are trying to paste an image in Safari, however we are unable to retieve its data."
+        });
+      }
+      this._target.trigger('pasteImageStart');
+      loader = new Image();
+      loader.crossOrigin = "anonymous";
+      loader.onload = (function(_this) {
+        return function() {
+          var blob, canvas, ctx, dataURL;
+          canvas = document.createElement('canvas');
+          canvas.width = loader.width;
+          canvas.height = loader.height;
+          ctx = canvas.getContext('2d');
+          ctx.drawImage(loader, 0, 0, canvas.width, canvas.height);
+          dataURL = null;
+          try {
+            dataURL = canvas.toDataURL('image/png');
+            blob = dataURLtoBlob(dataURL);
+          } catch (error) {}
+          if (dataURL) {
+            _this._target.trigger('pasteImage', {
+              blob: blob,
+              dataURL: dataURL,
+              width: loader.width,
+              height: loader.height
+            });
+          }
+          return _this._target.trigger('pasteImageEnd');
+        };
+      })(this);
+      loader.onerror = (function(_this) {
+        return function() {
+          _this._target.trigger('pasteImageError', {
+            message: "Failed to get image from: " + src,
+            url: src
+          });
+          return _this._target.trigger('pasteImageEnd');
+        };
+      })(this);
+      return loader.src = src;
+    };
+
+    Paste.prototype._checkImagesInContainer = function(cb) {
+      var img, j, len, ref, timespan;
+      timespan = Math.floor(1000 * Math.random());
+      ref = this._container.find('img');
+      for (j = 0, len = ref.length; j < len; j++) {
+        img = ref[j];
+        img["_paste_marked_" + timespan] = true;
+      }
+      return setTimeout((function(_this) {
+        return function() {
+          var k, len1, ref1;
+          ref1 = _this._container.find('img');
+          for (k = 0, len1 = ref1.length; k < len1; k++) {
+            img = ref1[k];
+            if (!img["_paste_marked_" + timespan]) {
+              cb(img.src);
+              $(img).remove();
+            }
+          }
+          return _this._target.trigger('_pasteCheckContainerDone');
+        };
+      })(this), 1);
+    };
+
+    return Paste;
+
+  })();
+
+}).call(this);
+
+var thepastePluginCallback;
+
+(function($){
+	thepastePluginCallback = function( editor ) {
+		var pasteBtn,
+			origDomAdd,
+			clipboardHasImage = false,
+			currentClipboardEvent = null,
+			preventImagePaste = false,
+			thepaste = wp.media.thepaste,
+			toolbar;
+
+		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
+		// default on
+
+		function domAdd() {
+			var result = origDomAdd.apply(this,arguments);
+			if ( 'mcepastebin' === $(result).attr('id') ) {
+				$(result)
+					.pastableContenteditable()
+					.on('paste',function(e){
+					})
+					.on('pasteImage',function( e, data ) {
+						var image;
+						if ( preventImagePaste ) {
+							e.preventDefault();
+							return false;
+						}
+						image = thepaste.insertImage( data.dataURL, data.blob.type, editor );
+						if ( thepaste.options.editor.auto_upload ) {
+							thepaste.uploadImage( image, editor );
+						}
+					});
+			}
+			return result;
+		}
+
+		function setupEditorDom() {
+
+			origDomAdd = editor.dom.add;
+
+			editor.dom.add = domAdd;
+
+			$(editor.dom.doc).on( 'paste', function(e){
+				currentClipboardEvent = e.originalEvent;
+				console.log(currentClipboardEvent.clipboardData.types);
+				clipboardHasImage = thepaste.clipboardHasImage(e.originalEvent.clipboardData);
+				preventImagePaste = false;
+			} );
+		}
+		editor.addCommand( 'cmd_thepaste', function() {
+			thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
+			localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
+			pasteBtn.active( thepaste.options.editor.auto_upload );
+		});
+
+
+		editor.addButton('thepaste', {
+			icon: 'thepaste',
+			tooltip: thepaste.l10n.upload_pasted_images,
+			cmd : 'cmd_thepaste',
+			onPostRender: function() {
+				pasteBtn = this;
+			},
+			active:thepaste.options.editor.auto_upload
+		});
+
+		editor.addButton('wp_img_thepaste_upload', {
+			icon: 'dashicon dashicons dashicons-upload thepaste-upload',
+			tooltip: thepaste.l10n.upload_image,
+			onclick: function() {
+				// wrap img, upload
+				var image;
+				image = editor.selection.getNode();
+//console.log(image);
+				thepaste.uploadImage( image, editor );
+			}			
+		});
+
+		editor.once( 'preinit', function() {
+			if ( editor.wp && editor.wp._createToolbar ) {
+				toolbar = editor.wp._createToolbar( [
+					'wp_img_alignleft',
+					'wp_img_aligncenter',
+					'wp_img_alignright',
+					'wp_img_alignnone',
+					'wp_img_thepaste_upload',
+					'wp_img_edit',
+					'wp_img_remove',
+				] );
+			}
+		} );
+
+		editor.on( 'wptoolbar', function( event ) {
+			var canUpload = false,
+				uploadBtn;
+			if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
+				event.toolbar = toolbar;
+				canUpload = !! event.element.src.match( /^(blob|data):/ );
+				uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
+
+				if ( canUpload ) {
+					uploadBtn.show();
+				} else {
+					uploadBtn.hide();
+				}
+			}
+		} );
+
+		editor
+			.on( 'init', setupEditorDom )
+			.on( 'BeforePastePreProcess', function(e){
+				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
+					e.preventDefault();
+					e.content = '';
+				}
+				if ( clipboardHasImage ) {
+					e.preventDefault();
+					e.content = '';
+				}
+				return e;
+
+			} );
+
+	};
+
+	tinymce.PluginManager.add( 'thepaste', thepastePluginCallback );
+
+} )(jQuery);
+

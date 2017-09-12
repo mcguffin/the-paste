@@ -64,3 +64,7 @@ Applications tested so far:
 
 
 
+ToDo:
+-----
+ - [ ] Unminified scripts
+ - [ ] Better filenames

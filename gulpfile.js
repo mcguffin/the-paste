@@ -48,22 +48,22 @@ gulp.task('styles-admin',function(){
 gulp.task('scripts-admin', function() {
 
     var scr = [ gulp.src( vendor_scripts.concat( scripts ) )
-			.pipe(sourcemaps.init())
-			.pipe( uglify().on('error', gulputil.log ) )
-			.pipe( concat('the-paste.min.js') )
+			.pipe( concat('the-paste.js') )
 			.pipe( gulp.dest( './js/admin/' ) )
-			.pipe( rename('the-paste-with-sourcemap.min.js') )
+			.pipe( sourcemaps.init() )
+			.pipe( uglify().on('error', gulputil.log ) )
+			.pipe( rename('the-paste.min.js') )
 			.pipe( sourcemaps.write() )
 			.pipe( gulp.dest( './js/admin/' ) ),
     ];
     for ( var s in mce_scripts ) {
     	scr.push( [
 			gulp.src( mce_scripts[s] )
-				.pipe(sourcemaps.init())
-				.pipe( uglify().on('error', gulputil.log ) )
 				.pipe( concat( s + '-plugin.js') )
 				.pipe( gulp.dest( './js/admin/mce/' ) )
-				.pipe( rename( s + '-plugin-with-sourcemap.js') )
+				.pipe( sourcemaps.init() )
+				.pipe( uglify().on('error', gulputil.log ) )
+				.pipe( rename( s + '-plugin.min.js') )
 				.pipe( sourcemaps.write() )
 				.pipe( gulp.dest( './js/admin/mce/' ) )
 		] );

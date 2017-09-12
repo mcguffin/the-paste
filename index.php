@@ -3,7 +3,7 @@
 /*
 Plugin Name: The Paste
 Plugin URI: https://github.com/mcguffin/the-paste/
-Description: Paste images in WordPress
+Description: Paste Images in WordPress from many applications md upload them to the media library.
 Author: Jörn Lund
 Version: 1.0.0
 Author URI: https://github.com/mcguffin/

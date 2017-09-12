@@ -150,7 +150,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@action print_default_editor_scripts
 	 */
 	public function print_editor_scripts() {
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '-with-sourcemap' : '';
+		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 		?>
 		<script type="text/javascript">
 		/* TinyMCE plugin <?php echo $this->module_name ?> */
@@ -169,7 +169,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@filter mce_external_plugins
 	 */
 	public function add_plugin( $plugins_array ) {
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '-with-sourcemap' : '';
+		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 		$plugins_array[ $this->module_name ] = $this->core->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' );
 		return $plugins_array;
 	}

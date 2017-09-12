@@ -32,9 +32,9 @@ class Admin extends Core\Singleton {
 		$version = THE_PASTE_VERSION;
 
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			$script_source = 'js/admin/the-paste-with-sourcemap.min.js';
-		} else {
 			$script_source = 'js/admin/the-paste.min.js';
+		} else {
+			$script_source = 'js/admin/the-paste.js';
 		}
 
 		wp_register_script( 'the-paste-base', 
