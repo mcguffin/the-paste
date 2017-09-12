@@ -18,32 +18,9 @@
 
 			editor.insertContent( imageHtml );
 			
-			if ( thepaste.options.editor.auto_upload ) {
-				thepaste.uploadImage( editor.$('#'+id).get(0), editor );
-			}
+			return editor.$('#'+id)[0];
 		},
-/*
-btoaUnicode: function(str) {
-    // first we use encodeURIComponent to get percent-encoded UTF-8,
-    // then we convert the percent encodings into raw bytes which
-    // can be fed into btoa.
-    return btoa( encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
-        function toSolidBytes(match, p1) {
-            return String.fromCharCode('0x' + p1);
-    } ) );
-},
-/*/
-btoaUnicode: function(string) {
-return btoa(unescape(encodeURIComponent(string)));
-    var string = btoa(unescape(encodeURIComponent(string))),
-        charList = string.split(''),
-        uintArray = [];
-    for (var i = 0; i < charList.length; i++) {
-        uintArray.push(charList[i].charCodeAt(0));
-    }
-    return new Uint8Array(uintArray);
-},
-//*/
+
 		uploadImage: function( image, editor ) {
 
 			var xhr,
@@ -89,7 +66,7 @@ return btoa(unescape(encodeURIComponent(string)));
 					});
 					workflow.uploader.uploader.uploader.bind('FileUploaded',function( up, args ){
 						var imgHTML = '<img class="alignnone wp-image-'+args.attachment.id+' size-full" src="'+args.attachment.changed.url+'" />';
-						// replace main image
+						// replace image
 						$container.replaceWith( imgHTML );
 						// replace other instances
 						editor.$('img[src="'+src+'"]').each(function(){
@@ -102,8 +79,7 @@ return btoa(unescape(encodeURIComponent(string)));
 				};
 
 			if ( src.substr(0,5) === 'blob:' ) {
-			
-				//*
+
 				xhr = new XMLHttpRequest();
 				xhr.responseType = 'blob';
 				xhr.onreadystatechange = function(){
@@ -111,7 +87,9 @@ return btoa(unescape(encodeURIComponent(string)));
 					if ( xhr.readyState == 4 ) {
 						reader = new FileReader();
 						reader.onload = function() {
+
 							upload( reader.result );
+
 						}
 						reader.readAsDataURL( xhr.response );
 					}
@@ -119,30 +97,14 @@ return btoa(unescape(encodeURIComponent(string)));
 				xhr.open( 'GET', src );
 				xhr.send( null );
 
-				/*/
-				$.ajax({
-					method:'GET',
-					url:image.src,
-					accepts:'arraybuffer', // arraybuffer
-    				success:function( response, success, xhr ) {
-						var type = xhr.getResponseHeader('content-type'),
-							b64 = thepaste.btoaUnicode( xhr.responseText );
-						upload( 'data:' + type + ';base64,' + b64 );
-						console.log(escape(response.substring(0,50)),b64.substring(0,50));
-						
-					}
-				});
-				//*/
-
 			} else if ( src.substr(0,5) === 'data:' ) {
 
 				upload( src );
 
-			} else if ( src.match( /^https?:/ ) ) {
-				// only from foreign servers
 			} 
-
+			
 		},
+
 		/**
 		 *	@return: null|true|false
 		 */
@@ -167,12 +129,11 @@ return btoa(unescape(encodeURIComponent(string)));
 				} );
 				return hasImage;
 			}
-			console.log(clipboardData);
 			return null;
 		}
-		
+
 
 	}, thepaste );
-console.log(thepaste);
+
 })( jQuery, wp.media );
 

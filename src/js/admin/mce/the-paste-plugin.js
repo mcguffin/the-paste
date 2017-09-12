@@ -21,11 +21,15 @@ var thepastePluginCallback;
 					.on('paste',function(e){
 					})
 					.on('pasteImage',function( e, data ) {
+						var image;
 						if ( preventImagePaste ) {
 							e.preventDefault();
 							return false;
 						}
-						thepaste.insertImage( data.dataURL, data.blob.type, editor );
+						image = thepaste.insertImage( data.dataURL, data.blob.type, editor );
+						if ( thepaste.options.editor.auto_upload ) {
+							thepaste.uploadImage( image, editor );
+						}
 					});
 			}
 			return result;
@@ -88,14 +92,14 @@ var thepastePluginCallback;
 		} );
 
 		editor.on( 'wptoolbar', function( event ) {
-			var isDataSourceImage = false,
+			var canUpload = false,
 				uploadBtn;
 			if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
 				event.toolbar = toolbar;
-				isDataSourceImage = ['blob:','data:'].indexOf( event.element.src.substr(0,5) ) !== -1;
+				canUpload = !! event.element.src.match( /^(blob|data):/ );
 				uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
-				console.log(uploadBtn,isDataSourceImage);
-				if ( isDataSourceImage ) {
+
+				if ( canUpload ) {
 					uploadBtn.show();
 				} else {
 					uploadBtn.hide();
