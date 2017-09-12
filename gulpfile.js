@@ -18,7 +18,6 @@ var vendor_scripts = [
 		'./src/vendor/layerssss/paste.js/paste.js',
 	],
 	scripts = [
-		'./src/js/admin/jquery-webcam-recorder.js',
 		'./src/js/admin/the-paste-base.js',
 		'./src/js/admin/the-paste.js',
 		'./src/js/admin/media-view.js'

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-12 21:26+0100\n"
-"PO-Revision-Date: 2017-09-12 21:26+0100\n"
+"PO-Revision-Date: 2017-09-12 21:27+0100\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -52,7 +52,7 @@ msgstr "Bild"
 # @ cheese
 #: include/ThePaste/Admin/Admin.php:53
 msgid "No image data pasted."
-msgstr "Keine Bilddaten in der Zwischenablage."
+msgstr "Kein Bild in der Zwischenablage."
 
 #: include/ThePaste/Admin/Admin.php:54
 msgid "Error pasting image data."
@@ -81,7 +81,7 @@ msgstr "Copy-Paste Bilduploads aktivieren"
 # @ cheese
 #: include/template/pasteboard.php:9
 msgid "Paste some image Data from your clipboard"
-msgstr "Fügen Sie Bilddaten aus der Zwischenablage ein."
+msgstr "Füge Bilder aus der Zwischenablage ein."
 
 #: include/template/pasteboard.php:11
 msgid "Click here please..."
