@@ -52,9 +52,11 @@ class Admin extends Core\Singleton {
 				'image' 						=> __('Image'),
 				'paste_error_no_image' 			=> __('No image data pasted.','the-paste'),
 				'paste_error'					=> __('Error pasting image data.','the-paste'),
+				'upload_pasted_images'			=> __('Upload pasted images', 'the-paste'),
+				'upload_image'					=> __('Upload image', 'the-paste'),
 			),
-			'options' => array(
-				'mime_types'					=> array(
+			'options'	=> array(
+				'mime_types'	=> array(
 					'convert' => array(
 						'image/jpeg'		=> 'jpg',
 						'image/png'			=> 'png',
@@ -66,6 +68,9 @@ class Admin extends Core\Singleton {
 						'image/pict'		=> 'pict',
 //						'application/pdf'	=> 'pdf',
 					),
+				),
+				'editor'		=> array(
+					'auto_upload'	=> true,
 				),
 				'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 			),

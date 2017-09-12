@@ -7,8 +7,8 @@ class TinyMceThePaste extends TinyMce {
 	protected $module_name = 'the-paste';
 
 	protected $editor_buttons = array(
-		'mce_buttons'	=> array(
-			'the-paste'	=> 3000,
+		'mce_buttons_2'	=> array(
+			'thepaste'	=> 3000,
 		),
 	);
 

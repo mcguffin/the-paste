@@ -3,7 +3,7 @@
 
 @import '../../mixins/mixins';
 
-.the-paste-image-placeholder {
+.thepaste-image-placeholder {
 	display:inline-block;
 	max-width:100%;
 	position:relative;
@@ -25,9 +25,11 @@
 		right:0;
 		color:#fff;
 		font-size:30px;
+		line-height:0;
 		text-align:center;
 	}
 	& > * {
 		max-width:100%;
 	}
 }
+

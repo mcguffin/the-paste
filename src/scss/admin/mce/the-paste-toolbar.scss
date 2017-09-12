@@ -3,8 +3,8 @@
 
 @import '../../mixins/mixins';
 
-.mce-i-the-paste:before {
-	content: $dashicon-clipboard; /* https://developer.wordpress.org/resource/dashicons/ */
+.mce-i-thepaste:before {
+	content: $dashicon-upload; /* https://developer.wordpress.org/resource/dashicons/ */
 	display: inline-block;
 	width: 20px;
 	height: 20px;

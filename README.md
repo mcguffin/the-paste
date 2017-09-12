@@ -61,3 +61,11 @@ Applications tested so far:
 <sup>3)</sup> The pasted image has only half the size than in the other browsers.  
 <sup>4)</sup> The original image HTML gets pasted too.  
 <sup>5)</sup> If you have to confirm clipboard access—the first time you pasting something—the image gets removed after being pasted.
+
+
+
+
+ToDO:
+-----
+ - [ ] Foo thr bar
+ - [ ] Quux after that.

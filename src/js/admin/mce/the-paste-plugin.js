@@ -3,11 +3,15 @@ var thepastePluginCallback;
 (function($){
 	thepastePluginCallback = function( editor ) {
 		var pasteBtn,
-			active = false,
 			origDomAdd,
 			clipboardHasImage = false,
 			currentClipboardEvent = null,
-			preventImagePaste = false;
+			preventImagePaste = false,
+			thepaste = wp.media.thepaste,
+			toolbar;
+
+		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
+		// default on
 
 		function domAdd() {
 			var result = origDomAdd.apply(this,arguments);
@@ -21,13 +25,14 @@ var thepastePluginCallback;
 							e.preventDefault();
 							return false;
 						}
-						wp.media.thepaste.insertImage( data.dataURL, data.blob.type, editor );
+						thepaste.insertImage( data.dataURL, data.blob.type, editor );
 					});
 			}
 			return result;
 		}
 
 		function setupEditorDom() {
+
 			origDomAdd = editor.dom.add;
 
 			editor.dom.add = domAdd;
@@ -35,26 +40,68 @@ var thepastePluginCallback;
 			$(editor.dom.doc).on( 'paste', function(e){
 				currentClipboardEvent = e.originalEvent;
 				console.log(currentClipboardEvent.clipboardData.types);
-				clipboardHasImage = wp.media.thepaste.clipboardHasImage(e.originalEvent.clipboardData);
+				clipboardHasImage = thepaste.clipboardHasImage(e.originalEvent.clipboardData);
 				preventImagePaste = false;
 			} );
 		}
 		editor.addCommand( 'cmd_thepaste', function() {
-			var editor_body;
-
-			active = ! active;
-			pasteBtn.active( active );
+			thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
+			localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
+			pasteBtn.active( thepaste.options.editor.auto_upload );
 		});
 
 
 		editor.addButton('thepaste', {
 			icon: 'thepaste',
-			tooltip: '',
+			tooltip: thepaste.l10n.upload_pasted_images,
 			cmd : 'cmd_thepaste',
 			onPostRender: function() {
 				pasteBtn = this;
-			}
+			},
+			active:thepaste.options.editor.auto_upload
 		});
+
+		editor.addButton('wp_img_thepaste_upload', {
+			icon: 'dashicon dashicons dashicons-upload thepaste-upload',
+			tooltip: thepaste.l10n.upload_image,
+			onclick: function() {
+				// wrap img, upload
+				var image;
+				image = editor.selection.getNode();
+//console.log(image);
+				thepaste.uploadImage( image, editor );
+			}			
+		});
+
+		editor.once( 'preinit', function() {
+			if ( editor.wp && editor.wp._createToolbar ) {
+				toolbar = editor.wp._createToolbar( [
+					'wp_img_alignleft',
+					'wp_img_aligncenter',
+					'wp_img_alignright',
+					'wp_img_alignnone',
+					'wp_img_thepaste_upload',
+					'wp_img_edit',
+					'wp_img_remove',
+				] );
+			}
+		} );
+
+		editor.on( 'wptoolbar', function( event ) {
+			var isDataSourceImage = false,
+				uploadBtn;
+			if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
+				event.toolbar = toolbar;
+				isDataSourceImage = ['blob:','data:'].indexOf( event.element.src.substr(0,5) ) !== -1;
+				uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
+				console.log(uploadBtn,isDataSourceImage);
+				if ( isDataSourceImage ) {
+					uploadBtn.show();
+				} else {
+					uploadBtn.hide();
+				}
+			}
+		} );
 
 		editor
 			.on( 'init', setupEditorDom )
