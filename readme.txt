@@ -5,7 +5,7 @@ Tags: copy & paste, paste, clipboard, image, editor, rte, tinymce, wysiwyg, medi
 Requires at least: 3.0.1
 Tested up to: 4.8.1
 Requires PHP: 5.3.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,9 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 3. ... and choose filename and format before you upload.
 
 == Changelog ==
+
+= 1.0.1 =
+* Update plugin URL
 
 = 1.0.0 =
 * Initial release
