@@ -66,5 +66,5 @@ Applications tested so far:
 
 ToDo:
 -----
- - [ ] Unminified scripts
- - [ ] Better filenames
+ - [ ] Better filenames: 'Pasted to %post_title%', "Pasted %now%"
+ - [ ] More robust wp.media extend...
