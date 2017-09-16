@@ -542,8 +542,7 @@ https://github.com/layerssss/paste.js
 (function($,exports){
 
 	var counter      = 0,
-		l10n = wp.media.thepaste.l10n,
-		is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
+		l10n = wp.media.thepaste.l10n;
 
 	$.extend( wp.Uploader.prototype, {
 		success : function( file_attachment ){
@@ -645,7 +644,7 @@ https://github.com/layerssss/paste.js
 						priority	: -64,
 						click: function() {
 							self.thepaste.active = self.thepaste.paste;
-							self.pasteOpen( l10n.copy_paste );
+							self.thepasteOpen( l10n.copy_paste );
 						}
 					} );
 					this.thepaste.paste.grabber = new wp.media.thepaste.view.DataSourceImageGrabber( {
@@ -666,7 +665,7 @@ https://github.com/layerssss/paste.js
 		thepasteError: function( e ) {
 			console.log( 'error', e );
 		},
-		pasteOpen: function( title ) {
+		thepasteOpen: function( title ) {
 			var self = this;
 
 			this.thepaste.modal  =  new wp.media.view.Modal( {
@@ -756,9 +755,7 @@ https://github.com/layerssss/paste.js
 
 				this.embed( container );
 			}
-			this.image.bind('Resize', function(e) {
-				this.embed( container );
-			});
+
 			this.image.load( data );
 			if ( this.$imageContainer ) {
 				this.$imageContainer.append(this.image);

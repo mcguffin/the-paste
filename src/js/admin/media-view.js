@@ -57,9 +57,7 @@
 
 				this.embed( container );
 			}
-			this.image.bind('Resize', function(e) {
-				this.embed( container );
-			});
+
 			this.image.load( data );
 			if ( this.$imageContainer ) {
 				this.$imageContainer.append(this.image);
