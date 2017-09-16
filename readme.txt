@@ -42,6 +42,7 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 
 = 1.0.1 =
 * Update plugin URL
+* Fix double pasting
 
 = 1.0.0 =
 * Initial release
