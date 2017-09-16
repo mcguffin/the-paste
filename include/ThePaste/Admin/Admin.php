@@ -44,7 +44,6 @@ class Admin extends Core\Singleton {
 		);
 		wp_localize_script( 'the-paste-base' , 'thepaste' , array(
 			'l10n' => array(
-				'webcam_record' 				=> __('Webcam Record' , 'the-paste' ),
 				'snapshot' 						=> __('Snapshot','the-paste'),
 				'take_snapshot' 				=> __('Take Snapshot','the-paste'),
 				'copy_paste' 					=> __('Copy & Paste' , 'the-paste'),

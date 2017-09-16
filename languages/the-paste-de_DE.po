@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-12 21:26+0100\n"
-"PO-Revision-Date: 2017-09-12 21:27+0100\n"
+"POT-Creation-Date: 2017-09-16 14:51+0100\n"
+"PO-Revision-Date: 2017-09-16 14:53+0100\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -23,46 +23,41 @@ msgstr ""
 
 # @ cheese
 #: include/ThePaste/Admin/Admin.php:47
-msgid "Webcam Record"
-msgstr "Webcam Schnappschuss"
-
-# @ cheese
-#: include/ThePaste/Admin/Admin.php:48
 msgid "Snapshot"
 msgstr "Schnappschuss"
 
 # @ cheese
-#: include/ThePaste/Admin/Admin.php:49
+#: include/ThePaste/Admin/Admin.php:48
 msgid "Take Snapshot"
 msgstr "Schnappschuss"
 
-#: include/ThePaste/Admin/Admin.php:50
+#: include/ThePaste/Admin/Admin.php:49
 msgid "Copy & Paste"
 msgstr "Kopieren & Einfügen"
 
-#: include/ThePaste/Admin/Admin.php:51
+#: include/ThePaste/Admin/Admin.php:50
 msgid "Pasted"
 msgstr "Eingefügt"
 
 # @ default
-#: include/ThePaste/Admin/Admin.php:52
+#: include/ThePaste/Admin/Admin.php:51
 msgid "Image"
 msgstr "Bild"
 
 # @ cheese
-#: include/ThePaste/Admin/Admin.php:53
+#: include/ThePaste/Admin/Admin.php:52
 msgid "No image data pasted."
 msgstr "Kein Bild in der Zwischenablage."
 
-#: include/ThePaste/Admin/Admin.php:54
+#: include/ThePaste/Admin/Admin.php:53
 msgid "Error pasting image data."
 msgstr "Fehler beim Einfügen"
 
-#: include/ThePaste/Admin/Admin.php:55
+#: include/ThePaste/Admin/Admin.php:54
 msgid "Upload pasted images"
 msgstr "Eingefügte Bilder sofort hochladen"
 
-#: include/ThePaste/Admin/Admin.php:56
+#: include/ThePaste/Admin/Admin.php:55
 msgid "Upload image"
 msgstr "Bild hochladen"
 
@@ -88,20 +83,7 @@ msgid "Click here please..."
 msgstr "Bitte hier klicken..."
 
 # @ cheese
-#: include/template/recorder.php:12
-msgid "Record"
-msgstr "Aufnahme"
-
-#: include/template/recorder.php:16
-msgid "An error occured."
-msgstr "Ein Fehler ist aufgetreten."
-
-#: include/template/recorder.php:17
-msgid "Please allow camera access in your browser."
-msgstr "Bitte erlauben Deinem Browser den Zugriff auf die Kamera!"
-
-# @ cheese
-#: include/template/recorder.php:19 include/template/uploader.php:12
+#: include/template/uploader.php:12
 msgid "Try again"
 msgstr "Nochmal"
 
@@ -114,6 +96,20 @@ msgstr "Titel"
 #: include/template/uploader.php:28
 msgid "Upload"
 msgstr "Upload"
+
+# @ cheese
+#~ msgid "Webcam Record"
+#~ msgstr "Webcam Schnappschuss"
+
+# @ cheese
+#~ msgid "Record"
+#~ msgstr "Aufnahme"
+
+#~ msgid "An error occured."
+#~ msgstr "Ein Fehler ist aufgetreten."
+
+#~ msgid "Please allow camera access in your browser."
+#~ msgstr "Bitte erlauben Deinem Browser den Zugriff auf die Kamera!"
 
 #~ msgid "Enable Webcam image uploads."
 #~ msgstr "Webcam-Bildupload aktivieren."
