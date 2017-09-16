@@ -40,6 +40,9 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 
 == Changelog ==
 
+= 1.0.2 =
+* Remove unnecessary settings
+
 = 1.0.1 =
 * Update plugin URL
 * Fix double pasting

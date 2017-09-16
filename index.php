@@ -26,6 +26,5 @@ Core\Core::instance();
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 
 	Admin\Admin::instance();
-	Settings\SettingsMedia::instance();
 
 }
