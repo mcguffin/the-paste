@@ -1,6 +1,8 @@
 The Paste
 ==========
 
+Official repository for the [The Paste](https://wordpress.org/plugins/the-paste/) WordPress plugin.
+
 Paste image data into the Editor and upload it to the WordPress Media Library.
 
  - Developed in WP 3.8 – WP 4.8
