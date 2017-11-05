@@ -473,7 +473,7 @@ var thepastePluginCallback;
 				// wrap img, upload
 				var image;
 				image = editor.selection.getNode();
-//console.log(image);
+
 				thepaste.uploadImage( image, editor );
 			}			
 		});
