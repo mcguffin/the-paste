@@ -409,50 +409,18 @@ var thepastePluginCallback;
 			currentClipboardEvent = null,
 			preventImagePaste = false,
 			thepaste = wp.media.thepaste,
-			toolbar;
+			toolbar,
+			pasted_image_tmp_prefix = '__pasted_image_tmp_',
+			pasted_image_tmp_class = '';
 
-		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
 		// default on
+		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
 
-		function domAdd() {
-			var result = origDomAdd.apply(this,arguments);
-			if ( 'mcepastebin' === $(result).attr('id') ) {
-				$(result)
-					.pastableContenteditable()
-					.on('paste',function(e){
-					})
-					.on('pasteImage',function( e, data ) {
-						var image;
-						if ( preventImagePaste ) {
-							e.preventDefault();
-							return false;
-						}
-						image = thepaste.insertImage( data.dataURL, data.blob.type, editor );
-						if ( thepaste.options.editor.auto_upload ) {
-							thepaste.uploadImage( image, editor );
-						}
-					});
-			}
-			return result;
-		}
-
-		function setupEditorDom() {
-
-			origDomAdd = editor.dom.add;
-
-			editor.dom.add = domAdd;
-
-			$(editor.dom.doc).on( 'paste', function(e){
-				currentClipboardEvent = e.originalEvent;
-				console.log(currentClipboardEvent.clipboardData.types);
-				clipboardHasImage = thepaste.clipboardHasImage(e.originalEvent.clipboardData);
-				preventImagePaste = false;
-			} );
-		}
 		editor.addCommand( 'cmd_thepaste', function() {
 			thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
 			localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
 			pasteBtn.active( thepaste.options.editor.auto_upload );
+
 		});
 
 
@@ -475,7 +443,7 @@ var thepastePluginCallback;
 				image = editor.selection.getNode();
 
 				thepaste.uploadImage( image, editor );
-			}			
+			}
 		});
 
 		editor.once( 'preinit', function() {
@@ -493,14 +461,12 @@ var thepastePluginCallback;
 		} );
 
 		editor.on( 'wptoolbar', function( event ) {
-			var canUpload = false,
-				uploadBtn;
+			var uploadBtn;
 			if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
 				event.toolbar = toolbar;
-				canUpload = !! event.element.src.match( /^(blob|data):/ );
 				uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
 
-				if ( canUpload ) {
+				if ( canUpload( event.element ) ) {
 					uploadBtn.show();
 				} else {
 					uploadBtn.hide();
@@ -508,24 +474,50 @@ var thepastePluginCallback;
 			}
 		} );
 
-		editor
-			.on( 'init', setupEditorDom )
-			.on( 'BeforePastePreProcess', function(e){
-				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
-					e.preventDefault();
-					e.content = '';
+		function canUpload( img ) {
+			var sub = img.src.substring(0,5);
+			return sub === 'blob:' || sub === 'data:';
+		}
+
+		function execCommandUploadPastedImage(a){
+			if ( thepaste.options.editor.auto_upload &&
+				a.command == 'mceInsertContent' &&
+				!! a.value && !! a.value.content &&
+				"<img" === a.value.content.substring(0,4).toLowerCase()
+			) {
+				$img = $(editor.getBody()).find('.'+pasted_image_tmp_class);
+				if ( canUpload( $img.get(0) ) ) {
+					thepaste.uploadImage( $img.get(0), editor );
+					$img.removeClass(pasted_image_tmp_class);
 				}
-				if ( clipboardHasImage ) {
+			}
+		}
+		editor
+//			.on( 'init', setupEditorDom )
+			.on( 'PastePostProcess', function(e){
+				var $firstChild;
+				if ( thepaste.options.editor.auto_upload ) {
+					$firstChild = $(e.node).children().first();
+					if ( $firstChild.is('img') && canUpload( $firstChild.get(0) ) ) {
+						pasted_image_tmp_class = pasted_image_tmp_prefix + Date.now();
+						$firstChild.addClass( pasted_image_tmp_class );
+						editor.once( 'ExecCommand', execCommandUploadPastedImage );
+					}
+				}
+			})
+			.on( 'BeforePastePreProcess', function(e){
+				// remove svg data from illustrator
+				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
 					e.preventDefault();
 					e.content = '';
 				}
 				return e;
 
-			} );
+			} )
+			;
 
 	};
 
 	tinymce.PluginManager.add( 'thepaste', thepastePluginCallback );
 
 } )(jQuery);
-

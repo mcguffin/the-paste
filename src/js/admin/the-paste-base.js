@@ -3,13 +3,13 @@
 	var is_chrome	= navigator.userAgent.indexOf('Chrome') > -1,
 		counter = 0,
 		workflow;
-		
+
 	thepaste = exports.thepaste = $.extend( {
 		supports : {
 			paste: ( ('paste' in document) || ('onpaste' in document) || typeof(window.onpaste) === 'object' || ( 'onpaste' in document.createElement('DIV') ) ), // browser
 		},
 		view:{},
-		
+
 		insertImage:function( dataURL, type, editor ) {
 			var id = '__thepaste_img_'+(counter++),
 				imageHtml = '<img id="'+id+'" class="alignnone size-full" src="'+dataURL+'" />',
@@ -17,14 +17,14 @@
 
 
 			editor.insertContent( imageHtml );
-			
+
 			return editor.$('#'+id)[0];
 		},
 
 		uploadImage: function( image, editor ) {
 
 			var xhr,
-				workflow, 
+				workflow,
 				$container,
 				src = image.src,
 				upload = function( dataURL ){
@@ -32,7 +32,9 @@
 						type = dataURL.match(/^data\:([^\;]+)\;/)[1]
 						file = new o.Blob( null, { data: dataURL } )
 						suffix = thepaste.options.mime_types.convert[ type ];
-
+					if ( 'undefined' === typeof suffix ) {
+						console.trace( 'bad type: ' + type );
+					}
 					$(image).wrap('<div id="'+id+'" data-progress="0" class="thepaste-image-placeholder" contenteditable="false"></div>');
 					$container = editor.$('#'+id);
 
@@ -87,22 +89,18 @@
 					if ( xhr.readyState == 4 ) {
 						reader = new FileReader();
 						reader.onload = function() {
-
 							upload( reader.result );
-
 						}
-						reader.readAsDataURL( xhr.response );
+						reader.readAsDataURL( new Blob( [ xhr.response ], { type: 'image/png' } ) );
 					}
 				}
 				xhr.open( 'GET', src );
 				xhr.send( null );
 
 			} else if ( src.substr(0,5) === 'data:' ) {
-
 				upload( src );
+			}
 
-			} 
-			
 		},
 
 		/**
@@ -136,4 +134,3 @@
 	}, thepaste );
 
 })( jQuery, wp.media );
-
