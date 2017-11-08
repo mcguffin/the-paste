@@ -1,0 +1,3 @@
+[submodule "src/vendor/layerssss/paste.js"]
+	path = src/vendor/layerssss/paste.js
+	url = git@github.com:layerssss/paste.js.git
