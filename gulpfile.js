@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gulputil = require('gulp-util');
-var concat = require('gulp-concat');  
-var uglify = require('gulp-uglify');  
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
@@ -24,7 +24,6 @@ var vendor_scripts = [
 	],
 	mce_scripts = {
 		'the-paste' : [
-			'./src/vendor/layerssss/paste.js/paste.js',
 			'./src/js/admin/mce/the-paste-plugin.js',
 		]
 	};
@@ -35,8 +34,8 @@ gulp.task('styles-admin',function(){
     for ( var dest in styles ) {
 		src.push(gulp.src( styles[dest] )
 			.pipe(sourcemaps.init())
-			.pipe( sass( { 
-				outputStyle: 'compressed' 
+			.pipe( sass( {
+				outputStyle: 'compressed'
 			} ).on('error', sass.logError) )
 			.pipe( sourcemaps.write() )
 			.pipe( gulp.dest( dest ) )
@@ -82,4 +81,3 @@ var build = ['styles-admin','scripts-admin'];
 gulp.task( 'build', ['styles-admin','scripts-admin'] );
 
 gulp.task( 'default', ['build','watch'] );
-
