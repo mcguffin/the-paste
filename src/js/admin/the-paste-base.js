@@ -10,33 +10,29 @@
 		},
 		view:{},
 
-		insertImage:function( dataURL, type, editor ) {
-			var id = '__thepaste_img_'+(counter++),
-				imageHtml = '<img id="'+id+'" class="alignnone size-full" src="'+dataURL+'" />',
-				$container;
+		uploadImage: function( image, editor, upload_placeholder ) {
 
+			var id = '__thepaste_box_'+(counter++),
+				$container = $(image)
+					.wrap('<div id="'+id+'" data-progress="0" class="thepaste-image-placeholder" contenteditable="false"></div>')
+					.parent();
 
-			editor.insertContent( imageHtml );
-
-			return editor.$('#'+id)[0];
-		},
-
-		uploadImage: function( image, editor ) {
+				// set $container size once known
+				image.onload = function() {
+					$( editor.$('#'+id) ).width( this.naturalWidth );
+					$( editor.$('#'+id) ).height( this.naturalHeight );
+				}
 
 			var xhr,
 				workflow,
-				$container,
 				src = image.src,
 				upload = function( dataURL ){
-					var id = '__thepaste_box_'+(counter++),
-						type = dataURL.match(/^data\:([^\;]+)\;/)[1]
+					var type = dataURL.match(/^data\:([^\;]+)\;/)[1]
 						file = new o.Blob( null, { data: dataURL } )
 						suffix = thepaste.options.mime_types.convert[ type ];
 					if ( 'undefined' === typeof suffix ) {
-						console.trace( 'bad type: ' + type );
+						console.trace( 'Won\'t upload, bad mime type: ' + type );
 					}
-					$(image).wrap('<div id="'+id+'" data-progress="0" class="thepaste-image-placeholder" contenteditable="false"></div>');
-					$container = editor.$('#'+id);
 
 					file.name = thepaste.l10n.pasted + '.' + suffix;
 					file.type = type;
@@ -64,12 +60,16 @@
 						addFile();
 					}
 					workflow.uploader.uploader.uploader.bind('UploadProgress',function( e ){
-						$container.attr('data-progress',e.total.percent);
+						editor.$('#'+id).attr('data-progress',e.total.percent);
 					});
 					workflow.uploader.uploader.uploader.bind('FileUploaded',function( up, args ){
-						var imgHTML = '<img class="alignnone wp-image-'+args.attachment.id+' size-full" src="'+args.attachment.changed.url+'" />';
+
+						var $container = editor.$('#'+id),
+							imgHTML = '<img class="alignnone wp-image-'+args.attachment.id+' size-full" src="'+args.attachment.changed.url+'" />';
+
 						// replace image
 						$container.replaceWith( imgHTML );
+
 						// replace other instances
 						editor.$('img[src="'+src+'"]').each(function(){
 							$(this).replaceWith( imgHTML );
@@ -100,7 +100,7 @@
 			} else if ( src.substr(0,5) === 'data:' ) {
 				upload( src );
 			}
-
+			return $container;
 		},
 
 		/**

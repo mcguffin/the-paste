@@ -411,33 +411,29 @@ https://github.com/layerssss/paste.js
 		},
 		view:{},
 
-		insertImage:function( dataURL, type, editor ) {
-			var id = '__thepaste_img_'+(counter++),
-				imageHtml = '<img id="'+id+'" class="alignnone size-full" src="'+dataURL+'" />',
-				$container;
+		uploadImage: function( image, editor, upload_placeholder ) {
 
+			var id = '__thepaste_box_'+(counter++),
+				$container = $(image)
+					.wrap('<div id="'+id+'" data-progress="0" class="thepaste-image-placeholder" contenteditable="false"></div>')
+					.parent();
 
-			editor.insertContent( imageHtml );
-
-			return editor.$('#'+id)[0];
-		},
-
-		uploadImage: function( image, editor ) {
+				// set $container size once known
+				image.onload = function() {
+					$( editor.$('#'+id) ).width( this.naturalWidth );
+					$( editor.$('#'+id) ).height( this.naturalHeight );
+				}
 
 			var xhr,
 				workflow,
-				$container,
 				src = image.src,
 				upload = function( dataURL ){
-					var id = '__thepaste_box_'+(counter++),
-						type = dataURL.match(/^data\:([^\;]+)\;/)[1]
+					var type = dataURL.match(/^data\:([^\;]+)\;/)[1]
 						file = new o.Blob( null, { data: dataURL } )
 						suffix = thepaste.options.mime_types.convert[ type ];
 					if ( 'undefined' === typeof suffix ) {
-						console.trace( 'bad type: ' + type );
+						console.trace( 'Won\'t upload, bad mime type: ' + type );
 					}
-					$(image).wrap('<div id="'+id+'" data-progress="0" class="thepaste-image-placeholder" contenteditable="false"></div>');
-					$container = editor.$('#'+id);
 
 					file.name = thepaste.l10n.pasted + '.' + suffix;
 					file.type = type;
@@ -465,12 +461,16 @@ https://github.com/layerssss/paste.js
 						addFile();
 					}
 					workflow.uploader.uploader.uploader.bind('UploadProgress',function( e ){
-						$container.attr('data-progress',e.total.percent);
+						editor.$('#'+id).attr('data-progress',e.total.percent);
 					});
 					workflow.uploader.uploader.uploader.bind('FileUploaded',function( up, args ){
-						var imgHTML = '<img class="alignnone wp-image-'+args.attachment.id+' size-full" src="'+args.attachment.changed.url+'" />';
+
+						var $container = editor.$('#'+id),
+							imgHTML = '<img class="alignnone wp-image-'+args.attachment.id+' size-full" src="'+args.attachment.changed.url+'" />';
+
 						// replace image
 						$container.replaceWith( imgHTML );
+
 						// replace other instances
 						editor.$('img[src="'+src+'"]').each(function(){
 							$(this).replaceWith( imgHTML );
@@ -501,7 +501,7 @@ https://github.com/layerssss/paste.js
 			} else if ( src.substr(0,5) === 'data:' ) {
 				upload( src );
 			}
-
+			return $container;
 		},
 
 		/**
@@ -707,9 +707,9 @@ https://github.com/layerssss/paste.js
 		image : null,
 		$discardBtn : null,
 		$uploadBtn : null,
-		
+
 		uploader : null,
-		
+
 		events : {
 			'click [data-action="upload"]'	: 'uploadImage',
 			'click [data-action="discard"]'	: 'discardImage',
@@ -738,7 +738,7 @@ https://github.com/layerssss/paste.js
 			if ( ! thepaste.options.mime_types.convert[format] ) {
 				format = this.options.defaultFileFormat;
 			}
-			
+
 			if ( this.image ) {
 				this.image.destroy();
 			}
@@ -907,10 +907,10 @@ https://github.com/layerssss/paste.js
 //		tagName:   'div',
 		template: wp.template('thepaste-grabber'),
 		className : 'thepaste-grabber',
-		
+
 		grabber : null,
 		uploader : null,
-		
+
 		initialize : function() {
 			var ret = wp.media.View.prototype.initialize.apply( this, arguments );
 
@@ -918,12 +918,12 @@ https://github.com/layerssss/paste.js
 				wpuploader		: null,
 				defaultFileName	: l10n.pasted,
 				defaultFileFormat : 'image/png',
-				title			: l10n.copy_paste 
+				title			: l10n.copy_paste
 			});
 
 			this.grabber  = new this.options.grabber( { controller	: this.controller } );
 
-			this.uploader = new wp.media.thepaste.view.DataSourceImageUploader( {	
+			this.uploader = new wp.media.thepaste.view.DataSourceImageUploader( {
 									controller			: this.controller,
 									uploder				: this.options.wpuploader,
 									defaultFileName		: this.options.defaultFileName,

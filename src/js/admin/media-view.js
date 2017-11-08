@@ -12,9 +12,9 @@
 		image : null,
 		$discardBtn : null,
 		$uploadBtn : null,
-		
+
 		uploader : null,
-		
+
 		events : {
 			'click [data-action="upload"]'	: 'uploadImage',
 			'click [data-action="discard"]'	: 'discardImage',
@@ -43,7 +43,7 @@
 			if ( ! thepaste.options.mime_types.convert[format] ) {
 				format = this.options.defaultFileFormat;
 			}
-			
+
 			if ( this.image ) {
 				this.image.destroy();
 			}
@@ -212,10 +212,10 @@
 //		tagName:   'div',
 		template: wp.template('thepaste-grabber'),
 		className : 'thepaste-grabber',
-		
+
 		grabber : null,
 		uploader : null,
-		
+
 		initialize : function() {
 			var ret = wp.media.View.prototype.initialize.apply( this, arguments );
 
@@ -223,12 +223,12 @@
 				wpuploader		: null,
 				defaultFileName	: l10n.pasted,
 				defaultFileFormat : 'image/png',
-				title			: l10n.copy_paste 
+				title			: l10n.copy_paste
 			});
 
 			this.grabber  = new this.options.grabber( { controller	: this.controller } );
 
-			this.uploader = new wp.media.thepaste.view.DataSourceImageUploader( {	
+			this.uploader = new wp.media.thepaste.view.DataSourceImageUploader( {
 									controller			: this.controller,
 									uploder				: this.options.wpuploader,
 									defaultFileName		: this.options.defaultFileName,
