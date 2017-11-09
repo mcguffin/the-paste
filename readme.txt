@@ -43,10 +43,11 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 == Changelog ==
 
 = 1.0.3 =
-* Performance improvements
-* Add Textdomain to plugin header
+* Fix JS Error in TextWidget
 
 = 1.0.2 =
+* Performance improvements
+* Add Textdomain to plugin header
 * Remove unnecessary settings
 
 = 1.0.1 =
