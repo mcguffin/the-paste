@@ -7,7 +7,7 @@ Paste image data into the Editor and upload it to the WordPress Media Library.
 
  - Developed in WP 3.8 – WP 4.8
  - Should work with WordPress 3.5+
- - German and Dutch localization. 
+ - German and Dutch localization.
 
 Known Browser Support
 ---------------------
@@ -51,7 +51,7 @@ Applications tested so far:
 | Libre Office          | OK              | OK              | OK              | OK                |
 | Adobe Photoshop CC    | OK              | OK              | OK              | (OK)<sup>5)</sup> |
 | Adobe Illustrator CC  | OK<sup>2)</sup> | OK<sup>2)</sup> | OK<sup>2)</sup> | -                 |
-<!-- 
+<!--
 | MS Word               | ?               | ?               | ?               | ?                 |
 | Corel Draw            | ?               | ?               | ?               | ?                 |
 | Corel PhotoPaint      | ?               | ?               | ?               | ?                 |
@@ -70,3 +70,4 @@ ToDo:
 -----
  - [ ] Better filenames: 'Pasted to %post_title%', "Pasted %now%"
  - [ ] More robust wp.media extend...
+ - [ ] Maybe Make it work in TextWidgets

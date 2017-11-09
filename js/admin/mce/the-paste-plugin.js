@@ -399,10 +399,10 @@ https://github.com/layerssss/paste.js
 
 }).call(this);
 
-var thepastePluginCallback;
+var the_pastePluginCallback;
 
 (function($){
-	thepastePluginCallback = function( editor ) {
+	the_pastePluginCallback = function( editor ) {
 		var pasteBtn,
 			origDomAdd,
 			clipboardHasImage = false,
@@ -512,6 +512,6 @@ var thepastePluginCallback;
 
 	};
 
-	tinymce.PluginManager.add( 'thepaste', thepastePluginCallback );
+	tinymce.PluginManager.add( 'thepaste', the_pastePluginCallback );
 
 } )(jQuery);
