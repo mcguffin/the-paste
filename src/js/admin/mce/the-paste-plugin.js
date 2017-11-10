@@ -112,6 +112,6 @@ var the_pastePluginCallback;
 
 	};
 
-	tinymce.PluginManager.add( 'the-paste', the_pastePluginCallback );
+	tinymce.PluginManager.add( 'the_paste', the_pastePluginCallback );
 
 } )(jQuery);
