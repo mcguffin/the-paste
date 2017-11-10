@@ -37,7 +37,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *
 	 */
 	protected $plugin_params = false;
-	
+
 	/**
 	 *	TinyMCE Settings
 	 */
@@ -48,7 +48,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	boolean
 	 */
 	protected $toolbar_css = false;
-	
+
 	/**
 	 *	Load custom css for toolbar.
 	 *	boolean
@@ -93,7 +93,7 @@ abstract class TinyMce extends Core\Singleton {
 		if ( is_null( $this->module_name ) ) {
 			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
 		}
-		
+
 		$this->prefix = str_replace('-','_',$this->module_name);
 
 		$parts = array_slice( explode( '\\', get_class( $this ) ), 0, -1 );
@@ -108,13 +108,13 @@ abstract class TinyMce extends Core\Singleton {
 			'mce_buttons'	=> false,
 			'mce_buttons_2'	=> false,
 		) );
-		
+
 		foreach ( $this->editor_buttons as $hook => $buttons ) {
 			if ( $buttons !== false ) {
 				add_filter( $hook, array( $this, 'add_buttons' ) );
 			}
 		}
-		
+
 
 		// add tinymce plugin parameters
 		if ( $this->plugin_params !== false ) {
@@ -130,11 +130,7 @@ abstract class TinyMce extends Core\Singleton {
 		if ( $this->toolbar_css !== false ) {
 			add_action( "admin_print_scripts", array( $this, 'enqueue_toolbar_css') );
 		}
-		if ( $this->text_widget !== false ) {
-			add_action( 'print_default_editor_scripts', array( $this, 'print_editor_scripts' ) );
-		}
 
-		// add tinymce plugin
 		if ( $this->text_widget !== false ) {
 			// looks like it will only works with widget?
 			add_action( 'print_default_editor_scripts', array( $this, 'print_editor_scripts' ) );
@@ -150,16 +146,42 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@action print_default_editor_scripts
 	 */
 	public function print_editor_scripts() {
+
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
+		$buttons = array();
+
+		foreach ( $this->editor_buttons as $row => $btns ) {
+			if ( ! $btns ) {
+				continue;
+			}
+			$buttons = array_merge( $buttons, array_keys( $btns ) );
+		}
+		$js_buttons = implode( ',', $buttons );
 		?>
-		<script type="text/javascript">
-		/* TinyMCE plugin <?php echo $this->module_name ?> */
-		jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
+<script type="text/javascript">
+/* TinyMCE plugin <?php echo $this->module_name ?> */
+jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
+	// base plugin
 <?php echo file_get_contents( $this->core->get_asset_path( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' ) ); ?>;
+	// invoke plugin
 <?php echo $this->prefix ?>PluginCallback( editor );
-		});
-		/* END: TinyMCE plugin <?php echo $this->module_name ?> */
-		</script>
+
+});
+// extend wp editor settings
+(function($){
+	var orig = window.wp.editor.getDefaultSettings;
+	window.wp.editor.getDefaultSettings = function() {
+		var settings = orig.apply( this, arguments );
+		settings.tinymce = $.extend( settings.tinymce, <?php
+			echo json_encode( $this->mce_settings );
+		?>);
+		settings.tinymce.toolbar1 += ',<?php echo $js_buttons ?>';
+		return settings;
+	}
+})(jQuery);
+/* END: TinyMCE plugin <?php echo $this->module_name ?> */
+</script>
 		<?php
 	}
 
