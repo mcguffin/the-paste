@@ -67,8 +67,9 @@ var the_pastePluginCallback;
 			var uploadBtn;
 			if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
 				event.toolbar = toolbar;
+console.log('thepaste.event')
 				uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
-
+console.log(uploadBtn)
 				if ( canUpload( event.element ) ) {
 					uploadBtn.show();
 				} else {
@@ -114,3 +115,4 @@ var the_pastePluginCallback;
 	tinymce.PluginManager.add( 'thepaste', the_pastePluginCallback );
 
 } )(jQuery);
+console.log('hallo')

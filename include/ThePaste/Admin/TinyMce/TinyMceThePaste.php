@@ -22,8 +22,8 @@ class TinyMceThePaste extends TinyMce {
 	protected function __construct() {
 		$this->plugin_params = array();
 		$this->mce_settings =  array(
-			'extended_valid_elements'	=> 'canvas',
-			'custom_elements' 			=> 'canvas',
+			// 'extended_valid_elements'	=> 'canvas',
+			// 'custom_elements' 			=> 'canvas',
 			'paste_data_images'			=> true,
 		);
 		parent::__construct();

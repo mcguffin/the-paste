@@ -134,6 +134,9 @@ abstract class TinyMce extends Core\Singleton {
 		if ( $this->text_widget !== false ) {
 			// looks like it will only works with widget?
 			add_action( 'print_default_editor_scripts', array( $this, 'print_editor_scripts' ) );
+			if ( $this->toolbar_css ) {
+				add_action( 'load-widgets.php', array( $this,'enqueue_toolbar_css' ) );
+			}
 		}
 		// will only work with default editor
 		add_filter( 'mce_external_plugins', array( $this, 'add_plugin' ) );
@@ -149,38 +152,58 @@ abstract class TinyMce extends Core\Singleton {
 
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 
-		$buttons = array();
+		$js_settings = array() + $this->mce_settings;
 
+		// add editor css
+		if ( $this->editor_css ) {
+			$js_settings = wp_parse_args( $js_settings, array(
+				'content_css'	=> $this->get_mce_css_url(),
+			) );
+		}
+
+		// add buttons
 		foreach ( $this->editor_buttons as $row => $btns ) {
+
+			$toolbar_idx = preg_replace('/([^0-9]+)/imsU','', $row );
+
 			if ( ! $btns ) {
 				continue;
 			}
-			$buttons = array_merge( $buttons, array_keys( $btns ) );
+
+			$js_settings[ 'toolbar' . $toolbar_idx ] = implode( ',', array_keys($btns) );
 		}
-		$js_buttons = implode( ',', $buttons );
+
+		// add plugin
+		$js_settings['external_plugins'] = $this->add_plugin( array() );
+
 		?>
 <script type="text/javascript">
 /* TinyMCE plugin <?php echo $this->module_name ?> */
-jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
-	// base plugin
-<?php echo file_get_contents( $this->core->get_asset_path( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' ) ); ?>;
-	// invoke plugin
-<?php echo $this->prefix ?>PluginCallback( editor );
-
-});
 // extend wp editor settings
 (function($){
 	var orig = window.wp.editor.getDefaultSettings;
 	window.wp.editor.getDefaultSettings = function() {
-		var settings = orig.apply( this, arguments );
-		settings.tinymce = $.extend( settings.tinymce, <?php
-			echo json_encode( $this->mce_settings );
-		?>);
-		settings.tinymce.toolbar1 += ',<?php echo $js_buttons ?>';
+		var settings = orig.apply( this, arguments ),
+			mergeSettings = <?php echo json_encode( $js_settings ); ?>;
+		$.each( mergeSettings, function(i,el) {
+			var type,
+				override = ['entity_encoding', 'language', 'resize', 'skin', 'theme','wp_lang_attr'];
+			if ( ! ( i in settings.tinymce ) || (i in override) || 'booelan' === typeof settings.tinymce[i] ) {
+				settings.tinymce[i] = el;
+			} else {
+				type = typeof settings.tinymce[i];
+				if ( 'string' === type ) {
+					settings.tinymce[i] += ',' + el;
+				} else if ( 'object' === type ) {
+					settings.tinymce[i] = $.extend( true, settings.tinymce[i], el );
+				}
+			}
+		});
 		return settings;
 	}
 })(jQuery);
 /* END: TinyMCE plugin <?php echo $this->module_name ?> */
+
 </script>
 		<?php
 	}
@@ -222,10 +245,18 @@ jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
 	 *	@action admin_print_scripts
 	 */
 	public function enqueue_toolbar_css() {
+		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 		$asset_id = sprintf( 'tinymce-%s-toolbar-css', $this->module_name );
-		$asset_url = $this->core->get_asset_url( $this->styles_dir . '/admin/mce/the-paste-toolbar.css' );
-		wp_enqueue_style( $asset_id, $asset_url );
+		wp_enqueue_style( $asset_id, $this->get_toolbar_css_url() );
 	}
+
+	/**
+	 *	@return string URL to editor css
+	 */
+	 protected function get_toolbar_css_url() {
+ 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+ 		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar'.$suffix.'.css' );
+ 	}
 
 	/**
 	 *	Add editor css
@@ -233,11 +264,17 @@ jQuery( document ).on( 'tinymce-editor-setup', function( event, editor ) {
 	 *	@filter mce_css
 	 */
 	public function mce_css( $styles ) {
-		$mce_css = $this->core->get_asset_url( $this->styles_dir . '/admin/mce/the-paste-editor.css' );
-		$styles .= ','. $mce_css;
+		$styles .= ','. $this->get_mce_css_url();
 		return $styles;
 	}
 
+	/**
+	 *	@return string URL to editor css
+	 */
+	protected function get_mce_css_url() {
+		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-editor'.$suffix.'.css' );
+	}
 	/**
 	 *	print plugin settings
 	 *
