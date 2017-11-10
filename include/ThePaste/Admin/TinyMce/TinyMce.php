@@ -94,7 +94,7 @@ abstract class TinyMce extends Core\Singleton {
 			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
 		}
 
-		$this->prefix = str_replace('-','_',$this->module_name);
+		$this->prefix = str_replace( '-', '_', $this->module_name );
 
 		$parts = array_slice( explode( '\\', get_class( $this ) ), 0, -1 );
 		array_unshift( $parts, 'include' );
@@ -215,7 +215,7 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	public function add_plugin( $plugins_array ) {
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-		$plugins_array[ $this->module_name ] = $this->core->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' );
+		$plugins_array[ $this->prefix ] = $this->core->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' );
 		return $plugins_array;
 	}
 
