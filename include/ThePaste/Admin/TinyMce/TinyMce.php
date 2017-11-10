@@ -254,8 +254,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@return string URL to editor css
 	 */
 	 protected function get_toolbar_css_url() {
- 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
- 		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar'.$suffix.'.css' );
+ 		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar.css' );
  	}
 
 	/**
@@ -272,8 +271,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@return string URL to editor css
 	 */
 	protected function get_mce_css_url() {
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-editor'.$suffix.'.css' );
+		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-editor.css' );
 	}
 	/**
 	 *	print plugin settings
