@@ -5,7 +5,7 @@ Tags: paste, clipboard, image, editor, media
 Requires at least: 4.5.0
 Tested up to: 4.8.1
 Requires PHP: 5.3.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 3. ... and choose filename and format before you upload.
 
 == Changelog ==
+
+= 1.0.4 =
+* Support Text Widget
 
 = 1.0.3 =
 * Fix JS Error in TextWidget
