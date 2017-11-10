@@ -399,7 +399,7 @@ https://github.com/layerssss/paste.js
 
 }).call(this);
 
-(function($,exports){
+(function( $, exports, o ) {
 
 	var is_chrome	= navigator.userAgent.indexOf('Chrome') > -1,
 		counter = 0,
@@ -428,14 +428,20 @@ https://github.com/layerssss/paste.js
 				workflow,
 				src = image.src,
 				upload = function( dataURL ){
-					var type = dataURL.match(/^data\:([^\;]+)\;/)[1]
-						file = new o.Blob( null, { data: dataURL } )
-						suffix = thepaste.options.mime_types.convert[ type ];
+					var type = dataURL.match(/^data\:([^\;]+)\;/)[1],
+						file = new o.Blob( null, { data: dataURL } ),
+						suffix = thepaste.options.mime_types.convert[ type ],
+						postname = $('#post [name="post_title"]#title').val();
 					if ( 'undefined' === typeof suffix ) {
 						console.trace( 'Won\'t upload, bad mime type: ' + type );
 					}
 
-					file.name = thepaste.l10n.pasted + '.' + suffix;
+					if ( 'undefined' !== typeof postname ) {
+						postname = postname.replace(/([\^\!\?<>:"'\/\|\*§])/g,'').replace(/ +/g,' ');
+						file.name = thepaste.l10n.pasted_into + ' ' + postname + '.' + suffix;
+					} else {
+						file.name = thepaste.l10n.pasted + '.' + suffix;
+					}
 					file.type = type;
 
 					var addFile = function(){
@@ -534,7 +540,7 @@ https://github.com/layerssss/paste.js
 
 	}, thepaste );
 
-})( jQuery, wp.media );
+})( jQuery, wp.media, mOxie );
 
 (function($,exports){
 

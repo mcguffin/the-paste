@@ -44,6 +44,7 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 
 = 1.0.4 =
 * Support Text Widget
+* Better Media Titles
 
 = 1.0.3 =
 * Fix JS Error in TextWidget

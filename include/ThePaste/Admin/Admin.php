@@ -37,22 +37,24 @@ class Admin extends Core\Singleton {
 			$script_source = 'js/admin/the-paste.js';
 		}
 
-		wp_register_script( 'the-paste-base', 
+		wp_register_script( 'the-paste-base',
 			$this->core->get_asset_url( $script_source ),
-			array( 'jquery', 'swfobject', 'media-editor' ), 
+			array( 'jquery', 'swfobject', 'media-editor' ),
 			$version
 		);
 		wp_localize_script( 'the-paste-base' , 'thepaste' , array(
 			'l10n' => array(
-				'snapshot' 						=> __('Snapshot','the-paste'),
-				'take_snapshot' 				=> __('Take Snapshot','the-paste'),
-				'copy_paste' 					=> __('Copy & Paste' , 'the-paste'),
-				'pasted' 						=> __('Pasted' , 'the-paste'),
-				'image' 						=> __('Image'),
-				'paste_error_no_image' 			=> __('No image data pasted.','the-paste'),
-				'paste_error'					=> __('Error pasting image data.','the-paste'),
-				'upload_pasted_images'			=> __('Upload pasted images', 'the-paste'),
-				'upload_image'					=> __('Upload image', 'the-paste'),
+				'snapshot' 						=> __( 'Snapshot','the-paste' ),
+				'take_snapshot' 				=> __( 'Take Snapshot','the-paste' ),
+				'copy_paste' 					=> __( 'Copy & Paste', 'the-paste' ),
+				'pasted' 						=> __( 'Pasted', 'the-paste' ),
+				'pasted_into'					=> __( 'Pasted into', 'the-paste' ),
+				'image' 						=> __( 'Image', 'the-paste' ),
+				'paste_error_no_image' 			=> __( 'No image data pasted.', 'the-paste' ),
+				'paste_error'					=> __( 'Error pasting image data.', 'the-paste' ),
+				'upload_pasted_images'			=> __( 'Upload pasted images', 'the-paste' ),
+				'upload_image'					=> __( 'Upload image', 'the-paste' ),
+
 			),
 			'options'	=> array(
 				'mime_types'	=> array(
@@ -96,9 +98,8 @@ class Admin extends Core\Singleton {
 	 */
 	function print_media_templates() {
 		$rp = THE_PASTE_DIRECTORY . 'include' . DIRECTORY_SEPARATOR . '/template/{,*/,*/*/,*/*/*/}*.php';
-		foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {	
+		foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {
 			include $template_file;
 		}
 	}
 }
-
