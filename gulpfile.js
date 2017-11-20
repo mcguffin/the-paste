@@ -67,6 +67,7 @@ gulp.task('scss', function() {
 gulp.task( 'js', function(){
 	return [
 		concat_js( [
+			'./src/vendor/layerssss/paste.js/paste.js',
 			'./src/js/admin/the-paste-base.js',
 			'./src/js/admin/the-paste.js',
 			'./src/js/admin/media-view.js'
