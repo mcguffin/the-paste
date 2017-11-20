@@ -1,0 +1,14 @@
+{
+  "modules": {
+    "admin": {},
+    "git": {},
+    "gulp": {}
+  },
+  "plugin_author": "J\u00f6rn Lund",
+  "plugin_author_uri": "https://github.com/mcguffin/",
+  "plugin_name": "The Paste",
+  "plugin_namespace": "ThePaste",
+  "plugin_slug": "the_paste",
+  "this_year": 2017,
+  "wp_plugin_slug": "the-paste"
+}
