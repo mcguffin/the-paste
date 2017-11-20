@@ -23,6 +23,10 @@ define( 'THE_PASTE_DIRECTORY', plugin_dir_path(__FILE__) );
 
 require_once THE_PASTE_DIRECTORY . 'include/vendor/autoload.php';
 
+if ( file_exists( THE_PASTE_DIRECTORY . 'pro/pro.php' ) ) {
+	require_once THE_PASTE_DIRECTORY . 'pro/pro.php';
+}
+
 Core\Core::instance();
 
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
