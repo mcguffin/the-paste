@@ -33,7 +33,7 @@
 
 		bindPasteHandlers: function() {
 			var previousContent = false;
-		
+
 			// dismiss content on close
 			this.on( 'content:render close' , function(content){
 				if ( previousContent && 'function' === typeof previousContent.dismiss ) {
@@ -42,9 +42,10 @@
 				if ( 'undefined' !== typeof content )
 					previousContent = content;
 			} , this );
-		
+
 			this.on( 'content:create:pasteboard', this.contentCreatePasteboard, this );
 			this.on( 'content:render:pasteboard', this.contentRenderGrabber, this );
+			this.on( 'content:create:dataimage', this.contentRenderGrabber, this );
 
 			frame = this;
 		},
@@ -52,8 +53,8 @@
 		contentCreatePasteboard: function( content ) {
 			var state = this.state();
 
-			this.currentPasteView = content.view = new wp.media.thepaste.view.DataSourceImageGrabber( { 
-				controller	: this, 
+			this.currentPasteView = content.view = new wp.media.thepaste.view.DataSourceImageGrabber( {
+				controller	: this,
 				grabber		: wp.media.thepaste.view.Pasteboard
 			});
 			this.listenTo( this.currentPasteView.uploader, 'action:uploaded:dataimage', this.uploadedDataImage );
@@ -67,9 +68,15 @@
 			this.browseContent(obj);
 			this.content.set( obj.view );
 			this.router.get().select('browse')
+		},
+		imagePasted:function(){
+			// enable insert btn
+			// clear selection
+			console.log(this)
+
 		}
 	});
-	
+
 
 
 	/**
@@ -82,7 +89,7 @@
 				pasteBtn;
 
 			this._parentInitialize.apply(this,arguments);
-			
+
 			this.thepaste = {
 				paste	: {
 //					button	: false,
@@ -152,5 +159,5 @@
 			this.stopListening( this.thepaste.active.grabber.uploader, 'error:uploaded:dataimage' );
 		}
 	});
-	
+
 })(jQuery,window);
