@@ -70,7 +70,7 @@ gulp.task( 'js', function(){
 			'./src/js/admin/the-paste-base.js',
 			'./src/js/admin/the-paste.js',
 			'./src/js/admin/media-view.js'
-		], 'admin/the-paste'),
+		], 'admin/the-paste.js'),
 		do_js('admin/mce/the-paste-plugin.js')
 	]
 } );
