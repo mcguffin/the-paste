@@ -1,4 +1,5 @@
 var pro;
+var autoprefixer = require('gulp-autoprefixer');
 var gulp = require('gulp');
 var gulputil = require('gulp-util');
 var concat = require('gulp-concat');
@@ -13,82 +14,80 @@ try {
 	pro = false;
 }
 
-var styles = {
-		'./css/admin/' : [ './src/scss/admin/the-paste.scss' ],
-		'./css/admin/mce' : [
-			'./src/scss/admin/mce/the-paste-toolbar.scss',
-			'./src/scss/admin/mce/the-paste-editor.scss'
-		],
-	};
-var vendor_scripts = [
-		'./src/vendor/layerssss/paste.js/paste.js',
-	],
-	scripts = [
-		'./src/js/admin/the-paste-base.js',
-		'./src/js/admin/the-paste.js',
-		'./src/js/admin/media-view.js'
-	],
-	mce_scripts = {
-		'the-paste' : [
-			'./src/vendor/layerssss/paste.js/paste.js',
-			'./src/js/admin/mce/the-paste-plugin.js',
-		]
-	};
 
+function do_scss( src ) {
+	var dir = src.substring( 0, src.lastIndexOf('/') );
+	return gulp.src( './src/scss/' + src + '.scss' )
+		.pipe( sourcemaps.init() )
+		.pipe( sass( { outputStyle: 'nested' } ).on('error', sass.logError) )
+		.pipe( autoprefixer({
+			browsers:['last 2 versions']
+		}) )
+		.pipe( gulp.dest( './css/' + dir ) )
+        .pipe( sass( { outputStyle: 'compressed' } ).on('error', sass.logError) )
+		.pipe( rename( { suffix: '.min' } ) )
+        .pipe( sourcemaps.write() )
+        .pipe( gulp.dest( './css/' + dir ) );
 
-gulp.task('styles-admin',function(){
-    var src = [];
-    for ( var dest in styles ) {
-		src.push(gulp.src( styles[dest] )
-			.pipe(sourcemaps.init())
-			.pipe( sass( {
-				outputStyle: 'compressed'
-			} ).on('error', sass.logError) )
-			.pipe( sourcemaps.write() )
-			.pipe( gulp.dest( dest ) )
-		);
-    }
-});
+}
 
-gulp.task('scripts-admin', function() {
+function do_js( src ) {
+	var dir = src.substring( 0, src.lastIndexOf('/') );
+	return gulp.src( './src/js/' + src + '.js' )
+		.pipe( sourcemaps.init() )
+		.pipe( gulp.dest( './js/' + dir ) )
+		.pipe( uglify().on('error', gulputil.log ) )
+		.pipe( rename( { suffix: '.min' } ) )
+		.pipe( sourcemaps.write() )
+		.pipe( gulp.dest( './js/' + dir ) );
+}
 
-    var scr = [ gulp.src( vendor_scripts.concat( scripts ) )
-			.pipe( concat('the-paste.js') )
-			.pipe( gulp.dest( './js/admin/' ) )
-			.pipe( sourcemaps.init() )
-			.pipe( uglify().on('error', gulputil.log ) )
-			.pipe( rename('the-paste.min.js') )
-			.pipe( sourcemaps.write() )
-			.pipe( gulp.dest( './js/admin/' ) ),
-    ];
-    for ( var s in mce_scripts ) {
-    	scr.push( [
-			gulp.src( mce_scripts[s] )
-				.pipe( concat( s + '-plugin.js') )
-				.pipe( gulp.dest( './js/admin/mce/' ) )
-				.pipe( sourcemaps.init() )
-				.pipe( uglify().on('error', gulputil.log ) )
-				.pipe( rename( s + '-plugin.min.js') )
-				.pipe( sourcemaps.write() )
-				.pipe( gulp.dest( './js/admin/mce/' ) )
-		] );
-    }
-    return scr;
-});
+function concat_js( src, dest ) {
+	return gulp.src( src )
+		.pipe( sourcemaps.init() )
+		.pipe( concat( dest ) )
+		.pipe( gulp.dest( './js/' ) )
+		.pipe( uglify().on('error', gulputil.log ) )
+		.pipe( rename( { suffix: '.min' } ) )
+		.pipe( sourcemaps.write() )
+		.pipe( gulp.dest( './js/' ) );
 
-
-gulp.task( 'watch', function() {
-	gulp.watch('./src/scss/**/*.scss', ['styles-admin'] );
-	gulp.watch('./src/**/*.js', ['scripts-admin'] );
-} );
-
-var build = ['styles-admin','scripts-admin'];
-
-if ( ! pro ) {
-	gulp.task( 'build', ['styles-admin','scripts-admin'] );
-} else {
-	gulp.task( 'build', ['styles-admin','scripts-admin', 'pro'] );
 }
 
 
-gulp.task( 'default', ['build','watch'] );
+gulp.task('scss', function() {
+	return [
+		do_scss('admin/the-paste'),
+		do_scss('admin/mce/the-paste-editor'),
+		do_scss('admin/mce/the-paste-toolbar'),
+	];
+});
+
+
+gulp.task( 'js', function(){
+	return [
+		concat_js( [
+			'./src/js/admin/the-paste-base.js',
+			'./src/js/admin/the-paste.js',
+			'./src/js/admin/media-view.js'
+		], 'admin/the-paste'),
+		do_js('admin/mce/the-paste-plugin.js')
+	]
+} );
+
+
+
+if ( ! pro ) {
+	gulp.task('build', ['scss','js'] );
+} else {
+	gulp.task('build', ['scss','js', 'pro' ] );
+}
+
+
+gulp.task('watch', function() {
+	// place code for your default task here
+	gulp.watch('./src/scss/**/*.scss',[ 'scss' ]);
+	gulp.watch('./src/js/**/*.js',[ 'js', 'js-admin' ]);
+});
+
+gulp.task('default', ['build','watch']);
