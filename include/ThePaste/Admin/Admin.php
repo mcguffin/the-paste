@@ -39,7 +39,7 @@ class Admin extends Core\Singleton {
 
 		wp_register_script( 'the-paste-base',
 			$this->core->get_asset_url( $script_source ),
-			array( 'jquery', 'swfobject', 'media-editor' ),
+			array( 'jquery', 'media-editor' ),
 			$version
 		);
 		wp_localize_script( 'the-paste-base' , 'thepaste' , array(
@@ -91,6 +91,7 @@ class Admin extends Core\Singleton {
 		}
 		wp_enqueue_script( 'the-paste-base');
 		wp_enqueue_style( 'the-paste' );
+		do_action('the_paste_enqueue_script' );
 	}
 
 	/**
