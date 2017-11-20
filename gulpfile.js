@@ -1,11 +1,17 @@
+var pro;
 var gulp = require('gulp');
 var gulputil = require('gulp-util');
-var concat = require('gulp-concat');  
-var uglify = require('gulp-uglify');  
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 
+try {
+	pro = require('./pro/gulpfile.js');
+} catch(err){
+	pro = false;
+}
 
 var styles = {
 		'./css/admin/' : [ './src/scss/admin/the-paste.scss' ],
@@ -35,8 +41,8 @@ gulp.task('styles-admin',function(){
     for ( var dest in styles ) {
 		src.push(gulp.src( styles[dest] )
 			.pipe(sourcemaps.init())
-			.pipe( sass( { 
-				outputStyle: 'compressed' 
+			.pipe( sass( {
+				outputStyle: 'compressed'
 			} ).on('error', sass.logError) )
 			.pipe( sourcemaps.write() )
 			.pipe( gulp.dest( dest ) )
@@ -73,13 +79,16 @@ gulp.task('scripts-admin', function() {
 
 gulp.task( 'watch', function() {
 	gulp.watch('./src/scss/**/*.scss', ['styles-admin'] );
-	gulp.watch('./src/js/**/*.js', ['scripts-admin'] );
-	gulp.watch('./src/vendor/**/*.js', ['scripts-admin'] );
+	gulp.watch('./src/**/*.js', ['scripts-admin'] );
 } );
 
 var build = ['styles-admin','scripts-admin'];
 
-gulp.task( 'build', ['styles-admin','scripts-admin'] );
+if ( ! pro ) {
+	gulp.task( 'build', ['styles-admin','scripts-admin'] );
+} else {
+	gulp.task( 'build', ['styles-admin','scripts-admin', 'pro'] );
+}
+
 
 gulp.task( 'default', ['build','watch'] );
-
