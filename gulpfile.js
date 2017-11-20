@@ -8,11 +8,6 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var rename = require('gulp-rename');
 
-try {
-	pro = require('./pro/gulpfile.js');
-} catch(err){
-	pro = false;
-}
 
 
 function do_scss( src ) {
@@ -77,11 +72,12 @@ gulp.task( 'js', function(){
 } );
 
 
-
-if ( ! pro ) {
-	gulp.task('build', ['scss','js'] );
-} else {
+try {
+	pro = require('./pro/gulpfile.js');
 	gulp.task('build', ['scss','js', 'pro' ] );
+} catch(err){
+	pro = false;
+	gulp.task('build', ['scss','js'] );
 }
 
 
