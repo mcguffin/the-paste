@@ -427,6 +427,7 @@ https://github.com/layerssss/paste.js
 			var xhr,
 				workflow,
 				src = image.src,
+				sub = src.substr(0,5),
 				upload = function( dataURL ){
 					var type = dataURL.match(/^data\:([^\;]+)\;/)[1],
 						file = new o.Blob( null, { data: dataURL } ),
@@ -487,7 +488,7 @@ https://github.com/layerssss/paste.js
 					});
 				};
 
-			if ( src.substr(0,5) === 'blob:' ) {
+			if ( sub === 'blob:' ) {
 
 				xhr = new XMLHttpRequest();
 				xhr.responseType = 'blob';
@@ -504,7 +505,7 @@ https://github.com/layerssss/paste.js
 				xhr.open( 'GET', src );
 				xhr.send( null );
 
-			} else if ( src.substr(0,5) === 'data:' ) {
+			} else if ( sub === 'data:' ) {
 				upload( src );
 			}
 			return $container;

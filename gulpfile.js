@@ -28,6 +28,8 @@ function do_scss( src ) {
 
 function do_js( src ) {
 	var dir = src.substring( 0, src.lastIndexOf('/') );
+	console.log('./src/js/' + src + '.js');
+	console.log( './js/' + dir );
 	return gulp.src( './src/js/' + src + '.js' )
 		.pipe( sourcemaps.init() )
 		.pipe( gulp.dest( './js/' + dir ) )
@@ -61,13 +63,13 @@ gulp.task('scss', function() {
 
 gulp.task( 'js', function(){
 	return [
+		do_js('admin/mce/the-paste-plugin'),
 		concat_js( [
 			'./src/vendor/layerssss/paste.js/paste.js',
 			'./src/js/admin/the-paste-base.js',
 			'./src/js/admin/the-paste.js',
 			'./src/js/admin/media-view.js'
 		], 'admin/the-paste.js'),
-		do_js('admin/mce/the-paste-plugin.js')
 	]
 } );
 
@@ -84,7 +86,7 @@ try {
 gulp.task('watch', function() {
 	// place code for your default task here
 	gulp.watch('./src/scss/**/*.scss',[ 'scss' ]);
-	gulp.watch('./src/js/**/*.js',[ 'js', 'js-admin' ]);
+	gulp.watch('./src/js/**/*.js',[ 'js' ]);
 });
 
 gulp.task('default', ['build','watch']);

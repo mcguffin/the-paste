@@ -88,6 +88,7 @@ var the_pastePluginCallback;
 		editor
 			.on( 'BeforePastePreProcess', function(e){
 				// remove svg data
+				console.log(e.content);
 				if (  e.content.match( /&lt;svg[\s\S.]*&lt;\/svg&gt;/i ) ) {
 					e.preventDefault();
 					e.content = '';
@@ -97,16 +98,29 @@ var the_pastePluginCallback;
 			} )
 			.on( 'PastePostProcess', function(e){
 				// upload image
-				var $firstChild, $uploadBox;
-
+				var $firstChild, $uploadBox, el;
+				/*
 				if ( thepaste.options.editor.auto_upload ) {
 					$firstChild = $(e.node).children().first();
 					if ( $firstChild.is('img') && canUpload( $firstChild.get(0) ) ) {
-						$uploadBox = thepaste.uploadImage( $firstChild.get(0), editor );
-						$firstChild.remove();
-						$(e.node).append( $uploadBox );
 					}
 				}
+				/*/
+
+				$firstChild = $(e.node).children().first();
+				if ( $firstChild.is('img') ) {
+					el = $firstChild.get(0);
+					console.log( el );
+					el.onload = function(e) {
+						if ( thepaste.options.editor.auto_upload || this.naturalWidth * this.naturalHeight > thepaste.options.editor.force_upload_size ) {
+							$uploadBox = thepaste.uploadImage( $firstChild.get(0), editor );
+							$firstChild.remove();
+							$(e.node).append( $uploadBox );
+						}
+					}
+				}
+
+				//*/
 			})
 			;
 

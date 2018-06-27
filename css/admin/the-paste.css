@@ -50,7 +50,7 @@
 
 .thepaste-pasteboard .injector {
   text-align: center;
-  color: transparent;
+  color: rgba(0, 0, 0, 0);
   font-style: italic;
   position: absolute;
   left: 0;

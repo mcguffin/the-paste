@@ -26,6 +26,7 @@
 			var xhr,
 				workflow,
 				src = image.src,
+				sub = src.substr(0,5),
 				upload = function( dataURL ){
 					var type = dataURL.match(/^data\:([^\;]+)\;/)[1],
 						file = new o.Blob( null, { data: dataURL } ),
@@ -86,7 +87,7 @@
 					});
 				};
 
-			if ( src.substr(0,5) === 'blob:' ) {
+			if ( sub === 'blob:' ) {
 
 				xhr = new XMLHttpRequest();
 				xhr.responseType = 'blob';
@@ -103,7 +104,7 @@
 				xhr.open( 'GET', src );
 				xhr.send( null );
 
-			} else if ( src.substr(0,5) === 'data:' ) {
+			} else if ( sub === 'data:' ) {
 				upload( src );
 			}
 			return $container;

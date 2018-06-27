@@ -1,11 +1,11 @@
 <?php
 
 /*
-Plugin Name: The Paste Pro
-Plugin URI: https://podpirate.org/plugins/the-paste/pro/
+Plugin Name: The Paste
+Plugin URI: https://wordpress.org/plugins/the-paste/
 Description: Paste Images in WordPress from many applications and upload them to the media library.
 Author: Jörn Lund
-Version: 1.0.4
+Version: 1.0.5
 Author URI: https://github.com/mcguffin/
 License: GPL2
 Text Domain: the-paste
