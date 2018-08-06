@@ -72,7 +72,7 @@ class Admin extends Core\Singleton {
 				),
 				'editor'		=> array(
 					'auto_upload'		=> true,
-					'force_upload_size'	=> apply_filters('the_paste_max_embed_imge_size', 512 * 512 );
+					'force_upload_size'	=> apply_filters('the_paste_max_embed_imge_size', 512 * 512 ),
 				),
 				'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 			),
