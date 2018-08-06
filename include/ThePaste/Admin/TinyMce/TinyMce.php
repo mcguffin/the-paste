@@ -118,7 +118,7 @@ abstract class TinyMce extends Core\Singleton {
 
 		// add tinymce plugin parameters
 		if ( $this->plugin_params !== false ) {
-			add_action( 'wp_enqueue_editor' , array( $this , 'mce_localize' ) );
+			add_action( 'wp_enqueue_editor' , array( $this , 'action_enqueue_editor' ) );
 		}
 		if ( $this->mce_settings !== false ) {
 			add_action( 'tiny_mce_before_init' , array( $this , 'tiny_mce_before_init' ) );
@@ -287,12 +287,20 @@ abstract class TinyMce extends Core\Singleton {
 	 *
 	 *	@action wp_enqueue_editor
 	 */
-	public function mce_localize( $to_load ) {
+	public function action_enqueue_editor( $to_load ) {
 		if ( $to_load['tinymce'] ) {
-			$varname = sprintf( 'mce_%s', $this->prefix );
-			$params = json_encode($this->plugin_params );
-			printf( '<script type="text/javascript"> var %s = %s;</script>', $varname, $params );
-    	}
+			add_action( 'admin_footer' , array( $this , 'mce_localize' ) );
+		}
+	}
+	/**
+	 *	print plugin settings
+	 *
+	 *	@action admin_footer
+	 */
+	public function mce_localize( $to_load ) {
+		$varname = sprintf( 'mce_%s', $this->prefix );
+		$params = json_encode($this->plugin_params );
+		printf( '<script type="text/javascript"> var %s = %s;</script>', $varname, $params );
 	}
 
 	/**
