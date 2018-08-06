@@ -668,14 +668,6 @@ https://github.com/layerssss/paste.js
 				}
 			}
 		},
-		thepasteUploaded: function( e ) {
-			this.thepaste.active.grabber.dismiss();
-			this.thepaste.modal.close();
-			this.thepasteClose();
-		},
-		thepasteError: function( e ) {
-			console.log( 'error', e );
-		},
 		thepasteOpen: function( title ) {
 			var self = this;
 
@@ -687,21 +679,18 @@ https://github.com/layerssss/paste.js
 			this.thepaste.modal.open();
 
 			this.thepaste.modal.on( 'close', function() {
-				self.thepasteClose.apply(self);
+				self.thepasteClose();
 				self.thepaste.active.grabber.stopGrabbing();
 			});
 
 			this.thepaste.active.grabber.startGrabbing();
 
-			this.listenTo( this.thepaste.active.grabber.uploader, 'action:uploaded:dataimage', this.thepasteUploaded );
-			this.listenTo( this.thepaste.active.grabber.uploader, 'error:uploaded:dataimage', this.thepasteError );
+			this.listenTo( this.thepaste.active.grabber.uploader, 'action:upload:dataimage', this.thepasteClose );
 		},
 		thepasteClose: function() {
+			this.thepaste.modal.close();
 
-			this.controller.deactivateMode( this.thepaste.active.mode ).activateMode( 'edit' );
-
-			this.stopListening( this.thepaste.active.grabber.uploader, 'action:uploaded:dataimage' );
-			this.stopListening( this.thepaste.active.grabber.uploader, 'error:uploaded:dataimage' );
+			this.stopListening( this.thepaste.active.grabber.uploader, 'action:upload:dataimage' );
 		}
 	});
 
@@ -824,8 +813,8 @@ https://github.com/layerssss/paste.js
 			this.disabled(false);
 			this.unbindUploaderEvents();
 		},
-		_uploadErrorHandler : function() {
-			this.trigger( 'error:uploaded:dataimage' );
+		_uploadErrorHandler : function(up,err) {
+			this.trigger( 'error:uploaded:dataimage', err );
 			this.disabled(false);
 			this.unbindUploaderEvents();
 		},
@@ -853,6 +842,7 @@ https://github.com/layerssss/paste.js
 		render: function() {
 			var self = this;
 			wp.media.View.prototype.render.apply(this,arguments);
+			console.log( this.$( '.injector' ));
 			this.$pasteboard = this.$( '.injector' ).pastableContenteditable();
 			this.$message = this.$( '.message' );
 			this.$pasteboard.on('click', function(){

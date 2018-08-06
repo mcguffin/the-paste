@@ -115,8 +115,8 @@
 			this.disabled(false);
 			this.unbindUploaderEvents();
 		},
-		_uploadErrorHandler : function() {
-			this.trigger( 'error:uploaded:dataimage' );
+		_uploadErrorHandler : function(up,err) {
+			this.trigger( 'error:uploaded:dataimage', err );
 			this.disabled(false);
 			this.unbindUploaderEvents();
 		},
@@ -144,6 +144,7 @@
 		render: function() {
 			var self = this;
 			wp.media.View.prototype.render.apply(this,arguments);
+			console.log( this.$( '.injector' ));
 			this.$pasteboard = this.$( '.injector' ).pastableContenteditable();
 			this.$message = this.$( '.message' );
 			this.$pasteboard.on('click', function(){

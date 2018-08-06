@@ -123,14 +123,6 @@
 				}
 			}
 		},
-		thepasteUploaded: function( e ) {
-			this.thepaste.active.grabber.dismiss();
-			this.thepaste.modal.close();
-			this.thepasteClose();
-		},
-		thepasteError: function( e ) {
-			console.log( 'error', e );
-		},
 		thepasteOpen: function( title ) {
 			var self = this;
 
@@ -142,21 +134,18 @@
 			this.thepaste.modal.open();
 
 			this.thepaste.modal.on( 'close', function() {
-				self.thepasteClose.apply(self);
+				self.thepasteClose();
 				self.thepaste.active.grabber.stopGrabbing();
 			});
 
 			this.thepaste.active.grabber.startGrabbing();
 
-			this.listenTo( this.thepaste.active.grabber.uploader, 'action:uploaded:dataimage', this.thepasteUploaded );
-			this.listenTo( this.thepaste.active.grabber.uploader, 'error:uploaded:dataimage', this.thepasteError );
+			this.listenTo( this.thepaste.active.grabber.uploader, 'action:upload:dataimage', this.thepasteClose );
 		},
 		thepasteClose: function() {
+			this.thepaste.modal.close();
 
-			this.controller.deactivateMode( this.thepaste.active.mode ).activateMode( 'edit' );
-
-			this.stopListening( this.thepaste.active.grabber.uploader, 'action:uploaded:dataimage' );
-			this.stopListening( this.thepaste.active.grabber.uploader, 'error:uploaded:dataimage' );
+			this.stopListening( this.thepaste.active.grabber.uploader, 'action:upload:dataimage' );
 		}
 	});
 
