@@ -10,6 +10,7 @@ Author URI: https://github.com/mcguffin/
 License: GPL2
 Text Domain: the-paste
 Domain Path: /languages
+Github Repository: mcguffin/the-paste
 */
 
 
