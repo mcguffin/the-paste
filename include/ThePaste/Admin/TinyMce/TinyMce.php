@@ -2,6 +2,7 @@
 
 namespace ThePaste\Admin\TinyMce;
 
+use ThePaste\Asset;
 use ThePaste\Core;
 
 
@@ -89,6 +90,10 @@ abstract class TinyMce extends Core\Singleton {
 	protected function __construct() {
 
 		$this->core = Core\Core::instance();
+
+		$this->plugin_js = Asset\Asset::get( 'js/admin/mce/' . $this->module_name . '-plugin.js' );
+		$this->editor_css = Asset\Asset::get( 'css/admin/mce/' . $this->module_name . '-editor.css' );
+		$this->toolbar_css = Asset\Asset::get( 'css/admin/mce/' . $this->module_name . '-toolbar.css' );
 
 		if ( is_null( $this->module_name ) ) {
 			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
@@ -215,7 +220,7 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	public function add_plugin( $plugins_array ) {
 		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-		$plugins_array[ $this->prefix ] = $this->core->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin'.$suffix.'.js' );
+		$plugins_array[ $this->prefix ] = $this->plugin_js->url;//->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin.js' );
 		return $plugins_array;
 	}
 
@@ -254,7 +259,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@return string URL to editor css
 	 */
 	 protected function get_toolbar_css_url() {
- 		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar.css' );
+ 		return $this->toolbar_css->url;// $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar.css' );
  	}
 
 	/**
@@ -271,6 +276,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@return string URL to editor css
 	 */
 	protected function get_mce_css_url() {
+		return $this->editor_css->url;//
 		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-editor.css' );
 	}
 	/**

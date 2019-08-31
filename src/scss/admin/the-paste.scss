@@ -5,6 +5,9 @@
 
 */
 
+@import "mixins/index";
+@import "variables/index";
+
 .thepaste-grabber {
 	height: 100%;
 	padding-top: 50px;
@@ -92,7 +95,7 @@
 		line-height: 28px;
 		font-weight: 400;
 		margin-bottom: 0.5em;
-		text-align:center;		
+		text-align:center;
 	}
 	.instructions {
 		bottom:55%;
@@ -151,18 +154,18 @@
 }
 
 // .wp-core-ui {
-// 
-// 
+//
+//
 // 	.recorder .instruments {
 // 		background:transparent;
 // 		border-style:none;
 // 	}
 // }
-// 
+//
 // div.webcam-recorder {
 // 	height:100%;
 // }
-// 
+//
 // .recorder,
 // .data-source-image {
 // 	margin:0 auto;
@@ -170,28 +173,28 @@
 // }
 // .recorder {
 // }
-// 
+//
 // .data-source-image {
 // 	canvas {
 // 		max-width:100%;
 // 	}
 // }
-// 
+//
 // .webcam-recorder .data-source-image,
 // .recorder {
 // 	max-width:100%;
 // }
-// 
+//
 // #pasteboard-injector {
-// 
+//
 // }
-// 
+//
 // .image-grabber {
 // 	height: 100%;
 // 	padding-top: 50px;
 // 	box-sizing: border-box;
 // 	overflow:auto;
-// 
+//
 // 	.media-frame-title {
 // 		left:0;
 // 	}
@@ -205,14 +208,14 @@
 // 		position:relative;
 // 	}
 // }
-// 
+//
 // .media-frame-content .image-grabber {
 // 	padding-top: 0;
 // 	.media-frame-title {
 // 		display: none;
 // 	}
 // }
-// 
+//
 // .recorder-inline-content {
 //     position: absolute;
 //     top: 30%;
@@ -226,7 +229,7 @@
 // 		text-align:center;
 // 	}
 // 	&:focus {
-// 		outline:box-shadow 0 0 10px 
+// 		outline:box-shadow 0 0 10px
 // 	}
 // 	text-align:center;
 // }

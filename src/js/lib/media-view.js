@@ -244,7 +244,7 @@
 		},
 		render:function(){
 			var self = this;
-
+console.log(wp.media.View.prototype.render,this,arguments);
 			wp.media.View.prototype.render.apply( this, arguments );
 
 			this.$('.content')

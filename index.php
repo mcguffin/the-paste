@@ -2,36 +2,54 @@
 
 /*
 Plugin Name: The Paste
-Plugin URI: https://wordpress.org/plugins/the-paste/
-Description: Paste Images in WordPress from many applications and upload them to the media library.
+Plugin URI: http://wordpress.org/
+Description: Enter description here.
 Author: Jörn Lund
-Version: 1.0.6
-Author URI: https://github.com/mcguffin/
-License: GPL2
-Text Domain: the-paste
-Domain Path: /languages
+Version: 0.0.1
+Author URI: https://github.com/mcguffin
+License: GPL3
 Github Repository: mcguffin/the-paste
+GitHub Plugin URI: https://github.com/mcguffin/the-paste
+Requires WP: 4.8
+Requires PHP: 5.6
+Text Domain: the-paste
+Domain Path: /languages/
+*/
+
+/*  Copyright 2019 Jörn Lund
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+/*
+Plugin was generated with Jörn Lund's WP Skelton
+https://github.com/mcguffin/wp-skeleton
 */
 
 
 namespace ThePaste;
 
-define( 'THE_PASTE_FILE', __FILE__ );
-define( 'THE_PASTE_VERSION', '1.0.4' );
-define( 'THE_PASTE_DIRECTORY', plugin_dir_path(__FILE__) );
-
-
-
-require_once THE_PASTE_DIRECTORY . 'include/vendor/autoload.php';
-
-if ( file_exists( THE_PASTE_DIRECTORY . 'pro/pro.php' ) ) {
-	require_once THE_PASTE_DIRECTORY . 'pro/pro.php';
+if ( ! defined('ABSPATH') ) {
+	die('FU!');
 }
 
-Core\Core::instance();
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
+
+Core\Core::instance( __FILE__ );
 
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
-
 	Admin\Admin::instance();
-
 }
+

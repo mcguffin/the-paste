@@ -1,7 +1,6 @@
+@import "mixins/index";
+@import "variables/index";
 
-@import '../../variables/variables';
-
-@import '../../mixins/mixins';
 
 .mce-i-thepaste:before {
 	content: $dashicon-upload; /* https://developer.wordpress.org/resource/dashicons/ */

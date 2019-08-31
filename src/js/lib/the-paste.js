@@ -32,7 +32,7 @@
 		},
 
 		bindPasteHandlers: function() {
-			var previousContent = false;
+			var previousContent = false, frame;
 
 			// dismiss content on close
 			this.on( 'content:render close' , function(content){
