@@ -1,6 +1,6 @@
 {
   "name": "the-paste",
-  "version": "0.0.1",
+  "version": "1.0.6",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
@@ -25,5 +25,28 @@
     "gulp-sourcemaps": "^1.12.0",
     "gulp-uglify": "^2.1.2",
     "gulp-util": "^3.0.8"
+  },
+  "wporg": {
+    "steps": [
+      "build",
+      "git",
+      "github",
+      "wporg"
+    ],
+    "type": "plugin",
+    "build": {
+      "prebuild": [
+        "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp"
+      ],
+      "build": []
+    },
+    "git": {
+      "host": "github.com",
+      "user": "mcguffin"
+    },
+    "wporg": {
+      "assets": ".wporg",
+      "svn": "https://plugins.svn.wordpress.org/the-paste/"
+    }
   }
 }
