@@ -2,18 +2,14 @@
 
 /*
 Plugin Name: The Paste
-Plugin URI: http://wordpress.org/
-Description: Enter description here.
+Plugin URI: https://wordpress.org/plugins/the-paste/
+Description: Paste Images in WordPress from many applications and upload them to the media library.
 Author: Jörn Lund
-Version: 0.0.1
-Author URI: https://github.com/mcguffin
-License: GPL3
-Github Repository: mcguffin/the-paste
-GitHub Plugin URI: https://github.com/mcguffin/the-paste
-Requires WP: 4.8
-Requires PHP: 5.6
+Version: 1.0.6
+Author URI: https://github.com/mcguffin/
+License: GPL2
 Text Domain: the-paste
-Domain Path: /languages/
+Domain Path: /languages
 */
 
 /*  Copyright 2019 Jörn Lund
@@ -52,4 +48,3 @@ Core\Core::instance( __FILE__ );
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\Admin::instance();
 }
-

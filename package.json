@@ -16,7 +16,7 @@
     "url": "git+https://github.com/mcguffin/the-paste.git"
   },
   "author": "Jörn Lund",
-  "license": "ISC",
+  "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/mcguffin/the-paste/issues"
   },
