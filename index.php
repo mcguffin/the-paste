@@ -5,7 +5,7 @@ Plugin Name: The Paste
 Plugin URI: http://wordpress.org/
 Description: Enter description here.
 Author: Jörn Lund
-Version: 0.0.1
+Version: 1.0.6
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/the-paste

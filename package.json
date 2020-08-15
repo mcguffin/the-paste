@@ -95,6 +95,7 @@
     ],
     "type": "plugin",
     "build": {
+      "versionedFiles": null,
       "prebuild": [
         "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp"
       ],
