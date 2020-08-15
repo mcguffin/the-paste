@@ -3,7 +3,7 @@
 /*
 Plugin Name: The Paste
 Plugin URI: http://wordpress.org/
-Description: Enter description here.
+Description: Paste Images in WordPress from many applications and upload them to the media library.
 Author: Jörn Lund
 Version: 1.0.6
 Author URI: https://github.com/mcguffin
@@ -52,4 +52,3 @@ Core\Core::instance( __FILE__ );
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\Admin::instance();
 }
-
