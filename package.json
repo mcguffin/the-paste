@@ -1,6 +1,6 @@
 {
   "name": "the-paste",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
@@ -96,6 +96,7 @@
     ],
     "type": "plugin",
     "build": {
+      "versionedFiles": null,
       "prebuild": [
         "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp"
       ],

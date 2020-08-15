@@ -5,7 +5,7 @@ Plugin Name: The Paste
 Plugin URI: http://wordpress.org/
 Description: Paste Images in WordPress from many applications and upload them to the media library.
 Author: Jörn Lund
-Version: 1.0.6
+Version: 1.0.7
 Author URI: https://github.com/mcguffin
 License: GPL3
 Github Repository: mcguffin/the-paste
