@@ -8,8 +8,6 @@ Author: Jörn Lund
 Version: 1.0.7
 Author URI: https://github.com/mcguffin
 License: GPL3
-Github Repository: mcguffin/the-paste
-GitHub Plugin URI: https://github.com/mcguffin/the-paste
 Requires WP: 4.8
 Requires PHP: 5.6
 Text Domain: the-paste
