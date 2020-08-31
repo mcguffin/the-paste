@@ -42,7 +42,7 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 
 == Changelog ==
 
-= 1.0.5 =
+= 1.0.7 =
 * Fix auto upload large images
 
 = 1.0.5 =
