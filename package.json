@@ -9,7 +9,8 @@
     "test": "node ./src/run/test.js",
     "dev-test": "./src/run/dev-test.sh",
     "dashicons": "node ./src/run/dashicons.js",
-    "rollback": "git reset --hard HEAD~ && git push origin +master"
+    "rollback": "git reset --hard HEAD~ && git push origin +master",
+    "ver": "echo \"<?php return $(jq .version < ./package.json);\" > include/version.php"
   },
   "repository": {
     "type": "git",
@@ -100,7 +101,9 @@
       "prebuild": [
         "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp"
       ],
-      "build": []
+      "build": [
+        "npm run ver"
+      ]
     },
     "git": {
       "host": "github.com",
