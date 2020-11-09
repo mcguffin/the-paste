@@ -1,10 +1,10 @@
 {
   "name": "the-paste",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
-    "i18n": "wp i18n make-pot . languages/acf-duplicate-repeater.pot --domain=acf-duplicate-repeater --exclude=tmp/*",
+    "i18n": "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp/*",
     "dev": "gulp dev",
     "test": "node ./src/run/test.js",
     "dev-test": "./src/run/dev-test.sh",
@@ -58,7 +58,7 @@
     "> 0.25%",
     "IE 10"
   ],
-  "wpPlugin": {
+  "wpSkeleton": {
     "components": {
       "core": {
         "components": [],
@@ -84,7 +84,8 @@
     "namespace": "ThePaste",
     "author": "Jörn Lund",
     "author_uri": "https://github.com/mcguffin",
-    "year": 2019
+    "year": 2019,
+    "type": "plugin"
   },
   "wporg": {
     "steps": [
@@ -95,6 +96,7 @@
     ],
     "type": "plugin",
     "build": {
+      "versionedFiles": null,
       "prebuild": [
         "wp i18n make-pot . languages/the-paste.pot --domain=the-paste --exclude=tmp"
       ],
@@ -106,6 +108,7 @@
     },
     "wporg": {
       "assets": ".wporg",
+      "svn_user": "podpirate",
       "svn": "https://plugins.svn.wordpress.org/the-paste/"
     }
   }

@@ -2,12 +2,14 @@
 
 /*
 Plugin Name: The Paste
-Plugin URI: https://wordpress.org/plugins/the-paste/
+Plugin URI: http://wordpress.org/
 Description: Paste Images in WordPress from many applications and upload them to the media library.
 Author: Jörn Lund
-Version: 1.0.6
-Author URI: https://github.com/mcguffin/
-License: GPL2
+Version: 1.0.7
+Author URI: https://github.com/mcguffin
+License: GPL3
+Requires WP: 4.8
+Requires PHP: 5.6
 Text Domain: the-paste
 Domain Path: /languages
 */

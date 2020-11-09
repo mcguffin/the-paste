@@ -110,7 +110,8 @@ var the_pastePluginCallback;
 				if ( $firstChild.is('img') ) {
 					el = $firstChild.get(0);
 					el.onload = function(e) {
-						if ( thepaste.options.editor.auto_upload || this.naturalWidth * this.naturalHeight > thepaste.options.editor.force_upload_size ) {
+
+						if ( thepaste.options.editor.auto_upload || (this.naturalWidth * this.naturalHeight) > thepaste.options.editor.force_upload_size ) {
 							$uploadBox = thepaste.uploadImage( $firstChild.get(0), editor );
 							$firstChild.remove();
 							$(e.node).append( $uploadBox );

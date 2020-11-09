@@ -4,8 +4,9 @@ The Paste ToDo
  - [x] Better filenames: 'Pasted into %post_title%', "Pasted %now%"
  - [x] Maybe Make it work in TextWidgets
  - [ ] Introduce filename filter using placeholders. (related to #2)
- - [ ] rm `layerssss/paste.js`
+ - [x] rm `layerssss/paste.js`
  - [ ] ESNext
- - [ ] wp.media.pasteboard: insert into post
- - [ ] Blocks
-     - [ ] Paste into image element & gallery element
+ - [x] wp.media.pasteboard: insert into post
+ - [ ] Block Editor
+     - [ ] Let user decide whether to upload pasted 
+     - [ ] Paste into gallery block
