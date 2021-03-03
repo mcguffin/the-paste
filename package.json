@@ -1,6 +1,6 @@
 {
   "name": "the-paste",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "dev-test": "./src/run/dev-test.sh",
     "dashicons": "node ./src/run/dashicons.js",
     "rollback": "git reset --hard HEAD~ && git push origin +master",
-    "ver": "echo \"<?php return $(jq .version < ./package.json);\" > include/version.php"
+    "ver": "echo \"<?php return $(jq .version < ./package.json);\" > include/version.php",
+    "build": "gulp build && npm run ver && (cd ..; rm - /tmp/the-paste.zip; zip -r /tmp/the-paste.zip the-paste -x '*node_modules*' '*.git*')"
   },
   "repository": {
     "type": "git",
@@ -48,16 +49,16 @@
     "jquery": "global:jQuery"
   },
   "dependencies": {
-    "jquery": "^1.12.4"
+    "jquery": "^3.6.0"
   },
   "engines": {
-    "node": "12.4.0",
-    "npm": "^6.9.0"
+    "node": "14.15.5",
+    "npm": "^6.14.11"
   },
   "browserslist": [
-    "last 3 versions",
-    "> 0.25%",
-    "IE 10"
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
   ],
   "wpSkeleton": {
     "components": {

@@ -2,6 +2,10 @@
 /tmp
 /tests/bin/tmp
 
+include/version.php
+css
+js
+
 # Numerous always-ignore extensions
 .diff
 .err
