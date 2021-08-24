@@ -67,7 +67,7 @@ class Admin extends Core\Singleton {
 					'paste_error'					=> __( 'Error pasting image data.', 'the-paste' ),
 					'upload_pasted_images'			=> __( 'Upload pasted images', 'the-paste' ),
 					'upload_image'					=> __( 'Upload image', 'the-paste' ),
-
+					'too_big_to_paste'				=> __( 'Sorry, this image is too big to pasted.', 'the-paste' ),
 				),
 				'options'	=> array(
 					'mime_types'	=> array(
@@ -84,6 +84,7 @@ class Admin extends Core\Singleton {
 						),
 					),
 					'editor'		=> array(
+						'can_upload'		=> current_user_can( 'upload_files' ),
 						'auto_upload'		=> true,
 						'force_upload_size'	=> apply_filters('the_paste_max_embed_imge_size', 512 * 512 ),
 					),

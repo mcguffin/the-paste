@@ -23,8 +23,15 @@ class Core extends Plugin implements CoreInterface {
 
 		add_action( 'wp_enqueue_scripts' , array( $this , 'enqueue_assets' ) );
 
+		add_filter( 'kses_allowed_protocols', [ $this, 'add_data_protocol' ] );
+
 		$args = func_get_args();
 		parent::__construct( ...$args );
+	}
+
+	public function add_data_protocol( $protocols ) {
+		$protocols[] = 'data';
+		return $protocols;
 	}
 
 	/**
