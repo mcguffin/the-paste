@@ -73,7 +73,7 @@
 			this.$imageContainer = this.$('.image-container');
 			this.$discardBtn = this.$('[data-action="discard"]');
 			this.$uploadBtn = this.$('[data-action="upload"]');
-			this.$('[data-setting="title"]').val( this.options.defaultFileName );
+			this.$('[data-setting="title"]').val( thepaste.getFilename() );
 			return this;
 		},
 		discardImage : function(){
@@ -222,7 +222,7 @@
 
 			_.defaults( this.options, {
 				wpuploader		: null,
-				defaultFileName	: l10n.pasted,
+				defaultFileName	: this.options.default_filename,
 				defaultFileFormat : 'image/png',
 				title			: l10n.copy_paste
 			});
@@ -244,7 +244,7 @@
 		},
 		render:function(){
 			var self = this;
-console.log(wp.media.View.prototype.render,this,arguments);
+
 			wp.media.View.prototype.render.apply( this, arguments );
 
 			this.$('.content')

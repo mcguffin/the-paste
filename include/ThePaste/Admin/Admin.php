@@ -89,6 +89,26 @@ class Admin extends Core\Singleton {
 						'force_upload_size'	=> apply_filters('the_paste_max_embed_imge_size', 512 * 512 ),
 					),
 					'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
+					/**
+					 *	Filters the default filename
+					 *
+					 *	@param String $filename	The Filename. There are some placeholders:
+					 *							Placeholders:
+					 *								<postname> Name of current post
+					 *								<username> Name of current user
+					 *							Date and Time placeholders (a subset of php's strftime() format characters):
+					 *								%Y Four-digit year
+					 *								%y Two-digit year
+					 *								%m Number of month with leading zero (01 to 12)
+					 *								%d Day of month with leading zero (01 to 31)
+					 *								%e Day of month (1 to 31)
+					 *								%H Two digit hour in 24-hour format
+					 *								%I Two digit hour in 12-hour format
+					 *								%M Two digit minute
+					 *								%S Two digit minute
+					 *								%s Unix timestamp
+					 */
+					'default_filename'				=> apply_filters( 'the_paste_default_filename', __( 'Pasted', 'the-paste' ) ),
 				),
 			), 'thepaste' )
 			->register();

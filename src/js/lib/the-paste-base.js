@@ -4,6 +4,10 @@
 		counter = 0,
 		workflow;
 
+	function zerofill(n) {
+		return ('00' + n.toString()).substr(-2)
+	}
+
 	thepaste = exports.thepaste = $.extend( {
 		supports : {
 			paste: ( ('paste' in document) || ('onpaste' in document) || typeof(window.onpaste) === 'object' || ( 'onpaste' in document.createElement('DIV') ) ), // browser
@@ -30,18 +34,12 @@
 				upload = function( dataURL ){
 					var type = dataURL.match(/^data\:([^\;]+)\;/)[1],
 						file = new o.Blob( null, { data: dataURL } ),
-						suffix = thepaste.options.mime_types.convert[ type ],
-						postname = $('#post [name="post_title"]#title').val();
+						suffix = thepaste.options.mime_types.convert[ type ];
 					if ( 'undefined' === typeof suffix ) {
 						console.trace( 'Won\'t upload, bad mime type: ' + type );
 					}
 
-					if ( 'undefined' !== typeof postname ) {
-						postname = postname.replace(/([\^\!\?<>:"'\/\|\*§])/g,'').replace(/ +/g,' ');
-						file.name = thepaste.l10n.pasted_into + ' ' + postname + '.' + suffix;
-					} else {
-						file.name = thepaste.l10n.pasted + '.' + suffix;
-					}
+					file.name = thepaste.getFilename(suffix)
 					file.type = type;
 
 					var addFile = function(){
@@ -108,6 +106,43 @@
 				upload( src );
 			}
 			return $container;
+		},
+
+		getFilename: function( suffix ) {
+			var name = thepaste.options.default_filename,
+				now = new Date(),
+				p,
+				postname = $('#post [name="post_title"]#title').val(),
+				username = $('.display-name:first').text(),
+				map = [
+					{ s: '%Y', r: now.getFullYear() },
+					{ s: '%y', r: now.getFullYear() % 100 },
+					{ s: '%m', r: zerofill(now.getMonth() + 1) },
+					{ s: '%d', r: zerofill(now.getDate()) },
+					{ s: '%e', r: now.getDate() },
+					{ s: '%H', r: zerofill(now.getHours()) },
+					{ s: '%I', r: zerofill(now.getHours() % 12 ) },
+					{ s: '%M', r: zerofill(now.getMinutes()) },
+					{ s: '%S', r: zerofill(now.getSeconds()) },
+					{ s: '%s', r: Math.floor( now.getTime() / 1000 ) }
+				];
+			if ( 'undefined' !== typeof postname ) {
+				map.push( { s: '<postname>', r: postname } );
+			} else {
+				map.push( { s: '<postname>', r: '' } );
+			}
+			if ( 'undefined' !== typeof username ) {
+				map.push( { s: '<username>', r: username } );
+			} else {
+				map.push( { s: '<username>', r: '' } );
+			}
+			map.forEach(function(el){
+				name = name.replace( el.s, el.r )
+			})
+			if ( 'string' === typeof suffix) {
+				name += '.' + suffix;
+			}
+			return name;
 		},
 
 		/**
