@@ -11,7 +11,7 @@ License: GPL3
 Requires WP: 4.8
 Requires PHP: 5.6
 Text Domain: the-paste
-Domain Path: /languages/
+Domain Path: /languages
 */
 
 /*  Copyright 2019 Jörn Lund
