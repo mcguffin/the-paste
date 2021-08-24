@@ -86,7 +86,14 @@ class Admin extends Core\Singleton {
 					'editor'		=> array(
 						'can_upload'		=> current_user_can( 'upload_files' ),
 						'auto_upload'		=> true,
-						'force_upload_size'	=> apply_filters('the_paste_max_embed_imge_size', 512 * 512 ),
+						/**
+						 *	Filters the default filename
+						 *
+						 *	@param Int $size	Max image size in pixels (width * height) being pasted as data url
+						 */
+						'force_upload_size'	=> apply_filters('the_paste_max_embed_image_size',
+							apply_filters('the_paste_max_embed_imge_size', 512 * 512 ) // backwards compatibility
+						),
 					),
 					'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 					/**
@@ -105,7 +112,7 @@ class Admin extends Core\Singleton {
 					 *								%H Two digit hour in 24-hour format
 					 *								%I Two digit hour in 12-hour format
 					 *								%M Two digit minute
-					 *								%S Two digit minute
+					 *								%S Two digit second
 					 *								%s Unix timestamp
 					 */
 					'default_filename'				=> apply_filters( 'the_paste_default_filename', __( 'Pasted', 'the-paste' ) ),
