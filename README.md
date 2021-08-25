@@ -31,7 +31,7 @@ Applications tested so far:
 | Mac Preview           | OK             | OK         | OK              |
 | Mac Photos App        | OK             | OK         | OK              |
 | QuickTime Player      | OK             | OK         | OK              |
-| Photoshop CC (2017)   | OK             | OK         | OK              |
+| Photoshop CC (2021)   | OK             | OK         | OK              |
 | Illustrator CC (2021) | -              | OK         | - <sup>1)</sup> |
 | A Webpage             | OK             | OK         | -               |
 | MS Word Mac           | -              | OK         | OK              |
