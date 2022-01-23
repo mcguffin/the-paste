@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8NKC6TCASUXE
 Tags: paste, clipboard, image, editor, media
 Requires at least: 4.5.0
-Tested up to: 5.8
+Tested up to: 5.9
 Requires PHP: 5.6.0
 Stable tag: 1.1.0
 License: GPLv2 or later
