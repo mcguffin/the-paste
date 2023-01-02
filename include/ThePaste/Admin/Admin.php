@@ -126,8 +126,12 @@ class Admin extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function enqueue_assets() {
-		$this->css->enqueue();
-		$this->js->enqueue();
+        if ($this && $this->css) {
+            $this->css->enqueue();
+        }
+        if ($this && $this->js) {
+            $this->js->enqueue();
+        }
 	}
 
 	/**
