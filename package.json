@@ -23,36 +23,33 @@
   },
   "homepage": "https://github.com/mcguffin/the-paste#readme",
   "devDependencies": {
-    "@babel/core": "^7.5.4",
-    "@babel/plugin-proposal-class-properties": "^7.5.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
-    "@babel/plugin-transform-react-jsx": "^7.3.0",
-    "@babel/preset-env": "^7.5.4",
-    "babelify": "^10.0.0",
-    "browserify": "^16.3.0",
-    "browserify-shim": "^3.8.14",
-    "event-stream": "^4.0.1",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "gulp-util": "^3.0.8",
-    "paste.js": "github:layerssss/paste.js",
-    "sass": "^1.38.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
+    "@babel/core": "*",
+    "@babel/plugin-proposal-object-rest-spread": "*",
+    "@babel/preset-env": "*",
+    "babelify": "*",
+    "bootstrap": "*",
+    "browserify": "*",
+    "browserify-shim": "*",
+    "event-stream": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-jsonlint": "*",
+    "gulp-sass": "*",
+    "gulp-sourcemaps": "*",
+    "sass": "*",
+    "tinyify": "*",
+    "vinyl-buffer": "*",
+    "vinyl-source-stream": "*"
   },
   "browserify-shim": {
-    "jquery": "global:jQuery"
+    "jquery": "global:jQuery",
+    "backbone": "global:Backbone"
   },
   "engines": {},
   "browserslist": [
-    "last 3 versions",
-    "> 0.25%",
-    "IE 10"
+    ">0.2%",
+    "not dead",
+    "not op_mini all"
   ],
   "wpSkeleton": {
     "components": {
