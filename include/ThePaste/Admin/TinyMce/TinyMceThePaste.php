@@ -31,15 +31,10 @@ class TinyMceThePaste extends TinyMce {
 	/**
 	 *	@inheritdoc
 	 */
-	protected $text_widget = true;
-
-	/**
-	 *	@inheritdoc
-	 */
 	protected function __construct() {
 		$this->plugin_params = array();
 		$this->mce_settings =  array(
-			'paste_data_images'			=> true,
+			'paste_data_images' => true,
 		);
 		parent::__construct();
 	}

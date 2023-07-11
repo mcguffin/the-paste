@@ -51,12 +51,6 @@ abstract class TinyMce extends Core\Singleton {
 	protected $toolbar_css = false;
 
 	/**
-	 *	Load custom css for toolbar.
-	 *	boolean
-	 */
-	protected $text_widget = false;
-
-	/**
 	 *	Load custom css for editor.
 	 *	boolean
 	 */
@@ -89,15 +83,15 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	protected function __construct() {
 
+		if ( is_null( $this->module_name ) ) {
+			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
+		}
+
 		$this->core = Core\Core::instance();
 
 		$this->plugin_js = Asset\Asset::get( 'js/admin/mce/' . $this->module_name . '-plugin.js' );
 		$this->editor_css = Asset\Asset::get( 'css/admin/mce/' . $this->module_name . '-editor.css' );
 		$this->toolbar_css = Asset\Asset::get( 'css/admin/mce/' . $this->module_name . '-toolbar.css' );
-
-		if ( is_null( $this->module_name ) ) {
-			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
-		}
 
 		$this->prefix = str_replace( '-', '_', $this->module_name );
 
@@ -136,13 +130,6 @@ abstract class TinyMce extends Core\Singleton {
 			add_action( "admin_print_scripts", array( $this, 'enqueue_toolbar_css') );
 		}
 
-		if ( $this->text_widget !== false ) {
-			// looks like it will only works with widget?
-			add_action( 'print_default_editor_scripts', array( $this, 'print_editor_scripts' ) );
-			if ( $this->toolbar_css ) {
-				add_action( 'load-widgets.php', array( $this,'enqueue_toolbar_css' ) );
-			}
-		}
 		// will only work with default editor
 		add_filter( 'mce_external_plugins', array( $this, 'add_plugin' ) );
 
@@ -151,75 +138,12 @@ abstract class TinyMce extends Core\Singleton {
 	}
 
 	/**
-	 *	@action print_default_editor_scripts
-	 */
-	public function print_editor_scripts() {
-
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
-
-		$js_settings = array() + $this->mce_settings;
-
-		// add editor css
-		if ( $this->editor_css ) {
-			$js_settings = wp_parse_args( $js_settings, array(
-				'content_css'	=> $this->get_mce_css_url(),
-			) );
-		}
-
-		// add buttons
-		foreach ( $this->editor_buttons as $row => $btns ) {
-
-			$toolbar_idx = preg_replace('/([^0-9]+)/imsU','', $row );
-
-			if ( ! $btns ) {
-				continue;
-			}
-
-			$js_settings[ 'toolbar' . $toolbar_idx ] = implode( ',', array_keys($btns) );
-		}
-
-		// add plugin
-		$js_settings['external_plugins'] = $this->add_plugin( array() );
-
-		?>
-<script type="text/javascript">
-/* TinyMCE plugin <?php echo $this->module_name ?> */
-// extend wp editor settings
-(function($){
-	var orig = window.wp.editor.getDefaultSettings;
-	window.wp.editor.getDefaultSettings = function() {
-		var settings = orig.apply( this, arguments ),
-			mergeSettings = <?php echo json_encode( $js_settings ); ?>;
-		$.each( mergeSettings, function(i,el) {
-			var type,
-				override = ['entity_encoding', 'language', 'resize', 'skin', 'theme','wp_lang_attr'];
-			if ( ! ( i in settings.tinymce ) || (i in override) || 'booelan' === typeof settings.tinymce[i] ) {
-				settings.tinymce[i] = el;
-			} else {
-				type = typeof settings.tinymce[i];
-				if ( 'string' === type ) {
-					settings.tinymce[i] += ',' + el;
-				} else if ( 'object' === type ) {
-					settings.tinymce[i] = $.extend( true, settings.tinymce[i], el );
-				}
-			}
-		});
-		return settings;
-	}
-})(jQuery);
-/* END: TinyMCE plugin <?php echo $this->module_name ?> */
-
-</script>
-		<?php
-	}
-
-	/**
 	 *	Add MCE plugin
 	 *
 	 *	@filter mce_external_plugins
 	 */
 	public function add_plugin( $plugins_array ) {
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
+
 		$plugins_array[ $this->prefix ] = $this->plugin_js->url;//->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin.js' );
 		return $plugins_array;
 	}
@@ -250,7 +174,6 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function enqueue_toolbar_css() {
-		$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min';
 		$asset_id = sprintf( 'tinymce-%s-toolbar-css', $this->module_name );
 		wp_enqueue_style( $asset_id, $this->get_toolbar_css_url() );
 	}
