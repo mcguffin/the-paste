@@ -49,4 +49,5 @@ Core\Core::instance( __FILE__ );
 
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 	Admin\Admin::instance();
+	Admin\User::instance();
 }
