@@ -7,9 +7,6 @@
 
 namespace ThePaste\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
 use ThePaste\Asset;
 
 class Core extends Plugin implements CoreInterface {

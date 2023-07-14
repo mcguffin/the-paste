@@ -7,10 +7,6 @@
 
 namespace ThePaste\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 class Plugin extends Singleton implements ComponentInterface {
 
 	/** @var string plugin main file */

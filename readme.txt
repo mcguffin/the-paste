@@ -43,7 +43,8 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 == Changelog ==
 
 = 1.1.1 =
-* Make pasting into tinyMCE optional. (Fixes unpredictable cursor position during file drop)
+* Feature: Make pasting into tinyMCE optional. (Fixes unpredictable cursor position during file drop)
+* Fix: php 8.2 deprecation warnings
 
 = 1.1.0 =
 * Fix: PHP 8 warning

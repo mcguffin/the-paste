@@ -7,10 +7,6 @@
 
 namespace ThePaste\Admin;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 use ThePaste\Asset;
 use ThePaste\Core;
 
