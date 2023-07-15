@@ -1,7 +1,6 @@
 (function( $, exports, o ) {
 
-	var is_chrome	= navigator.userAgent.indexOf('Chrome') > -1,
-		counter = 0,
+	var counter = 0,
 		workflow;
 
 	function zerofill(n) {

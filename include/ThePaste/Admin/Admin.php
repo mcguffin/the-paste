@@ -14,7 +14,6 @@ if ( ! defined('ABSPATH') ) {
 use ThePaste\Asset;
 use ThePaste\Core;
 
-
 class Admin extends Core\Singleton {
 
 	private $core;
@@ -57,17 +56,18 @@ class Admin extends Core\Singleton {
 			->deps( array( 'jquery', 'media-editor' ) )
 			->localize( array(
 				'l10n' => array(
-					'snapshot' 						=> __( 'Snapshot','the-paste' ),
-					'take_snapshot' 				=> __( 'Take Snapshot','the-paste' ),
-					'copy_paste' 					=> __( 'Copy & Paste', 'the-paste' ),
-					'pasted' 						=> __( 'Pasted', 'the-paste' ),
-					'pasted_into'					=> __( 'Pasted into', 'the-paste' ),
-					'image' 						=> __( 'Image', 'the-paste' ),
-					'paste_error_no_image' 			=> __( 'No image data pasted.', 'the-paste' ),
-					'paste_error'					=> __( 'Error pasting image data.', 'the-paste' ),
-					'upload_pasted_images'			=> __( 'Upload pasted images', 'the-paste' ),
-					'upload_image'					=> __( 'Upload image', 'the-paste' ),
-					'too_big_to_paste'				=> __( 'Sorry, this image is too big to pasted.', 'the-paste' ),
+					'snapshot' 				=> __( 'Snapshot','the-paste' ),
+					'take_snapshot' 		=> __( 'Take Snapshot','the-paste' ),
+					'copy_paste' 			=> __( 'Copy & Paste', 'the-paste' ),
+					'pasted' 				=> __( 'Pasted', 'the-paste' ),
+					'pasted_into'			=> __( 'Pasted into', 'the-paste' ),
+					'image' 				=> __( 'Image', 'the-paste' ),
+					'paste_error_no_image' 	=> __( 'No image data pasted.', 'the-paste' ),
+					'paste_error'			=> __( 'Error pasting image data.', 'the-paste' ),
+					'upload_pasted_images'	=> __( 'Upload pasted images', 'the-paste' ),
+					'upload_image'			=> __( 'Upload image', 'the-paste' ),
+					'too_big_to_paste'		=> __( 'Sorry, this image is too big to pasted.', 'the-paste' ),
+					'the_paste'				=> __( 'The Paste', 'plugin name', 'the-paste' ),
 				),
 				'options'	=> array(
 					'mime_types'	=> array(
@@ -84,8 +84,8 @@ class Admin extends Core\Singleton {
 						),
 					),
 					'editor'		=> array(
-						'can_upload'		=> current_user_can( 'upload_files' ),
-						'auto_upload'		=> true,
+						'can_upload'   => current_user_can( 'upload_files' ),
+						'auto_upload'  => true,
 						/**
 						 *	Filters the default filename
 						 *

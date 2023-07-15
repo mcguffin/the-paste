@@ -2,9 +2,9 @@
 Contributors: podpirate
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8NKC6TCASUXE
 Tags: paste, clipboard, image, editor, media
-Requires at least: 4.5.0
-Tested up to: 5.9
-Requires PHP: 5.6.0
+Requires at least: 5.0.0
+Tested up to: 6.2
+Requires PHP: 7.4.0
 Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,6 +41,11 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 3. ... and choose filename and format before you upload.
 
 == Changelog ==
+
+= 2.0.0 =
+* Feature: The draggin' slayer: paste any file from the file system.
+* Feature: Pasting images as data URIs is now a user option. Disable it if you encounter weird cursor positions after dragging a file onto classic editor
+* Fix: PHP 8.2 warnings
 
 = 1.1.0 =
 * Fix: PHP 8 warning

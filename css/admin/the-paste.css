@@ -1,1 +1,144 @@
-.thepaste-grabber{height:100%;padding-top:50px;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:auto}.thepaste-grabber .media-frame-title{left:0;border-bottom:1px solid #ddd;background:#fff}.media-frame .thepaste-grabber .media-frame-title{display:none}.thepaste-grabber .image-grabber-content{height:100%;-webkit-box-shadow:0px 4px 4px -4px rgba(0,0,0,.1) inset;box-shadow:0px 4px 4px -4px rgba(0,0,0,.1) inset;background:none repeat scroll 0% 0% #f0f0f0;-webkit-box-sizing:border-box;box-sizing:border-box;overflow:auto;padding:1em 0;position:relative}.thepaste-grabber .instruments{background:rgba(255,255,255,.8);border:1px solid rgba(230,230,230,.8);border-radius:3px;position:absolute;right:1em;bottom:1em;padding:1.5em}.thepaste-grabber .button-action{padding-top:.3em;text-align:center;display:inline-block}.thepaste-grabber .button-action,.wp-core-ui .thepaste-grabber .button-action.button.button-large{height:auto}.thepaste-grabber .button-action .dashicons{display:block;font-size:3em;text-align:center;width:auto;line-height:.75em}.thepaste-pasteboard .injector{text-align:center;color:rgba(0,0,0,0);font-style:italic;position:absolute;left:0;top:0;bottom:0;right:0}.thepaste-pasteboard .injector~*{pointer-events:none}.thepaste-pasteboard .injector~.instructions,.thepaste-pasteboard .injector~.message{display:none}.thepaste-pasteboard .injector:focus~.instructions,.thepaste-pasteboard .injector:focus~.message{display:block}.thepaste-pasteboard .injector:focus~.click-here{display:none}.thepaste-pasteboard .instructions,.thepaste-pasteboard .message,.thepaste-pasteboard .click-here{position:absolute;left:0;right:0;font-size:20px;line-height:28px;font-weight:400;margin-bottom:.5em;text-align:center}.thepaste-pasteboard .instructions{bottom:55%}.thepaste-pasteboard .message{top:45%;color:#a00}.thepaste-pasteboard .click-here{bottom:55%}.thepaste-uploader .image-container{margin:0 auto;text-align:center}.thepaste-uploader .image-container>*{max-width:100%}.thepaste-uploader .instruments>*{display:block;float:left;margin-right:10px}.thepaste-uploader .instruments>*:last-child{margin-right:0px}.thepaste-uploader .instruments .setting{width:400px}.media-frame .thepaste-uploader .instruments .setting input[type=text]{font-size:16px}.thepaste-uploader .instruments .select-format{padding-top:10px}.media-toolbar-secondary>.grabber-button{margin:10px 10px 10px 0}
+/*
+// record: \F235
+// okay: \F147
+// reset: \F158
+
+*/
+/* Both Admin Menu and Post Formats */
+/* Post Format Icons */
+/* Welcome Screen Icons */
+/* Image Editing Icons */
+/* Both Image Editing and TinyMCE */
+/* TinyMCE Icons */
+/* Post Icons */
+/* Sorting */
+/* WPorg specific icons: Jobs, Profiles, WordCamps */
+/* Internal/Products */
+/* Taxonomies */
+/* Widget icons */
+/* Media icons */
+/* Alerts/Notifications/Flags */
+/* Social Icons */
+/* Misc/CPT */
+.thepaste-grabber {
+  height: 100%;
+  padding-top: 50px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+.thepaste-grabber .media-frame-title {
+  left: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+.media-frame .thepaste-grabber .media-frame-title {
+  display: none;
+}
+.thepaste-grabber .image-grabber-content {
+  height: 100%;
+  box-shadow: 0px 4px 4px -4px rgba(0, 0, 0, 0.1) inset;
+  background: none repeat scroll 0% 0% rgb(240, 240, 240);
+  box-sizing: border-box;
+  overflow: auto;
+  padding: 1em 0;
+  position: relative;
+}
+.thepaste-grabber .instruments {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(230, 230, 230, 0.8);
+  border-radius: 3px;
+  position: absolute;
+  right: 1em;
+  bottom: 1em;
+  padding: 1.5em;
+}
+.thepaste-grabber .button-action {
+  padding-top: 0.3em;
+  text-align: center;
+  display: inline-block;
+}
+.thepaste-grabber .button-action, .wp-core-ui .thepaste-grabber .button-action.button.button-large {
+  height: auto;
+}
+.thepaste-grabber .button-action .dashicons {
+  display: block;
+  font-size: 3em;
+  text-align: center;
+  width: auto;
+  line-height: 0.75em;
+}
+
+.thepaste-pasteboard .injector {
+  text-align: center;
+  color: rgba(0, 0, 0, 0);
+  font-style: italic;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+.thepaste-pasteboard .injector ~ * {
+  pointer-events: none;
+}
+.thepaste-pasteboard .injector ~ .instructions, .thepaste-pasteboard .injector ~ .message {
+  display: none;
+}
+.thepaste-pasteboard .injector:focus ~ .instructions, .thepaste-pasteboard .injector:focus ~ .message {
+  display: block;
+}
+.thepaste-pasteboard .injector:focus ~ .click-here {
+  display: none;
+}
+.thepaste-pasteboard .instructions,
+.thepaste-pasteboard .message,
+.thepaste-pasteboard .click-here {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.thepaste-pasteboard .instructions {
+  bottom: 55%;
+}
+.thepaste-pasteboard .message {
+  top: 45%;
+  color: #aa0000;
+}
+.thepaste-pasteboard .click-here {
+  bottom: 55%;
+}
+
+.thepaste-uploader .image-container {
+  margin: 0 auto;
+  text-align: center;
+}
+.thepaste-uploader .image-container > * {
+  max-width: 100%;
+}
+.thepaste-uploader .instruments > * {
+  display: block;
+  float: left;
+  margin-right: 10px;
+}
+.thepaste-uploader .instruments > *:last-child {
+  margin-right: 0px;
+}
+.thepaste-uploader .instruments .setting {
+  width: 400px;
+}
+.media-frame .thepaste-uploader .instruments .setting input[type=text] {
+  font-size: 16px;
+}
+.thepaste-uploader .instruments .select-format {
+  padding-top: 10px;
+}
+
+.media-toolbar-secondary > .grabber-button {
+  margin: 10px 10px 10px 0;
+}
+/*# sourceMappingURL=the-paste.css.map */
