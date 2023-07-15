@@ -7,10 +7,6 @@
 
 namespace ThePaste\Admin;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 use ThePaste\Asset;
 use ThePaste\Core;
 
@@ -30,7 +26,6 @@ class Admin extends Core\Singleton {
 	protected function __construct() {
 
 		$this->core = Core\Core::instance();
-		$this->mce = TinyMce\TinyMceThePaste::instance();
 
 		add_action( 'admin_init', array( $this , 'register_assets' ) );
 		add_action( 'wp_enqueue_media', array( $this , 'enqueue_assets' ) );
@@ -50,6 +45,11 @@ class Admin extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function register_assets() {
+
+		if ( User::instance()->tinymce ) {
+			$this->mce = TinyMce\TinyMceThePaste::instance();
+		}
+
 		$this->css = Asset\Asset::get('css/admin/the-paste.css')->register();
 
 		$this->js = Asset\Asset::get('js/admin/the-paste.js')
