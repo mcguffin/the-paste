@@ -77,6 +77,8 @@ abstract class TinyMce extends Core\Singleton {
 	protected $script_dir = 'js';
 	protected $styles_dir = 'css';
 
+	private $plugin_js;
+	private $prefix;
 
 	/**
 	 * Private constructor
@@ -86,8 +88,6 @@ abstract class TinyMce extends Core\Singleton {
 		if ( is_null( $this->module_name ) ) {
 			throw( new Exception( '`$module_name` must be defined in a derived classes.' ) );
 		}
-
-		$this->core = Core\Core::instance();
 
 		$this->plugin_js = Asset\Asset::get( 'js/admin/mce/' . $this->module_name . '-plugin.js' );
 		$this->editor_css = Asset\Asset::get( 'css/admin/mce/' . $this->module_name . '-editor.css' );
@@ -144,7 +144,7 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	public function add_plugin( $plugins_array ) {
 
-		$plugins_array[ $this->prefix ] = $this->plugin_js->url;//->get_asset_url( $this->script_dir . '/admin/mce/'.$this->module_name.'-plugin.js' );
+		$plugins_array[ $this->prefix ] = $this->plugin_js->url;
 		return $plugins_array;
 	}
 
@@ -182,7 +182,7 @@ abstract class TinyMce extends Core\Singleton {
 	 *	@return string URL to editor css
 	 */
 	 protected function get_toolbar_css_url() {
- 		return $this->toolbar_css->url;// $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-toolbar.css' );
+ 		return $this->toolbar_css->url;
  	}
 
 	/**
@@ -200,7 +200,6 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	protected function get_mce_css_url() {
 		return $this->editor_css->url;//
-		return $this->core->get_asset_url( $this->styles_dir . '/admin/mce/'. $this->module_name.'-editor.css' );
 	}
 	/**
 	 *	print plugin settings
@@ -230,16 +229,6 @@ abstract class TinyMce extends Core\Singleton {
 		$varname = sprintf( 'mce_%s', $this->prefix );
 		$params = json_encode($this->plugin_params );
 		printf( '<script type="text/javascript"> var %s = %s;</script>', $varname, $params );
-	}
-
-	/**
-	 *	Get asset url for this editor plugin
-	 *
-	 *	@param	string	$asset	URL part relative to theme root
-	 *	@return string	url
-	 */
-	protected function get_asset_url( $asset ) {
-		return $this->core->get_asset_url( $this->asset_dir_uri . ltrim( $asset, '/' ) );
 	}
 
 	/**

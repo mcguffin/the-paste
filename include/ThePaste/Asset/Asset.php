@@ -7,10 +7,6 @@
 
 namespace ThePaste\Asset;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
 use ThePaste\Core;
 
 
@@ -81,6 +77,16 @@ class Asset {
 	 *	@var string css|js
 	 */
 	private $registered = false;
+
+	/**
+	 *	@var string Varname for script localization
+	 */
+	private $varname;
+
+	/**
+	 *	@var boolean Whether the script is localized
+	 */
+	private $localized;
 
 	/**
 	 *	@var Core\Core

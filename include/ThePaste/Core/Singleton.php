@@ -7,11 +7,6 @@
 
 namespace ThePaste\Core;
 
-if ( ! defined('ABSPATH') ) {
-	die('FU!');
-}
-
-
 abstract class Singleton {
 
 	/**
