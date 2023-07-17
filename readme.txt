@@ -1,6 +1,6 @@
 === The Paste ===
 Contributors: podpirate
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8NKC6TCASUXE
+Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: paste, clipboard, image, editor, media
 Requires at least: 4.5.0
 Tested up to: 6.2
@@ -13,34 +13,41 @@ Paste Images in WordPress from many applications and upload them to the media li
 
 == Description ==
 
-Speed up your workflow by pasting images directly to the WordPress text editor
+Speed up your workflow by pasting files and image data directly into WordPress
 and upload them to the media library.
 
-Copy image data from many desktop applications:
+Copy files and image data from many desktop applications:
 
+* macOS Finder
 * Screenshot
 * Adobe Photoshop CC
 * Gimp
 * LibreOffice
-* Word
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
 
-The most recent Desktop versions of Chrome, Firefox, IE, Edge and Safari are supported.
+The most recent Desktop versions of Chrome, Firefox, Edge and Safari are supported.
 
 [The paste at GitHub](https://github.com/mcguffin/the-paste)
 
+You like it? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)!
 
 == Installation ==
 
-Follow the standard [WordPress plugin installation procedere](https://codex.wordpress.org/Managing_Plugins).
+Follow the standard [WordPress plugin installation procedere](https://wordpress.org/documentation/article/manage-plugins/).
 
 == Screenshots ==
 
 1. Pasting into rich text editor. You can either upload the image immediately or do so later.
-2. Paste into media library ...
-3. ... and choose filename and format before you upload.
+2. The media library has become pastable
+3. Paste multiple images from macOS Photos into Chrome
+4. A layer from Photoshop 2023
 
 == Changelog ==
+
+= 2.0.0 =
+* Feature: paste multiple files (except firefox)
+* Feature: WebP support (converting to WebP is not supported in safari, pasting WebP is)
+* Fix: Check upload permissions at script loading
 
 = 1.1.1 =
 * Feature: Make pasting into tinyMCE optional. (Fixes unpredictable cursor position during file drop)
