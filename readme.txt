@@ -3,9 +3,9 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F8NKC6TCASUXE
 Tags: paste, clipboard, image, editor, media
 Requires at least: 4.5.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.4.0
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,6 @@ Copy image data from many desktop applications:
 * Adobe Photoshop CC
 * Gimp
 * LibreOffice
-* Word
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
 
 The most recent Desktop versions of Chrome, Firefox, IE, Edge and Safari are supported.
@@ -41,6 +40,10 @@ Follow the standard [WordPress plugin installation procedere](https://codex.word
 3. ... and choose filename and format before you upload.
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix: Fatal error in user profile
+* Fix: Compatibility with the SEO Framework
 
 = 1.1.1 =
 * Feature: Make pasting into tinyMCE optional. (Fixes unpredictable cursor position during file drop)

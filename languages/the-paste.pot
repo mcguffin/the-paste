@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Paste 1.1.1\n"
+"Project-Id-Version: The Paste 1.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-07-14T11:05:41+00:00\n"
+"POT-Creation-Date: 2023-09-23T11:17:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -51,53 +51,43 @@ msgid "Upload"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:60
-#: include/ThePaste~/Admin/Admin.php:47
 msgid "Snapshot"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:61
-#: include/ThePaste~/Admin/Admin.php:48
 msgid "Take Snapshot"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:62
-#: include/ThePaste~/Admin/Admin.php:49
 msgid "Copy & Paste"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:63
 #: include/ThePaste/Admin/Admin.php:118
-#: include/ThePaste~/Admin/Admin.php:50
 msgid "Pasted"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:64
-#: include/ThePaste~/Admin/Admin.php:51
 msgid "Pasted into"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:65
-#: include/ThePaste~/Admin/Admin.php:52
 msgid "Image"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:66
-#: include/ThePaste~/Admin/Admin.php:53
 msgid "No image data pasted."
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:67
-#: include/ThePaste~/Admin/Admin.php:54
 msgid "Error pasting image data."
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:68
-#: include/ThePaste~/Admin/Admin.php:55
 msgid "Upload pasted images"
 msgstr ""
 
 #: include/ThePaste/Admin/Admin.php:69
-#: include/ThePaste~/Admin/Admin.php:56
 msgid "Upload image"
 msgstr ""
 

@@ -1,6 +1,6 @@
 {
   "name": "the-paste",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
@@ -84,7 +84,6 @@
     "steps": [
       "build",
       "git",
-      "github",
       "wporg"
     ],
     "type": "plugin",
