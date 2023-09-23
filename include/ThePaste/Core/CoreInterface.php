@@ -18,9 +18,9 @@ interface CoreInterface {
 	/**
 	 *	Return locations where to look for assets and map them to URLs.
 	 *
-	 *	@return array array(
+	 *	@return array [
 	 * 		'absolute_path'	=> 'absolute_url',
-	 * )
+	 * ]
 	 */
 	public function get_asset_roots();
 

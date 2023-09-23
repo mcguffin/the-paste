@@ -2,6 +2,17 @@ import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
 
+const allowedExtensions   = _wpPluploadSettings.defaults.filters.mime_types[0].extensions.split(',')
+const maxFileSize         = Math.min( 1024*1024*200, parseInt(_wpPluploadSettings.defaults.filters.max_file_size) ) // 100MB or uplaod max filesize
+
+const sizeAllowed = file => {
+	return !!file && file.size <= maxFileSize
+}
+const extensionAllowed = file => {
+	return !!file && allowedExtensions.includes( mime.extension( file.type ) )
+}
+
+
 class WPUploader {
 	static #workflow
 	onUploaded = () => {}
@@ -88,16 +99,24 @@ class WPUploader {
 
 const Uploader = {
 	inlineUpload: async el => {
-		const file = await Converter.elementToFile( el )
-		const uploader = WPUploader.get(file)
-		const wrapper = document.createElement('div')
-		const progress = document.createElement('progress')
 
+		const file = await Converter.elementToFile( el )
+
+		const uploader = WPUploader.get(file)
+		const progress = document.createElement('progress')
+		progress.classList.add('the-paste-progress')
+
+		if ( ! sizeAllowed(file) ) {
+			throw new ErrorEvent('the-paste-upload', { message: `File size exceeds ${maxFileSize} byte`,  })
+		}
+
+		if ( ! extensionAllowed(file) ) {
+			throw new ErrorEvent('the-paste-upload', { message: `Type ${file.type} not allowed`,  })
+		}
+console.log(el.parentNode)
 		// dom
-		wrapper.classList.add('the-pasted-wrapper')
 		progress.max = 100
-		wrapper.appendChild(progress)
-		el.parentNode.insertBefore(wrapper,el)
+		el.parentNode.insertBefore(progress,el)
 		el.remove()
 
 		// upload process
@@ -106,7 +125,7 @@ const Uploader = {
 		}
 		uploader.onError = error => {
 			Notices.error( `<strong>${thepaste.l10n.the_paste}:</strong> ${error.message} File: <em>${file.name}</em>`, true )
-			wrapper.remove()
+			progress.remove()
 		}
 		uploader.onUploaded = args => {
 
@@ -114,7 +133,7 @@ const Uploader = {
 			const attachment = args.attachment.attributes
 
 			if ( 'image' === attachment.type ) {
-				newElement.innerHTML = wp.media.string.image( {}, attachment )
+				newElement.innerHTML = wp.media.string.image( { link: 'none' }, attachment )
 			} else if ( 'video' === attachment.type ) {
 				newElement.innerHTML = wp.media.string.video( { link: 'embed' }, attachment )
 			} else if ( 'audio' === attachment.type ) {
@@ -131,7 +150,7 @@ const Uploader = {
 			})
 			.then( html => $body.find(`[data-id="${id}"]`).replaceWith( `<p>${html}</p>` ) );
 			/*/
-			wrapper.replaceWith( newElement.childNodes[0] )
+			progress.replaceWith( newElement.childNodes[0] )
 			//*/
 		}
 		uploader.upload()
@@ -167,18 +186,12 @@ const Uploader = {
 		} else {
 			map.push( { s: '<postname>', r: '' } );
 		}
-		if ( 'undefined' !== typeof username ) {
-			map.push( { s: '<username>', r: username } );
-		} else {
-			map.push( { s: '<username>', r: '' } );
-		}
-		map.forEach(function(el){
+		map.forEach( function(el) {
 			name = name.replace( el.s, el.r )
 		})
 		if ( 'string' === typeof suffix) {
 			name += '.' + suffix;
 		}
-		console.log(name,suffix)
 		return name;
 	}
 }

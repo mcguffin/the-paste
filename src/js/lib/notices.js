@@ -24,7 +24,6 @@ class Notices {
 		const classes = `${type} notice ${dismissible?'is-dismissible':''}`.trim()
 		const html = `<div class="${classes}"><p>${message}</p></div>`;
 		const $headerEnd = $( '.wp-header-end' ).first();
-		console.log($headerEnd)
 		$(html).insertAfter( $headerEnd );
 		$(document).trigger( 'wp-updates-notice-added' );
 	}

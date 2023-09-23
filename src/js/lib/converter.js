@@ -1,5 +1,9 @@
 import mime from 'mime-types'
 
+const fixMime = {
+	'application/x-zip-compressed': 'application/zip',
+}
+
 /**
  *	Generate a filename
  */
@@ -12,8 +16,8 @@ const getFilename = suffix => {
 	let name = thepaste.options.default_filename
 
 	const now = new Date(),
-		postname = document.querySelector('#post [name="post_title"]#title').value,
-		username = document.querySelector('.display-name').textContent,
+		postname = document.querySelector('#post [name="post_title"]#title')?.value,
+		username = document.querySelector('.display-name')?.textContent,
 		map = [
 			{ s: '%Y', r: now.getFullYear() },
 			{ s: '%y', r: now.getFullYear() % 100 },
@@ -42,34 +46,39 @@ const getFilename = suffix => {
 	if ( 'string' === typeof suffix) {
 		name += '.' + suffix;
 	}
-	console.log(name,suffix)
 	return name;
 }
 
 const safeFilename = ( file, filename = '' ) => {
+	let type = file.type
+	if ( !! fixMime[type] ) { // windows
+		type = fixMime[type]
+	}
+	filename = filename.replace(/[^\p{L}\p{M}\p{S}\p{N}\p{P}\p{Zs}]/ug,'-').trim()
 	if ( ! filename ) {
-		filename = getFilename( mime.extension(file.type) )
+		filename = getFilename( mime.extension(type) )
 	}
 	return filename
 }
 
 const Converter = {
 
-	dataUrlToMime: dataurl =>{
-		return dataurl.match('data:([^,]+),')[1]
-	},
-	dataUrlToType: dataurl =>{
-		return dataurl.match('data:([^\/]+),')[1]
-	},
-	blobUrlToMime: async blobUrl =>{
-		const blob = await Converter.blobUrlToBlob(blobUrl)
-		return blob.type
-	},
-	blobUrlToType: async blobUrl => {
-		const blob = await Converter.blobUrlToBlob(blobUrl)
-		return blob.type.substr(0,blob.type.indexOf('/'))
+
+	elementToFile: async el => {
+		const file = await Converter.urlToFile(el.src,el.alt)
+		return file
 	},
 
+	urlToFile: async ( url, filename = '') => {
+		let file
+		const schema = url.substr( 0, url.indexOf(':') )
+		if ( 'data' === schema ) {
+			file = Converter.dataUrlToFile( url, filename )
+		} else if ( ['blob','http','https'].includes( schema ) ) {
+			file = await Converter.blobUrlToFile( url, filename )
+		}
+		return file
+	},
 	urlToMime: async url => {
 		const schema = url.substr( 0, url.indexOf(':') )
 		let mime
@@ -85,33 +94,38 @@ const Converter = {
 		return mime.substr( 0, mime.indexOf('/'))
 	},
 
-	elementToFile: async el => {
-		let file
-		const schema = el.src.substr(0,el.src.indexOf(':'))
 
-		if ( 'data' === schema ) {
-			file = await Converter.dataUrlToFile( el.src, el.alt )
-		} else if ( ['blob','http','https'].includes( schema ) ) {
-			file = await Converter.blobUrlToFile( el.src, el.alt )
-		}
-		return file
+	blobToFile: ( blob, filename = '' ) => {
+		return new File([blob], safeFilename( blob, filename ), { type: blob.type } );
 	},
-
+	blobUrlToMime: async blobUrl =>{
+		const blob = await Converter.blobUrlToBlob(blobUrl)
+		return blob.type
+	},
+	blobUrlToType: async blobUrl => {
+		const blob = await Converter.blobUrlToBlob(blobUrl)
+		return blob.type.substr(0,blob.type.indexOf('/'))
+	},
+	blobUrlToBlob: async ( blobUrl, filename = '' ) => {
+		const blob = await fetch(blobUrl).then( r => r.blob() );
+		return blob
+	},
+	blobUrlToFile: async ( blobUrl, filename = '' ) => {
+		const blob = await Converter.blobUrlToBlob(blobUrl)
+		return Converter.blobToFile( blob, filename )
+	},
 	blobUrlToDataUrl: async blobUrl => {
 		const blob = await fetch(blobUrl).then( r => r.blob() );
 		const dataurl = await Converter.fileToDataUrl(blob)
 		return dataurl
 	},
 
-	fileToBlobUrl: file => URL.createObjectURL(file),
 
-	fileToDataUrl: file => new Promise( (resolve,reject) => {
-		const fr = new FileReader()
-		fr.addEventListener('load', () => resolve( fr.result )  )
-		fr.readAsDataURL( file )
-	}),
+	dataUrlToMime: dataurl => dataurl.match('data:([^;]+);')[1],
 
-	dataUrlToFile: ( dataurl, filename = '' ) => {
+	dataUrlToType: dataurl => dataurl.match('data:([^\/]+)\/')[1],
+
+	dataUrlToBlob: ( dataurl ) => {
 		let arr = dataurl.split(','),
 			type = arr[0].match(/:(.*?);/)[1],
 			bstr = atob(arr[1]),
@@ -121,23 +135,20 @@ const Converter = {
 		while(n--){
 			u8arr[n] = bstr.charCodeAt(n);
 		}
-		const blob = new Blob( [u8arr], { type: type } )
-		return Converter.blobToFile( blob, filename )
+		return new Blob( [u8arr], { type: type } )
 	},
 
-	blobUrlToBlob: async ( blobUrl, filename = '' ) => {
-		const blob = await fetch(blobUrl).then( r => r.blob() );
-		return blob
-	},
+	dataUrlToFile: ( dataurl, filename = '' ) => Converter.blobToFile( Converter.dataUrlToBlob(dataurl), filename ),
 
-	blobUrlToFile: async ( blobUrl, filename = '' ) => {
-		const blob = await Converter.blobUrlToBlob(blobUrl)
-		return Converter.blobToFile( blob, filename )
-	},
+	dataUrlToBlobUrl: dataurl => Converter.fileToBlobUrl( Converter.dataUrlToBlob( dataurl ) ),
 
-	blobToFile: ( blob, filename = '' ) => {
-		return new File([blob], safeFilename( blob, filename ), { type: blob.type } );
-	}
+	fileToBlobUrl: file => URL.createObjectURL(file),
+
+	fileToDataUrl: file => new Promise( ( resolve, reject ) => {
+		const fr = new FileReader()
+		fr.addEventListener('load', () => resolve( fr.result )  )
+		fr.readAsDataURL( file )
+	}),
 }
 
 module.exports = Converter

@@ -1,36 +1,20 @@
+import Converter from 'converter'
 import mime from 'mime-types'
-import getBrowser from 'ua'
-
-const allowedExtensions   = _wpPluploadSettings.defaults.filters.mime_types[0].extensions.split(',')
-const maxFileSize         = Math.min( 1024*1024*100, parseInt(_wpPluploadSettings.defaults.filters.max_file_size) ) // 100MB or uplaod max filesize
-
-const sizeAllowed = file => {
-	return !!file && file.size <= maxFileSize
-}
-const extensionAllowed = file => {
-	return !!file && allowedExtensions.includes( mime.extension( file.type ) )
-}
-
+import UA from 'ua'
 
 class PasteOperation {
 
 	#observer
 	#observerState = false
-	#observed
 
 	#addedNodes    = []
-	#files         = []
 	#strings       = []
 	#fileItemTypes = []
+	#eventLog      = []
 
-	get isFinished() {
-		return ! this.#observerState
-	}
 
-	get files() {
-		return this
-			.#files
-			.filter( file => sizeAllowed( file ) && extensionAllowed( file ) )
+	get isObserving() {
+		return this.#observerState
 	}
 
 	get hasPastedFiles() {
@@ -40,14 +24,24 @@ class PasteOperation {
 	get pastedContent() {
 		return this.files.map( (file,idx) => {
 			const src = URL.createObjectURL(file)
+
 			return `<img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" />`
 		} )
 		.join('')
 	}
 
 	constructor(event) {
-		// files
-		this.#files = Array.from(event.clipboardData.files)
+		this.forceBlob      = false
+		this.didInputEvent  = false
+
+		this.files = Array.from(event.clipboardData.files)
+
+		event.target.addEventListener( 'input', e => {
+			if ( e.eventType === 'insertFromPaste' ) {
+				this.didInput = true
+				// wait for mutation
+			}
+		}, { once: true } )
 
 		//  items
 		Array.from(event.clipboardData.items).forEach( item => {
@@ -58,42 +52,54 @@ class PasteOperation {
 				item.getAsString( s => this.#strings.push( s ) )
 			}
 		} )
-		if ( this.hasPastedFiles ) {
-			// event.clipboardData.clearData()
-		}
-
-		// firefox: observe DOM
-		if ( ( ! this.files.length || 'Firefox' === getBrowser() ) && this.hasPastedFiles ) {
-			this.#files = this.#fileItemTypes = []
+		// ALWAYS observe DOM
+		if ( UA.browser === 'firefox' && this.files.length < 2 ) {
+			this.files = this.fileItemTypes = []
 			this.#observeDom( event.target.body || event.target.closest('body') )
+			setTimeout( () => this.#unobserveDom(), 5000 )
 		}
 	}
 
 	#observeDom( observed ) {
 
 		let t0 = false
+		// always 2 mutations after paste
 		this.#observer = new MutationObserver( ( entries, obs ) => {
 			if ( t0 === false ) {
 				t0 = new Date().getTime()
 			}
-
 			entries.forEach( entry => {
 				this.#addedNodes = this.#addedNodes.concat( Array.from( entry.addedNodes ) )
 				this.#addedNodes = this.#addedNodes.filter( node => observed.contains(node) )
 			})
-			const img = this.#addedNodes.find( el => 'img' === el.nodeName.toLowerCase() )
-
-			if ( !! img ) {
-				if ( this.#strings.length === 1 ) {
-					img.alt = this.#strings[0]
+			const images = this.#addedNodes.filter( el => 'img' === el.nodeName.toLowerCase() )
+			if ( 1 === images.length && this.#strings.length === 1 ) {
+				images[0].alt = this.#strings[0].trim()
+			}
+			images.forEach( img => {
+				if ( this.forceBlob && 0 === img.src.indexOf('data:') ) { // force blob
+					console.log(Converter.dataUrlToMime(img.src))
+					img.setAttribute('data-mime',Converter.dataUrlToMime(img.src))
+					img.src = Converter.dataUrlToBlobUrl( img.src )
 				}
-				obs.disconnect()
-				this.#observerState = false
+			} )
+			if ( this.didInputEvent ) {
+				// last mutation after input event fired
+				this.#unobserveDom()
+			}
+			if ( images.length ) {
+				this.#addedNodes
+					.filter( el => 'img' !== el.nodeName.toLowerCase() )
+					.map( el => el.remove() )
 				observed.dispatchEvent(new Event('FilesPasted'))
 			}
 		} )
 		this.#observerState = true
 		this.#observer.observe( observed, { childList: true, subtree: true } )
+	}
+	#unobserveDom() {
+		this.#observer.disconnect()
+		this.#observerState = false
 	}
 }
 

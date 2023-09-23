@@ -12,7 +12,7 @@ abstract class Singleton {
 	/**
 	 * Array containing derived class instances
 	 */
-	private static $instances = array();
+	private static $instances = [];
 
 	/**
 	 * Getting a singleton.
