@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: paste, clipboard, image, editor, media
 Requires at least: 4.5.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.4.0
 Stable tag: 1.1.1
 License: GPLv2 or later
@@ -29,7 +29,7 @@ The most recent Desktop versions of Chrome, Firefox, Edge and Safari are support
 
 [The paste at GitHub](https://github.com/mcguffin/the-paste)
 
-You like it? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)!
+You like it? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)
 
 == Installation ==
 

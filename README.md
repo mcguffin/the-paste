@@ -28,20 +28,19 @@ Applications tested so far:
 |------------------------------|----------------|----------------|----------------|----------------|
 | Image from Mac Finder        | OK             | OK             | OK             | OK             |
 | File from Mac Finder         | OK             | OK             | OK             | OK             |
-| Multiple Files from Finder   | - <sup>1</sup> | OK             | OK             | OK             |
+| Multiple Files from Finder   | -              | OK             | OK             | OK             |
 | Mac Finder Screenshot        | OK             | OK             | OK             | OK             |
-| Mac Preview (PDF page)       | OK<sup>3</sup> | OK<sup>2</sup> | OK<sup>2</sup> | OK<sup>2</sup> |
-| Mac Preview (rect selection) | OK             | OK             | OK             | OK             |
-| Mac Photos App               | OK<sup>4</sup> | OK             | OK             | OK             |
-| QuickTime Player             | ?              | ?              | ?              | ?              |
+| Mac Preview (PDF page)       | OK             | OK             | OK             | OK             |
+| Mac Preview (selection)      | OK             | OK             | OK             | OK             |
+| Mac Photos App (Single)      | OK             | OK             | OK             | OK             |
+| Mac Photos App (Mutliple)    | -              | OK             | OK             | OK             |
+| QuickTime Player             | OK             | OK             | OK             | OK             |
 | Adobe Photoshop 2023         | OK             | OK             | OK             | OK             |
-| Adobe Illustrator 2023       | OK             | ?              | ?              | ?              |
-| A Webpage                    | ?              | ?              | ?              | ?              |
-| MS Word Mac                  | ?              | ?              | ?              | ?              |
-| LibreOffice                  | ?              | ?              | ?              | ?              |
-| Gimp                         | ?              | ?              | ?              | ?              |
-| Affinity Designer            | ?              | ?              | ?              | ?              |
-| Affinity Photo               | ?              | ?              | ?              | ?              |
+| Adobe Illustrator 2023       | OK             | OK             | OK             | OK             |
+| A Webpage                    | -              | OK             | OK             | ?              |
+| Singe image from LibreOffice | OK             | OK             | OK             | OK             |
+| Affinity Designer 2          | OK             | OK             | OK             | OK             |
+| Affinity Photo 2             | OK             | ?              | ?              | ?              |
 
 #### with data uris enabled
 | copy from / paste to        | Firefox 114+   | Chrome 114+ | Safari 16.5+    | Edge 114+ |
@@ -49,16 +48,15 @@ Applications tested so far:
 | Small image from Mac Finder | ?              | ?           | ?               | ?         |
 | Small screenshot            | ?              | ?           | ?               | ?         |
 
-
-### Windows 11
+### Windows 10
 
 | copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
 |--------------------------------|-----------------|-----------------|-----------------|
-| Image from Filesystem          | ?               | ?               | ?               |
-| File from Filesystem           | ?               | ?               | ?               |
-| Multiple files from filesystem | ?               | ?               | ?               |
-| Screenshot                     | ?               | ?               | ?               |
-| A Webpage                      | ?               | ?               | ?               |
+| Image from Filesystem          | OK              | ?               | ?               |
+| File from Filesystem           | OK              | ?               | ?               |
+| Multiple files from filesystem | -               | ?               | ?               |
+| Screenshot                     | OK              | ?               | ?               |
+| A Webpage                      | -               | ?               | ?               |
 | Gimp                           | ?               | ?               | ?               |
 | Pictures App                   | ?               | ?               | ?               |
 | Paint                          | ?               | ?               | ?               |
@@ -76,7 +74,7 @@ Plugin API:
 ### Filter `the_paste_max_embed_image_size`
 Filter the maximum image size (in pixels) being pasted as data-url.
 
-**Default (integer):** `262144` (= 512*215)
+**Default (integer):** `262144` (= 512*512)
 
 ### Filter `the_paste_default_filename`
 
