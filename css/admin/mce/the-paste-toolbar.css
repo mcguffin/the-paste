@@ -1,19 +1,5 @@
-/* Both Admin Menu and Post Formats */
-/* Post Format Icons */
-/* Welcome Screen Icons */
-/* Image Editing Icons */
-/* Both Image Editing and TinyMCE */
-/* TinyMCE Icons */
-/* Post Icons */
-/* Sorting */
-/* WPorg specific icons: Jobs, Profiles, WordCamps */
-/* Internal/Products */
-/* Taxonomies */
-/* Widget icons */
-/* Media icons */
-/* Alerts/Notifications/Flags */
-/* Social Icons */
-/* Misc/CPT */
+/* WordPress Dashicons Vars */
+/* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
 .mce-i-thepaste:before {
   content: "\f317"; /* https://developer.wordpress.org/resource/dashicons/ */
   display: inline-block;
@@ -31,4 +17,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/*# sourceMappingURL=the-paste-toolbar.css.map */

@@ -1,68 +1,40 @@
-/* Both Admin Menu and Post Formats */
-/* Post Format Icons */
-/* Welcome Screen Icons */
-/* Image Editing Icons */
-/* Both Image Editing and TinyMCE */
-/* TinyMCE Icons */
-/* Post Icons */
-/* Sorting */
-/* WPorg specific icons: Jobs, Profiles, WordCamps */
-/* Internal/Products */
-/* Taxonomies */
-/* Widget icons */
-/* Media icons */
-/* Alerts/Notifications/Flags */
-/* Social Icons */
-/* Misc/CPT */
+/* WordPress Dashicons Vars */
+/* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
 body#tinymce {
   background-color: #ccc;
 }
 
-.thepaste-image-placeholder {
-  display: inline-grid;
-  max-width: 100%;
+progress.the-paste-progress {
+  --bar-height: 4px;
+  --bar-margin: 0px;
+  --bar-padding: 0px;
+  --bar-color: transparent;
+  --bar-background: currentColor;
+  --bar-border-radius: 3px;
+  padding: 1px;
   position: relative;
-}
-.thepaste-image-placeholder * {
-  grid-row: 1;
-  grid-column: 1;
-}
-.thepaste-image-placeholder:before {
-  content: "";
-  background: rgba(0, 0, 0, 0.5);
-  grid-row: 1;
-  grid-column: 1;
-  order: 1;
-}
-.thepaste-image-placeholder progress {
-  position: relative;
-  background: rgba(0, 0, 0, 0);
-  border: 2px solid #fff;
-  border-radius: 100px;
-  height: 10px;
-  margin: auto;
+  background: rgba(0, 0, 0, 0.125);
+  border-radius: 3px;
+  height: 6px;
+  margin: 8px 0;
   display: block;
   box-sizing: border-box;
+  width: 100%;
+  outline: 2px solid currentColor;
+  outline-offset: 0px;
+  border: none;
 }
-.thepaste-image-placeholder progress::-webkit-progress-bar {
-  margin: 1px;
-  background-color: #fff;
-  border-radius: 100px;
-  height: 6px;
+progress.the-paste-progress::-webkit-progress-bar {
+  background-color: var(--bar-color);
+  height: var(--bar-height);
 }
-.thepaste-image-placeholder progress::-webkit-progress-value {
-  margin: 1px;
-  background-color: #fff;
-  border-radius: 100px;
-  height: 6px;
+progress.the-paste-progress::-webkit-progress-value {
+  background-color: var(--bar-background);
+  border-radius: var(--bar-border-radius);
+  height: var(--bar-height);
 }
-.thepaste-image-placeholder progress::-moz-progress-bar {
-  margin: 1px;
-  background-color: #fff;
-  border-radius: 100px;
-  height: 6px;
+progress.the-paste-progress::-moz-progress-bar {
+  background-color: var(--bar-background);
+  border-radius: var(--bar-border-radius);
+  height: var(--bar-height);
 }
-.thepaste-image-placeholder > * {
-  max-width: 100%;
-}
-/*# sourceMappingURL=the-paste-editor.css.map */
