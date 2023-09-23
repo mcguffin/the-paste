@@ -56,7 +56,7 @@ class User extends Core\Singleton {
 	 */
 	public function personal_options( $profile_user ) {
 
-		$can_edit = user_can( $profile_user, 'edit_posts' ) || current_user_can( $profile_user, 'edit_pages' );
+		$can_edit = user_can( $profile_user, 'edit_posts' ) || current_user_can( 'edit_pages' );
 
 		if ( ! $can_edit || ! user_can( $profile_user, 'upload_files' ) ) {
 			return;
