@@ -113,10 +113,10 @@ const Uploader = {
 		if ( ! extensionAllowed(file) ) {
 			throw new ErrorEvent('the-paste-upload', { message: `Type ${file.type} not allowed`,  })
 		}
-console.log(el.parentNode)
 		// dom
 		progress.max = 100
-		el.parentNode.insertBefore(progress,el)
+
+		el.parentNode?.insertBefore(progress,el)
 		el.remove()
 
 		// upload process
