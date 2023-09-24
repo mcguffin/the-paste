@@ -12,11 +12,11 @@ class TinyMceThePaste extends TinyMce {
 	/**
 	 *	@inheritdoc
 	 */
-	protected $editor_buttons = array(
-		'mce_buttons_2'	=> array(
+	protected $editor_buttons = [
+		'mce_buttons_2'	=> [
 			'thepaste'	=> 3000,
-		),
-	);
+		],
+	];
 
 	/**
 	 *	@inheritdoc
@@ -32,10 +32,10 @@ class TinyMceThePaste extends TinyMce {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
-		$this->plugin_params = array();
-		$this->mce_settings =  array(
-			'paste_data_images' => true,
-		);
+		$this->plugin_params = [];
+		$this->mce_settings = [
+			'paste_data_images' => false, //
+		];
 		parent::__construct();
 	}
 }

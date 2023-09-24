@@ -19,17 +19,17 @@ abstract class TinyMce extends Core\Singleton {
 	 *	Override to add buttons
 	 *
 	 *	Usage:
-	 *	protected $editor_buttons = array(
-	 *		'mce_buttons'	=> array(
+	 *	protected $editor_buttons = [
+	 *		'mce_buttons'	=> [
 	 *			'append_button'	=> false,
 	 *			'insert_button_at_position'	=> 3,
-	 *		),
-	 *		'mce_buttons_2'	=> array(
+	 *		],
+	 *		'mce_buttons_2'	=> [
 	 *			'append_button_to_second_row'	=> false,
-	 *		),
-	 *	);
+	 *		],
+	 *	];
 	 */
-	protected $editor_buttons = array();
+	protected $editor_buttons = [];
 
 	/**
 	 *	Plugin params
@@ -103,35 +103,35 @@ abstract class TinyMce extends Core\Singleton {
 		$this->asset_dir_path = trailingslashit( implode( DIRECTORY_SEPARATOR, $parts ) );
 
 		// add tinymce buttons
-		$this->editor_buttons = wp_parse_args( $this->editor_buttons, array(
-			'mce_buttons'	=> false,
-			'mce_buttons_2'	=> false,
-		) );
+		$this->editor_buttons = wp_parse_args( $this->editor_buttons, [
+			'mce_buttons'   => false,
+			'mce_buttons_2' => false,
+		] );
 
 		foreach ( $this->editor_buttons as $hook => $buttons ) {
 			if ( $buttons !== false ) {
-				add_filter( $hook, array( $this, 'add_buttons' ) );
+				add_filter( $hook, [ $this, 'add_buttons' ] );
 			}
 		}
 
 
 		// add tinymce plugin parameters
 		if ( $this->plugin_params !== false ) {
-			add_action( 'wp_enqueue_editor' , array( $this , 'action_enqueue_editor' ) );
+			add_action( 'wp_enqueue_editor', [ $this, 'action_enqueue_editor' ] );
 		}
 		if ( $this->mce_settings !== false ) {
-			add_action( 'tiny_mce_before_init' , array( $this , 'tiny_mce_before_init' ) );
+			add_action( 'tiny_mce_before_init', [ $this, 'tiny_mce_before_init' ] );
 		}
 
 		if ( $this->editor_css !== false ) {
-			add_filter('mce_css' , array( $this , 'mce_css' ) );
+			add_filter('mce_css', [ $this, 'mce_css' ] );
 		}
 		if ( $this->toolbar_css !== false ) {
-			add_action( "admin_print_scripts", array( $this, 'enqueue_toolbar_css') );
+			add_action( "admin_print_scripts", [ $this, 'enqueue_toolbar_css' ] );
 		}
 
 		// will only work with default editor
-		add_filter( 'mce_external_plugins', array( $this, 'add_plugin' ) );
+		add_filter( 'mce_external_plugins', [ $this, 'add_plugin' ] );
 
 		parent::__construct();
 
@@ -217,7 +217,7 @@ abstract class TinyMce extends Core\Singleton {
 	 */
 	public function action_enqueue_editor( $to_load ) {
 		if ( $to_load['tinymce'] ) {
-			add_action( 'admin_footer' , array( $this , 'mce_localize' ) );
+			add_action( 'admin_footer', [ $this, 'mce_localize' ] );
 		}
 	}
 	/**

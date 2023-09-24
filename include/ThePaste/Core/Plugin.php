@@ -19,8 +19,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	private $_version = null;
 
 	/** @var string plugin components which might need upgrade */
-	private static $components = array(
-	);
+	private static $components = [];
 
 	/**
 	 *	@inheritdoc
@@ -29,13 +28,13 @@ class Plugin extends Singleton implements ComponentInterface {
 
 		$this->plugin_file = $file;
 
-		register_activation_hook( $this->get_plugin_file(), array( $this , 'activate' ) );
-		register_deactivation_hook( $this->get_plugin_file(), array( $this , 'deactivate' ) );
-		register_uninstall_hook( $this->get_plugin_file(), array( __CLASS__, 'uninstall' ) );
+		register_activation_hook( $this->get_plugin_file(), [ $this, 'activate' ] );
+		register_deactivation_hook( $this->get_plugin_file(), [ $this, 'deactivate'] );
+		register_uninstall_hook( $this->get_plugin_file(), [ __CLASS__, 'uninstall' ] );
 
-		add_action( 'admin_init', array( $this, 'maybe_upgrade' ) );
+		add_action( 'admin_init', [ $this, 'maybe_upgrade' ] );
 
-		add_action( 'plugins_loaded' , array( $this , 'load_textdomain' ) );
+		add_action( 'plugins_loaded', [ $this, 'load_textdomain' ] );
 
 		parent::__construct();
 	}
@@ -144,7 +143,7 @@ class Plugin extends Singleton implements ComponentInterface {
 
 
 	/**
-	 *	Fired on plugin activation
+	*	@inheritdoc
 	 */
 	public function activate() {
 
@@ -158,21 +157,14 @@ class Plugin extends Singleton implements ComponentInterface {
 
 
 	/**
-	 *	Fired on plugin updgrade
-	 *
-	 *	@param string $nev_version
-	 *	@param string $old_version
-	 *	@return array(
-	 *		'success' => bool,
-	 *		'messages' => array,
-	 * )
+	 *	@inheritdoc
 	 */
 	public function upgrade( $new_version, $old_version ) {
 
-		$result = array(
+		$result = [
 			'success'	=> true,
-			'messages'	=> array(),
-		);
+			'messages'	=> [],
+		];
 
 		foreach ( self::$components as $component ) {
 			$comp = $component::instance();
@@ -185,7 +177,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	}
 
 	/**
-	 *	Fired on plugin deactivation
+	*	@inheritdoc
 	 */
 	public function deactivate() {
 		foreach ( self::$components as $component ) {
@@ -195,7 +187,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	}
 
 	/**
-	 *	Fired on plugin deinstallation
+	*	@inheritdoc
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {

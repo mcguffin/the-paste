@@ -10,7 +10,6 @@ namespace ThePaste\Admin;
 use ThePaste\Asset;
 use ThePaste\Core;
 
-
 class Admin extends Core\Singleton {
 
 	private $core;
@@ -26,19 +25,13 @@ class Admin extends Core\Singleton {
 	 */
 	protected function __construct() {
 
-		$this->core = Core\Core::instance();
+		if ( wp_is_mobile() ) {
+			return;
+		}
 
-		add_action( 'admin_init', array( $this , 'register_assets' ) );
-		add_action( 'wp_enqueue_media', array( $this , 'enqueue_assets' ) );
-		add_action( 'print_media_templates',  array( $this, 'print_media_templates' ) );
-	}
-
-
-	/**
-	 *	Admin init
-	 *	@action admin_init
-	 */
-	public function admin_init() {
+		add_action( 'admin_init', [ $this, 'register_assets' ] );
+		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
+		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
 	}
 
 	/**
@@ -46,56 +39,36 @@ class Admin extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function register_assets() {
-
-		if ( User::instance()->tinymce ) {
+		$user = User::instance();
+		if ( $user->tinymce ) {
 			$this->mce = TinyMce\TinyMceThePaste::instance();
 		}
 
 		$this->css = Asset\Asset::get('css/admin/the-paste.css')->register();
 
 		$this->js = Asset\Asset::get('js/admin/the-paste.js')
-			->deps( array( 'jquery', 'media-editor' ) )
-			->localize( array(
-				'l10n' => array(
-					'snapshot' 						=> __( 'Snapshot','the-paste' ),
-					'take_snapshot' 				=> __( 'Take Snapshot','the-paste' ),
-					'copy_paste' 					=> __( 'Copy & Paste', 'the-paste' ),
-					'pasted' 						=> __( 'Pasted', 'the-paste' ),
-					'pasted_into'					=> __( 'Pasted into', 'the-paste' ),
-					'image' 						=> __( 'Image', 'the-paste' ),
-					'paste_error_no_image' 			=> __( 'No image data pasted.', 'the-paste' ),
-					'paste_error'					=> __( 'Error pasting image data.', 'the-paste' ),
-					'upload_pasted_images'			=> __( 'Upload pasted images', 'the-paste' ),
-					'upload_image'					=> __( 'Upload image', 'the-paste' ),
-					'too_big_to_paste'				=> __( 'Sorry, this image is too big to pasted.', 'the-paste' ),
-				),
-				'options'	=> array(
-					'mime_types'	=> array(
-						'convert' => array(
-							'image/jpeg'		=> 'jpg',
-							'image/png'			=> 'png',
-						),
-						'paste' => array(
-							'image/jpeg'		=> 'jpg',
-							'image/png'			=> 'png',
-							'image/tiff'		=> 'tif',
-							'image/pict'		=> 'pict',
-	//						'application/pdf'	=> 'pdf',
-						),
-					),
-					'editor'		=> array(
-						'can_upload'		=> current_user_can( 'upload_files' ),
-						'auto_upload'		=> true,
+			->deps( [ 'jquery', 'media-editor' ] )
+			->localize( [
+				'l10n'    => [
+					'upload_pasted_images' => __( 'Upload pasted images', 'the-paste' ),
+					'upload_image'         => __( 'Upload image', 'the-paste' ),
+					'the_paste'            => __( 'The Paste', 'plugin name', 'the-paste' ),
+					'copy_paste'           => __( 'Copy & Paste', 'the-paste' ),
+				],
+				'options' => [
+					'editor'           => [
+						'auto_upload'       => true,
+						'datauri'           => $user->datauri,
 						/**
-						 *	Filters the default filename
+						 *	Size limit for data uri images
 						 *
 						 *	@param Int $size	Max image size in pixels (width * height) being pasted as data url
 						 */
-						'force_upload_size'	=> apply_filters('the_paste_max_embed_image_size',
+						'force_upload_size' => apply_filters('the_paste_max_embed_image_size',
 							apply_filters('the_paste_max_embed_imge_size', 512 * 512 ) // backwards compatibility
 						),
-					),
-					'jpeg_quality'					=> apply_filters( 'jpeg_quality', 90, 'edit_image' ),
+					],
+					'jpeg_quality'     => apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 					/**
 					 *	Filters the default filename
 					 *
@@ -115,9 +88,9 @@ class Admin extends Core\Singleton {
 					 *								%S Two digit second
 					 *								%s Unix timestamp
 					 */
-					'default_filename'				=> apply_filters( 'the_paste_default_filename', __( 'Pasted', 'the-paste' ) ),
-				),
-			), 'thepaste' )
+					'default_filename' => apply_filters( 'the_paste_default_filename', $user->default_filename ),
+				],
+			], 'thepaste' )
 			->register();
 	}
 
@@ -126,21 +99,25 @@ class Admin extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function enqueue_assets() {
-        if ($this && $this->css) {
-            $this->css->enqueue();
-        }
-        if ($this && $this->js) {
-            $this->js->enqueue();
-        }
+		if ( current_user_can( 'upload_files' ) ) {
+			if ( $this->css ) {
+				$this->css->enqueue();
+			}
+			if ( $this->js ) {
+				$this->js->enqueue();
+			}
+		}
 	}
 
 	/**
 	 *	@action 'print_media_templates'
 	 */
 	function print_media_templates() {
-	$rp = $this->core->get_plugin_dir() . '/include/template/{,*/,*/*/,*/*/*/}*.php';
-		foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {
-			include $template_file;
+		if ( current_user_can( 'upload_files' ) ) {
+			$rp = Core\Core::instance()->get_plugin_dir() . '/include/template/{,*/,*/*/,*/*/*/}*.php';
+			foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {
+				include $template_file;
+			}
 		}
 	}
 }

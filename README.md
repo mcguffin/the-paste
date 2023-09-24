@@ -5,9 +5,8 @@ Official repository for the [The Paste](https://wordpress.org/plugins/the-paste/
 
 Paste image data into the Editor and upload it to the WordPress Media Library.
 
- - Developed in WP 3.8 – WP 4.8
+ - Developed in WP 3.8 – WP 6.3
  - Should work with WordPress 3.5+
- - German and Dutch localization.
 
 Known Browser Support
 ---------------------
@@ -15,66 +14,84 @@ Known Browser Support
  - Chrome 32+
  - Firefox 26+
  - Safari 10+
- - IE11
  - Edge
 
+Known Issues
+------------
+ - *Firefox* does not support pasting multiple files from the OS filesystem.
+ - *Safari* lacks the support to convert images to the webP format.
+ - *Edge* is working suspiciously well, which is very unusal in the Microsoft world and must be considered a bug.
 
 Applications tested so far:
 ---------------------------
 
-### Mac OS 10.15:
+### Mac OS 13.4:
 
-| copy from / paste to  | Firefox 91+    | Chrome 92+ | Safari 14+      |
-|-----------------------|----------------|------------|-----------------|
-| Mac Finder            | OK             | OK         | OK              |
-| Mac Finder Screenshot | OK             | OK         | OK              |
-| Mac Preview           | OK             | OK         | OK              |
-| Mac Photos App        | OK             | OK         | OK              |
-| QuickTime Player      | OK             | OK         | OK              |
-| Photoshop CC (2021)   | OK             | OK         | OK              |
-| Illustrator CC (2021) | -              | OK         | - <sup>1)</sup> |
-| A Webpage             | OK             | OK         | -               |
-| MS Word Mac           | -              | OK         | OK              |
-| LibreOffice           | OK             | OK         | OK              |
-| Gimp                  | OK             | OK         | OK              |
-| Affinity Designer     | -              | OK         | - <sup>1)</sup> |
-| Affinity Photo        | OK             | OK         | OK              |
+| Copy from / paste to         | Firefox 114+   | Chrome 114+    | Safari 16.5+   | Edge 114+      |
+|------------------------------|----------------|----------------|----------------|----------------|
+| Image from Mac Finder        | OK             | OK             | OK             | OK             |
+| File from Mac Finder         | OK             | OK             | OK             | OK             |
+| Multiple Files from Finder   | -              | OK             | OK             | OK             |
+| Mac Finder Screenshot        | OK             | OK             | OK             | OK             |
+| Mac Preview (PDF page)       | OK             | OK             | OK             | OK             |
+| Mac Preview (selection)      | OK             | OK             | OK             | OK             |
+| Mac Photos App (Single)      | OK             | OK             | OK             | OK             |
+| Mac Photos App (Mutliple)    | -              | OK             | OK             | OK             |
+| QuickTime Player             | OK             | OK             | OK             | OK             |
+| Adobe Photoshop 2023         | OK             | OK             | OK             | OK             |
+| Adobe Illustrator 2023       | OK             | OK             | OK             | OK             |
+| A Webpage                    | -              | OK             | OK             | ?              |
+| Singe image from LibreOffice | OK             | OK             | OK             | OK             |
+| Affinity Designer 2          | OK             | OK             | OK             | OK             |
+| Affinity Photo 2             | OK             | ?              | ?              | ?              |
 
-### Windows 10
+### Windows 10 (Virtual Box)
 
-| copy from / paste to  | Firefox 55+     | Chrome 60+      | Edge 14+        | IE11              |
-|-----------------------|-----------------|-----------------|-----------------|-------------------|
-| Screenshot            | OK              | OK              | OK              | OK                |
-| A Webpage             | OK<sup>4)</sup> | OK<sup>4)</sup> | -               | -                 |
-| Gimp                  | OK              | OK              | OK              | OK                |
-| Pictures App          | OK              | OK              | OK              | OK                |
-| Paint                 | OK              | OK              | OK              | OK                |
-| Libre Office          | OK              | OK              | OK              | OK                |
-| Adobe Photoshop CC    | OK              | OK              | OK              | (OK)<sup>5)</sup> |
-| Adobe Illustrator CC  | OK<sup>2)</sup> | OK<sup>2)</sup> | OK<sup>2)</sup> | -                 |
-<!--
-| MS Word               | ?               | ?               | ?               | ?                 |
-| Corel Draw            | ?               | ?               | ?               | ?                 |
-| Corel PhotoPaint      | ?               | ?               | ?               | ?                 |
- -->
+| copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
+|--------------------------------|-----------------|-----------------|-----------------|
+| Image from Filesystem          | OK              | OK              | OK              |
+| File from Filesystem           | OK              | OK              | OK              |
+| Multiple files from filesystem | -               | OK              | OK              |
+| Screenshot                     | OK              | OK              | OK              |
+| A Webpage                      | -               | OK              | ?               |
+| Gimp                           | OK              | OK              | ?               |
+| Pictures App                   | OK              | ?               | OK              |
+| Paint                          | OK              | OK              | ?               |
+| Libre Office                   | OK              | OK              | ?               |
+| Adobe Photoshop 2023           | ?               | ?               | ?               |
+| Adobe Illustrator 2023         | ?               | ?               | ?               |
+| One Note                       | OK              | OK              | ?               |
 
+### Windows 11
 
-<sup>1)</sup> A PDF version of the image is pasted
-<sup>2)</sup> A png version of the image data is pasted.  
-<sup>3)</sup> The pasted image has only half the size than in the other browsers.  
-<sup>4)</sup> The original image HTML gets pasted too.  
-<sup>5)</sup> If you have to confirm clipboard access—the first time you paste something — the image gets removed after being pasted.
+**Help wanted:** Being trapped in the realms of macOS, I am lacking some real-world Windows 11 hardware.  
+If you think supporting an OpenSource project could be the best thing to do ever, feel free to edit the table below.
+
+| copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
+|--------------------------------|-----------------|-----------------|-----------------|
+| Image from Filesystem          | ?               | ?               | ?               |
+| File from Filesystem           | ?               | ?               | ?               |
+| Multiple files from filesystem | ?               | ?               | ?               |
+| Screenshot                     | ?               | ?               | ?               |
+| A Webpage                      | ?               | ?               | ?               |
+| Gimp                           | ?               | ?               | ?               |
+| Pictures App                   | ?               | ?               | ?               |
+| Paint                          | ?               | ?               | ?               |
+| Libre Office                   | ?               | ?               | ?               |
+| Adobe Photoshop 2023           | ?               | ?               | ?               |
+| Adobe Illustrator 2023         | ?               | ?               | ?               |
+| One Note                       | ?               | ?               | ?               |
 
 Plugin API:
 -----------
 ### Filter `the_paste_max_embed_image_size`
 Filter the maximum image size (in pixels) being pasted as data-url.
 
-**Default (integer):** `262144` (= 512*215)
+**Default (integer):** `262144` (= 512*512)
 
 ### Filter `the_paste_default_filename`
 
-Filter the default filename. You can use internal placeholders a subset of php‘s `strftime()` as date/time placeholders.
+Filter the default filename. You can use internal placeholders and a subset of php‘s `strftime()` as date/time placeholders.
 
 **Default (string):** `"Pasted"`
 
