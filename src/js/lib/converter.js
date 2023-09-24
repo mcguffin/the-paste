@@ -44,6 +44,9 @@ const getFilename = suffix => {
 		name = name.replace( el.s, el.r )
 	})
 	if ( 'string' === typeof suffix) {
+		if ( 'jpeg' === suffix ) { // dammit mime-types lib!
+			suffix = 'jpg'
+		}
 		name += '.' + suffix;
 	}
 	return name;
