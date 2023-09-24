@@ -9,14 +9,13 @@ Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Paste Images in WordPress from many applications and upload them to the media library.
+Paste image data and Files into the WordPress media library.
 
 == Description ==
 
-Speed up your workflow by pasting files and image data directly into WordPress
-and upload them to the media library.
+Speed up your workflow by pasting files and image data directly into the WordPress media library.
 
-Copy files and image data from many desktop applications:
+You can copy files and image data from many desktop applications:
 
 * macOS Finder
 * Windows Filesystem
@@ -30,7 +29,7 @@ The most recent Desktop versions of Chrome, Firefox, Edge and Safari are support
 
 [The paste at GitHub](https://github.com/mcguffin/the-paste)
 
-You like it? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)
+You like it? You can't stop pasting? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)!
 
 == Installation ==
 
@@ -38,10 +37,10 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Screenshots ==
 
-1. Pasting into rich text editor. You can either upload the image immediately or do so later.
-2. The media library has become pastable
-3. Paste multiple images from macOS Photos into Chrome
-4. A layer from Photoshop 2023
+1. Pasting into classic editor. You can either upload the image immediately or do so later.
+2. The media library is pastable too
+3. Pasted multiple images from macOS Photos into Chrome
+4. A layer pasted from Adobe Photoshop 2023
 
 == Changelog ==
 
@@ -50,7 +49,7 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 * Paste multiple files (except firefox)
 * Convert to WebP (except Safari)
 * Disable dataURI pasting in user profile (now default)
-* Fix: Check upload permissions before scripts are loaded
+* Performance: Check upload capability before scripts are loaded
 
 = 1.1.2 =
 * Fix: Fatal error in user profile
