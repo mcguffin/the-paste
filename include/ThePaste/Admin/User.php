@@ -115,10 +115,10 @@ class User extends Core\Singleton {
 					<p><label for="the-paste-placeholders"><a><?php esc_html_e( 'Available placeholders…', 'the-paste' ); ?></a></label></p>
 					<input type="checkbox" id="the-paste-placeholders" />
 					<dl>
-						<dt><code>&lt;filename&gt;</code></dt>
-						<dd><?php esc_html_e('Filename if available, ‘Pasted’ otherwise','the-paste'); ?></dd>
+						<dt><code>&lt;postname&gt;</code></dt>
+						<dd><?php esc_html_e('Current post title if available, empty string otherwise', 'the-paste'); ?></dd>
 						<dt><code>&lt;username&gt;</code></dt>
-						<dd><?php esc_html_e('Name of current user','the-paste'); ?></dd>
+						<dd><?php esc_html_e('Name of current user', 'the-paste'); ?></dd>
 					</dl>
 					<p><strong><?php esc_html_e('Date and time placeholders:'); ?></strong></p>
 					<dl>
@@ -183,7 +183,7 @@ class User extends Core\Singleton {
 					$options[$option] = (boolean) $value;
 
 				} else if ( in_array( $option, ['default_filename'] ) ) { // filename template
-					$options[$option] = strip_tags(trim( $value ), [ '<filename>', '<username>' ] );
+					$options[$option] = strip_tags(trim( $value ), [ '<postname>', '<username>' ] );
 				}
 			}
 			update_user_meta( $user_id, $this->option_name, $options );

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
-"POT-Creation-Date: 2023-09-24T14:05:56+00:00\n"
-"PO-Revision-Date: 2023-09-24 16:20+0200\n"
+"POT-Creation-Date: 2023-09-24T14:35:16+00:00\n"
+"PO-Revision-Date: 2023-09-24 16:36+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -26,13 +26,12 @@ msgid "The Paste"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "http://wordpress.org/"
+msgid "https://wordpress.org/plugins/the-paste/"
 msgstr ""
 
 #. Description of the plugin
 msgid ""
-"Paste Images in WordPress from many applications and upload them to the "
-"media library."
+"Paste files and image data from clipboard into the WordPress media library."
 msgstr ""
 
 #. Author of the plugin
@@ -138,8 +137,8 @@ msgid "Available placeholders…"
 msgstr "Verfügbare Platzhalter…"
 
 #: include/ThePaste/Admin/User.php:119
-msgid "Filename if available, ‘Pasted’ otherwise"
-msgstr "Dateiname falls vorhanden, ansonsten ’Eingefügt'"
+msgid "Current post title if available, empty string otherwise"
+msgstr "Beitragstitel wenn verfügbar, ansonsten leerer String"
 
 #: include/ThePaste/Admin/User.php:121
 msgid "Name of current user"
@@ -192,6 +191,9 @@ msgstr "The Paste unterstützen"
 #: include/ThePaste/Admin/User.php:158
 msgid "Paste some cash with PayPal"
 msgstr "Ein bisschen Cash mit PayPal einfügen"
+
+#~ msgid "Filename if available, ‘Pasted’ otherwise"
+#~ msgstr "Dateiname falls vorhanden, ansonsten ’Eingefügt'"
 
 # @ cheese
 #~ msgid "Snapshot"
