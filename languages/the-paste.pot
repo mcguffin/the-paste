@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-23T11:17:49+00:00\n"
+"POT-Creation-Date: 2023-09-24T14:05:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -34,8 +34,46 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/template/pasteboard.php:9
-msgid "Paste some image Data from your clipboard"
+#: include/template/image-list.php:9
+msgid "Upload Pasted Images"
+msgstr ""
+
+#: include/template/image-list.php:15
+#: include/template/uploader.php:28
+msgid "Upload"
+msgstr ""
+
+#: include/template/image-list.php:23
+msgid "Filename"
+msgstr ""
+
+#: include/template/image-list.php:24
+#: include/ThePaste/Admin/User.php:33
+msgid "Pasted"
+msgstr ""
+
+#: include/template/image-list.php:29
+msgid "WebP"
+msgstr ""
+
+#: include/template/image-list.php:33
+msgid "PNG"
+msgstr ""
+
+#: include/template/image-list.php:37
+msgid "jpeg"
+msgstr ""
+
+#: include/template/image-list.php:43
+msgid "Discard"
+msgstr ""
+
+#: include/template/the-paste-instructions.php:14
+msgid "Press <kbd>⌘</kbd>+<kbd>V</kbd> to paste"
+msgstr ""
+
+#: include/template/the-paste-instructions.php:16
+msgid "Press <kbd>ctrl</kbd>+<kbd>V</kbd> to paste"
 msgstr ""
 
 #: include/template/uploader.php:12
@@ -46,67 +84,98 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: include/template/uploader.php:28
-msgid "Upload"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:60
-msgid "Snapshot"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:61
-msgid "Take Snapshot"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:62
-msgid "Copy & Paste"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:63
-#: include/ThePaste/Admin/Admin.php:118
-msgid "Pasted"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:64
-msgid "Pasted into"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:65
-msgid "Image"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:66
-msgid "No image data pasted."
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:67
-msgid "Error pasting image data."
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:68
+#: include/ThePaste/Admin/Admin.php:53
 msgid "Upload pasted images"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:69
+#: include/ThePaste/Admin/Admin.php:54
 msgid "Upload image"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:70
-msgid "Sorry, this image is too big to pasted."
+#: include/ThePaste/Admin/Admin.php:56
+msgid "Copy & Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:68
-msgid "The Paste: Enable TinyMCE"
+#: include/ThePaste/Admin/User.php:75
+msgid "The Paste: Enable Classic Editor"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:74
-msgid "Allow pasting images in TinyMCE."
+#: include/ThePaste/Admin/User.php:81
+msgid "Allow pasting files and images in Classic Editor."
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:77
-msgid "If you choose to disable this, the Classic Editor will silently discard all data URI image."
+#: include/ThePaste/Admin/User.php:88
+msgid "The Paste: Data URI Images"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:78
-msgid "Please make sure to upload all of them to the media library first!"
+#: include/ThePaste/Admin/User.php:94
+msgid "Paste Data URI Images in Classic Editor."
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:97
+msgid "If this option is disabled, you can still upload existing data URI images."
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:104
+msgid "The Paste: Default filename"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:115
+msgid "Available placeholders…"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:119
+msgid "Filename if available, ‘Pasted’ otherwise"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:121
+msgid "Name of current user"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:126
+msgid "Four-digit year"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:128
+msgid "Two-digit year"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:130
+msgid "Number of month with leading zero (01 to 12)"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:132
+msgid "Day of month with leading zero (01 to 31)"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:134
+msgid "Day of month (1 to 31)"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:136
+msgid "Two digit hour in 24-hour format"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:138
+msgid "Two digit hour in 12-hour format"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:140
+msgid "Two digit minute"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:142
+msgid "Two digit second"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:144
+msgid "Unix timestamp"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:152
+msgid "Support The Paste"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:158
+msgid "Paste some cash with PayPal"
 msgstr ""
