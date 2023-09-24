@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Paste 1.1.2\n"
+"Project-Id-Version: The Paste 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-24T14:05:56+00:00\n"
+"POT-Creation-Date: 2023-09-24T14:21:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -19,11 +19,11 @@ msgid "The Paste"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "http://wordpress.org/"
+msgid "https://wordpress.org/plugins/the-paste/"
 msgstr ""
 
 #. Description of the plugin
-msgid "Paste Images in WordPress from many applications and upload them to the media library."
+msgid "Paste files and image data from clipboard into the WordPress media library."
 msgstr ""
 
 #. Author of the plugin
