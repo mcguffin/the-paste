@@ -10,25 +10,28 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 	let pasteBtn,
 		toolbar
 
-	// default on
-	thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
-	// enable / disable autoupload
-	editor.addCommand( 'cmd_thepaste', function() {
-		thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
-		localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
-		pasteBtn.active( thepaste.options.editor.auto_upload );
-	});
+	if ( ! thepaste.options.editor.datauri ) {
 
-	// enable / disable autoupload button
-	editor.addButton( 'thepaste', {
-		icon: 'thepaste',
-		tooltip: thepaste.l10n.upload_pasted_images,
-		cmd : 'cmd_thepaste',
-		onPostRender: function() {
-			pasteBtn = this;
-		},
-		active: thepaste.options.editor.auto_upload
-	});
+		// always auto uploaded
+		thepaste.options.editor.auto_upload = true
+
+	} else {
+
+		// user choice
+		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
+
+		// enable / disable autoupload button
+		editor.addButton( 'thepaste', {
+			icon: 'thepaste',
+			tooltip: thepaste.l10n.upload_pasted_images,
+			cmd : 'cmd_thepaste',
+			onPostRender: function() {
+				pasteBtn = this;
+			},
+			active: thepaste.options.editor.auto_upload
+		});
+
+	}
 
 	// upload button in media toolbar flyout
 	editor.addButton('wp_img_thepaste_upload', {
@@ -38,6 +41,29 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			// wrap img, upload
 			Uploader.inlineUpload( editor.selection.getNode() )
 		}
+	});
+
+	// setup media toolbar flyout on node change
+	editor.on( 'wptoolbar', function( event ) {
+		var uploadBtn;
+		if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
+			event.toolbar = toolbar;
+
+			uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
+
+			if ( canUpload( event.element ) ) {
+				uploadBtn.show();
+			} else {
+				uploadBtn.hide();
+			}
+		}
+	} );
+
+	// enable / disable autoupload
+	editor.addCommand( 'cmd_thepaste', function() {
+		thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
+		localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
+		pasteBtn.active( thepaste.options.editor.auto_upload );
 	});
 
 	// init media toolbar flyout
@@ -53,22 +79,6 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				'wp_img_edit',
 				'wp_img_remove',
 			] );
-		}
-	} );
-
-	// setup media toolbar flyout on node change
-	editor.on( 'wptoolbar', function( event ) {
-		var uploadBtn;
-		if ( event.element.nodeName === 'IMG' && ! editor.wp.isPlaceholder( event.element ) ) {
-			event.toolbar = toolbar;
-
-			uploadBtn = toolbar.$el.find('.thepaste-upload').closest('.mce-btn');
-
-			if ( canUpload( event.element ) ) {
-				uploadBtn.show();
-			} else {
-				uploadBtn.hide();
-			}
 		}
 	} );
 

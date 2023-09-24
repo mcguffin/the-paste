@@ -58,6 +58,7 @@ class Admin extends Core\Singleton {
 				'options' => [
 					'editor'           => [
 						'auto_upload'       => true,
+						'datauri'           => $user->datauri,
 						/**
 						 *	Size limit for data uri images
 						 *

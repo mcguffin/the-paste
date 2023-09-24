@@ -15,7 +15,7 @@ class User extends Core\Singleton {
 
 	private $defaults = [
 		'tinymce'          => true,
-		'datauri'          => true,
+		'datauri'          => false,
 		'default_filename' => 'Pasted'
 	];
 
@@ -46,11 +46,13 @@ class User extends Core\Singleton {
 		} else if ( 'options' === $what ) {
 			if ( is_null( $this->_options ) ) {
 				$this->_options = get_user_meta( get_current_user_id(), $this->option_name, true );
+
 				if ( ! is_array( $this->_options ) ) {
 					$this->_options = [];
 				}
 				$this->_options = wp_parse_args( $this->_options, $this->defaults );
 			}
+
 			return $this->_options;
 		}
 	}
@@ -76,27 +78,23 @@ class User extends Core\Singleton {
 				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce]" value="0" />
 				<label>
 					<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce]" value="1" <?php checked( $this->tinymce, true ); ?> />
-					<?php esc_html_e( 'Allow pasting files in Classic Editor.', 'the-paste' ); ?>
+					<?php esc_html_e( 'Allow pasting files and images in Classic Editor.', 'the-paste' ); ?>
 				</label>
-				<p class="description">
-					<?php esc_html_e( 'If you choose to disable this, the Classic Editor will silently discard all data URI image.', 'the-paste' ); ?><br />
-					<strong><?php esc_html_e( 'Please make sure to upload all of them to the media library first!', 'the-paste' ); ?></strong>
-				</p>
 			</td>
 		</tr>
 
 		<tr class="the-paste-datauri">
 			<th scope="row">
-				<?php esc_html_e( 'The Paste: Paste Data URI Images', 'the-paste' ); ?>
+				<?php esc_html_e( 'The Paste: Data URI Images', 'the-paste' ); ?>
 			</th>
 			<td>
 				<input type="hidden" name="<?php echo $this->option_name; ?>[datauri]" value="0" />
 				<label>
-					<input type="checkbox" name="<?php echo $this->option_name; ?>[datauri]" value="1" <?php checked( $this->tinymce, true ); ?> />
+					<input type="checkbox" name="<?php echo $this->option_name; ?>[datauri]" value="1" <?php checked( $this->datauri, true ); ?> />
 					<?php esc_html_e( 'Paste Data URI Images in Classic Editor.', 'the-paste' ); ?>
 				</label>
 				<p class="description">
-					<?php esc_html_e( 'If you choose to disable this, the Classic Editor will silently discard all data URI image.', 'the-paste' ); ?><br />
+					<?php esc_html_e( 'If this option is disabled, you can still upload existing data URI images.', 'the-paste' ); ?>
 				</p>
 			</td>
 		</tr>
@@ -117,8 +115,10 @@ class User extends Core\Singleton {
 					<p><label for="the-paste-placeholders"><a><?php esc_html_e( 'Available placeholders…', 'the-paste' ); ?></a></label></p>
 					<input type="checkbox" id="the-paste-placeholders" />
 					<dl>
-						<dt><code>&lt;postname&gt;</code></dt>
-						<dd><?php esc_html_e('Name of current post','the-paste'); ?></dd>
+						<dt><code>&lt;filename&gt;</code></dt>
+						<dd><?php esc_html_e('Filename if available, ‘Pasted’ otherwise','the-paste'); ?></dd>
+						<dt><code>&lt;username&gt;</code></dt>
+						<dd><?php esc_html_e('Name of current user','the-paste'); ?></dd>
 					</dl>
 					<p><strong><?php esc_html_e('Date and time placeholders:'); ?></strong></p>
 					<dl>
@@ -149,7 +149,7 @@ class User extends Core\Singleton {
 
 		<tr class="the-paste-donate">
 			<th scope="row">
-				<?php esc_html_e( 'Support The Paste:', 'the-paste' ); ?>
+				<?php esc_html_e( 'Support The Paste', 'the-paste' ); ?>
 			</th>
 			<td>
 				<p class="description">
@@ -171,17 +171,19 @@ class User extends Core\Singleton {
 	public function save_user( $user_id ) {
 		if ( isset( $_POST[ $this->option_name ] ) ) {
 			$options = wp_unslash( $_POST[ $this->option_name ] );
+
 			if ( ! is_array( $options ) ) {
 				$options = [];
 			}
 			$options = wp_parse_args( $options, $this->defaults );
 			$options = array_intersect_key( $options, $this->defaults );
+
 			foreach ( $options as $option => $value ) {
 				if ( in_array( $option, [ 'tinymce', 'datauri' ] ) ) { // boolean options
 					$options[$option] = (boolean) $value;
 
 				} else if ( in_array( $option, ['default_filename'] ) ) { // filename template
-					$options[$option] = strip_tags(trim( $value ), '<filename><username>');
+					$options[$option] = strip_tags(trim( $value ), [ '<filename>', '<username>' ] );
 				}
 			}
 			update_user_meta( $user_id, $this->option_name, $options );
