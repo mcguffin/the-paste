@@ -2,14 +2,14 @@
 Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: copy paste, clipboard, media library, productivity
-Requires at least: 4.5.0
+Requires at least: 4.8
 Tested up to: 6.3
-Requires PHP: 7.4.0
+Requires PHP: 7.4
 Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Paste image data and Files into the WordPress media library.
+Paste files and image data from clipboard into the WordPress media library.
 
 == Description ==
 

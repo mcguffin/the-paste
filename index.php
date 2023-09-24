@@ -2,19 +2,19 @@
 
 /*
 Plugin Name: The Paste
-Plugin URI: http://wordpress.org/
-Description: Paste Images in WordPress from many applications and upload them to the media library.
+Plugin URI: https://wordpress.org/plugins/the-paste/
+Description: Paste files and image data from clipboard into the WordPress media library.
 Author: Jörn Lund
 Version: 1.1.2
 Author URI: https://github.com/mcguffin
 License: GPL3
 Requires WP: 4.8
-Requires PHP: 5.6
+Requires PHP: 7.4
 Text Domain: the-paste
 Domain Path: /languages
 */
 
-/*  Copyright 2019 Jörn Lund
+/*  Copyright 2019-2023 Jörn Lund
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License, version 2, as
@@ -30,18 +30,12 @@ Domain Path: /languages
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/*
-Plugin was generated with Jörn Lund's WP Skelton
-https://github.com/mcguffin/wp-skeleton
-*/
-
 
 namespace ThePaste;
 
 if ( ! defined('ABSPATH') ) {
 	die('FU!');
 }
-
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 
