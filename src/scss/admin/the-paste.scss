@@ -9,7 +9,8 @@
 @import "variables/index";
 
 #the-paste {
-	/*
+	//*
+	// Prod mode
 	width: 0;
 	height: 0;
 	overflow:hidden;
@@ -18,6 +19,7 @@
 	top:0;
 	z-index: -1;
 	/*/
+	// Testing mode
 	width: 0;
 	height: 0;
 	position: fixed;
