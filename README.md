@@ -16,6 +16,11 @@ Known Browser Support
  - Safari 10+
  - Edge
 
+Known Issues
+------------
+ - *Firefox* does not support pasting multiple files from the OS filesystem.
+ - *Safari* lacks the support to convert images to the webP format.
+ - *Edge* is working suspiciously well, which is very unusal in the Microsoft world and must be considered a bug.
 
 Applications tested so far:
 ---------------------------

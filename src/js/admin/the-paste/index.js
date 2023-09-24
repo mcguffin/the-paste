@@ -23,9 +23,7 @@ const handleFiles = files => {
 	} )
 	if ( images.length ) {
 		imageDialog( images )
-			.then( files => {
-				files.forEach( file => uploader.addFile( file ) )}
-			)
+			.then( files => files.forEach( file => uploader.addFile( file ) ) )
 	}
 }
 
@@ -33,19 +31,28 @@ document.addEventListener( 'paste', e => {
 	if ( document.body.matches('.the-paste-modal-open') ) {
 		e.preventDefault()
 	}
-	// e.clipboardData.items[0].getAsString(s=>console.log(s))
+
 	if ( ! uploader ) {
 		return
 	}
 
 	if (  'firefox' !== UA.browser && e.clipboardData.files.length ) {
-		// Done. Except firefox
-
+		// Done. Except firefox.
 		return handleFiles( Array.from(e.clipboardData.files) )
 	}
 
 	const pasteOp = new PasteOperation(e)
-}, { capture:  true } )
+}, { capture: true } )
+
+// enable Edit > Paste menu item ... doesn't work ...
+// document.body.addEventListener('click', e => {
+// 	if ( e.target.closest('a,button,select,input,[contenteditable],textarea,[tabindex]') ) {
+// 		return
+// 	}
+// 	e.stopPropagation()
+// 	document.querySelector('#the-paste').focus()
+// 	console.log('aye')
+// }, { capture: true } )
 
 // firefox needs contenteditable to fire paste actions
 if ( 'firefox' === UA.browser ) {
@@ -72,7 +79,6 @@ if ( 'firefox' === UA.browser ) {
 			files.push( await Converter.urlToFile( el.src, el.alt ) )
 		}
 		document.querySelector('#the-paste').innerHTML = ''
-		console.log(files)
 		handleFiles(files)
 	})
 }

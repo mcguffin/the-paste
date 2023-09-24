@@ -7,15 +7,15 @@
 /* WordPress Dashicons Vars */
 /* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
 #the-paste {
-  /*
   width: 0;
   height: 0;
-  overflow:hidden;
+  overflow: hidden;
   position: fixed;
   left: 100%;
-  top:0;
+  top: 0;
   z-index: -1;
   /*/
+  // Testing mode
   width: 0;
   height: 0;
   position: fixed;
@@ -24,15 +24,17 @@
   border: 1px solid currentColor;
   box-sizing: border-box;
   z-index: -1;
-}
-#the-paste:focus, #the-paste:focus-within {
-  left: 30px;
-  top: 30px;
-  width: 200px;
-  height: 500px;
-  outline: 3px solid currentColor;
-  outline-offset: 3px;
-  z-index: 9999;
+  &:focus,
+  &:focus-within {
+  	left: 30px;
+  	top:30px;
+  	width: 200px;
+  	height: 500px;
+  	outline: 3px solid currentColor;
+  	outline-offset: 3px;
+  	z-index: 9999;
+  }
+  //*/
 }
 
 /*  */
