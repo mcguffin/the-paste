@@ -1,10 +1,10 @@
 === The Paste ===
 Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
-Tags: paste, clipboard, image, editor, media
+Tags: copy paste, clipboard, media library, productivity
 Requires at least: 4.5.0
 Tested up to: 6.3
-Requires PHP: 7.4.0
+Requires PHP: 7.4
 Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -19,8 +19,9 @@ and upload them to the media library.
 Copy files and image data from many desktop applications:
 
 * macOS Finder
-* Screenshot
-* Adobe Photoshop CC
+* Windows Filesystem
+* Screenshots
+* Adobe Photoshop
 * Gimp
 * LibreOffice
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
@@ -45,9 +46,11 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 == Changelog ==
 
 = 2.0.0 =
-* Feature: paste multiple files (except firefox)
-* Feature: WebP support (converting to WebP is not supported in safari, pasting WebP is)
-* Fix: Check upload permissions at script loading
+* Paste files and images in the media Library
+* Paste multiple files (except firefox)
+* Convert to WebP (except Safari)
+* Disable dataURI pasting in user profile (now default)
+* Fix: Check upload permissions before scripts are loaded
 
 = 1.1.1 =
 * Feature: Make pasting into tinyMCE optional. (Fixes unpredictable cursor position during file drop)

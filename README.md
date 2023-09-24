@@ -5,7 +5,7 @@ Official repository for the [The Paste](https://wordpress.org/plugins/the-paste/
 
 Paste image data into the Editor and upload it to the WordPress Media Library.
 
- - Developed in WP 3.8 – WP 6.2
+ - Developed in WP 3.8 – WP 6.3
  - Should work with WordPress 3.5+
 
 Known Browser Support
@@ -22,9 +22,7 @@ Applications tested so far:
 
 ### Mac OS 13.4:
 
-#### with data uris disabled
-
-| copy from / paste to         | Firefox 114+   | Chrome 114+    | Safari 16.5+   | Edge 114+      |
+| Copy from / paste to         | Firefox 114+   | Chrome 114+    | Safari 16.5+   | Edge 114+      |
 |------------------------------|----------------|----------------|----------------|----------------|
 | Image from Mac Finder        | OK             | OK             | OK             | OK             |
 | File from Mac Finder         | OK             | OK             | OK             | OK             |
@@ -42,32 +40,42 @@ Applications tested so far:
 | Affinity Designer 2          | OK             | OK             | OK             | OK             |
 | Affinity Photo 2             | OK             | ?              | ?              | ?              |
 
-#### with data uris enabled
-| copy from / paste to        | Firefox 114+   | Chrome 114+ | Safari 16.5+    | Edge 114+ |
-|-----------------------------|----------------|-------------|-----------------|-----------|
-| Small image from Mac Finder | ?              | ?           | ?               | ?         |
-| Small screenshot            | ?              | ?           | ?               | ?         |
-
-### Windows 10
+### Windows 10 (Virtual Box)
 
 | copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
 |--------------------------------|-----------------|-----------------|-----------------|
-| Image from Filesystem          | OK              | ?               | ?               |
-| File from Filesystem           | OK              | ?               | ?               |
-| Multiple files from filesystem | -               | ?               | ?               |
-| Screenshot                     | OK              | ?               | ?               |
-| A Webpage                      | -               | ?               | ?               |
+| Image from Filesystem          | OK              | OK              | OK              |
+| File from Filesystem           | OK              | OK              | OK              |
+| Multiple files from filesystem | -               | OK              | OK              |
+| Screenshot                     | OK              | OK              | OK              |
+| A Webpage                      | -               | OK              | ?               |
+| Gimp                           | OK              | OK              | ?               |
+| Pictures App                   | OK              | ?               | OK              |
+| Paint                          | OK              | OK              | ?               |
+| Libre Office                   | OK              | OK              | ?               |
+| Adobe Photoshop 2023           | ?               | ?               | ?               |
+| Adobe Illustrator 2023         | ?               | ?               | ?               |
+| One Note                       | OK              | OK              | ?               |
+
+### Windows 11
+
+**Help wanted:** Being trapped in the realms of macOS, I am lacking some real-world Windows 11 hardware.  
+If you think supporting an OpenSource project could be the best thing to do ever, feel free to edit the table below.
+
+| copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
+|--------------------------------|-----------------|-----------------|-----------------|
+| Image from Filesystem          | ?               | ?               | ?               |
+| File from Filesystem           | ?               | ?               | ?               |
+| Multiple files from filesystem | ?               | ?               | ?               |
+| Screenshot                     | ?               | ?               | ?               |
+| A Webpage                      | ?               | ?               | ?               |
 | Gimp                           | ?               | ?               | ?               |
 | Pictures App                   | ?               | ?               | ?               |
 | Paint                          | ?               | ?               | ?               |
 | Libre Office                   | ?               | ?               | ?               |
-| Adobe Photoshop CC             | ?               | ?               | ?               |
-| Adobe Illustrator CC           | ?               | ?               | ?               |
-
-<sup>1</sup> The file names are pasted as text. One of the files is uploaded.
-<sup>2</sup> Download link pasted
-<sup>3</sup> Download link with generic filename pasted
-<sup>4</sup> If using the menu or right-click menu. If pasted using <kbd>command + v</kbd> a blob URI image is pasted.
+| Adobe Photoshop 2023           | ?               | ?               | ?               |
+| Adobe Illustrator 2023         | ?               | ?               | ?               |
+| One Note                       | ?               | ?               | ?               |
 
 Plugin API:
 -----------
@@ -78,7 +86,7 @@ Filter the maximum image size (in pixels) being pasted as data-url.
 
 ### Filter `the_paste_default_filename`
 
-Filter the default filename. You can use internal placeholders a subset of php‘s `strftime()` as date/time placeholders.
+Filter the default filename. You can use internal placeholders and a subset of php‘s `strftime()` as date/time placeholders.
 
 **Default (string):** `"Pasted"`
 
