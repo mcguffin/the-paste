@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Paste 2.0.1\n"
+"Project-Id-Version: The Paste 2.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-09-26T13:30:28+00:00\n"
+"POT-Creation-Date: 2023-09-26T13:38:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -125,66 +125,66 @@ msgid "Available placeholders…"
 msgstr ""
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/User.php:121
+#: include/ThePaste/Admin/User.php:122
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:126
+#: include/ThePaste/Admin/User.php:127
 msgid "Display name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:128
+#: include/ThePaste/Admin/User.php:129
 msgid "Login name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:130
+#: include/ThePaste/Admin/User.php:131
 msgid "Current user ID"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:135
+#: include/ThePaste/Admin/User.php:136
 msgid "Four-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:137
+#: include/ThePaste/Admin/User.php:138
 msgid "Two-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:139
+#: include/ThePaste/Admin/User.php:140
 msgid "Number of month with leading zero (01 to 12)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:141
+#: include/ThePaste/Admin/User.php:142
 msgid "Day of month with leading zero (01 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:143
+#: include/ThePaste/Admin/User.php:144
 msgid "Day of month (1 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:145
+#: include/ThePaste/Admin/User.php:146
 msgid "Two digit hour in 24-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:147
+#: include/ThePaste/Admin/User.php:148
 msgid "Two digit hour in 12-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:149
+#: include/ThePaste/Admin/User.php:150
 msgid "Two digit minute"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:151
+#: include/ThePaste/Admin/User.php:152
 msgid "Two digit second"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:153
+#: include/ThePaste/Admin/User.php:154
 msgid "Unix timestamp"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:161
+#: include/ThePaste/Admin/User.php:162
 msgid "Support The Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:167
+#: include/ThePaste/Admin/User.php:168
 msgid "Paste some cash with PayPal"
 msgstr ""
