@@ -2,37 +2,66 @@ import $ from 'jquery'
 import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
+import UA from 'ua'
 import Uploader from 'uploader'
 
 class PasteOperation {
+
+	get isAsync() {
+		return this.gdocsItems.length > 0
+	}
 
 	get hasPastedFiles() {
 		return this.files.length > 0
 	}
 
 	get pastedContent() {
-		return this.files.map( (file,idx) => {
-			const src = URL.createObjectURL(file)
+		return this.isAsync
+			? '<p id="the-pasted-async"></p>' // this.gdocsItems.map( (item,idx) => `<img id="the-pasted-async-${idx}" />`).join('')
+			: this.files.map( (file,idx) => {
+					const src = URL.createObjectURL(file)
 
-			return `<img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" />`
-		} )
-		.join('')
+					return `<img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" />`
+				} )
+				.join('')
 	}
 
 	constructor(event) {
 		const body = event.target.closest('body')
+		this.gdocsItems = Converter.getGdocsClipboardItems( event.clipboardData.items )
+		this.files = Array.from( event.clipboardData.files )
 
-		this.files = Array.from(event.clipboardData.files)
 
 		// no files
-		if ( ! this.files.length ) {
+		if ( ! this.isAsync && ! this.files.length ) {
 			return
 		}
+		if ( this.isAsync ) {
+			// google docs clipboard items present
+			(async () => {
+				let i
+				const html = await Converter.clipboardItemsToHtml( event.clipboardData.items )
+				const div = document.createElement('div')
+				const placeholder = body.querySelector('#the-pasted-async')
+				const images = []
 
-		if ( UA.browser === 'firefox' ) {
+				div.innerHTML = html
+				images.push( ...Array.from(div.querySelectorAll('img')) )
+				body.insertBefore( div, placeholder )
+				placeholder.remove()
+
+				if ( images.length ) {
+					for ( i=0; i < images.length; i++ ) {
+						images[i].src = await Converter.urlToBlobUrl(images[i].src)
+					}
+					body.dispatchEvent(new Event('FilesPasted'))
+				}
+			})()
+		} else if ( UA.browser === 'firefox' ) {
 			// firefox can only paste one file at a time
 			// luckily it is available in the DOM during the input event
 			body.addEventListener( 'input', e => {
+				// this.files.push( ... await Converter.gdocsClipboardItemsToFiles( event.clipboardData.items ) )
 				if ( this.files.length === 1 ) {
 					body.querySelector('[src^="data:"]').alt = this.files[0].name
 				}

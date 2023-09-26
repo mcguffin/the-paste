@@ -70,7 +70,56 @@ const safeFilename = ( file, filename = '' ) => {
 }
 
 const Converter = {
-
+	clipboardItemsToHtml:  async clipboardItems => {
+		let i, item
+		for ( i=0; i < clipboardItems.length; i++ ) {
+			item = clipboardItems[i]
+			if ( 'string' === item.kind && 'text/html' === item.type ) {
+				return await Converter.gdocsItemToHtml( item )
+			}
+		}
+		return ''
+	},
+	getGdocsClipboardItems: clipboardItems => Array.from(clipboardItems).filter( item => 'string' === item.kind && 'application/x-vnd.google-docs-document-slice-clip+wrapped' === item.type ),
+	gdocsClipboardItemsToFiles: async clipboardItems => {
+		let i, item, src;
+		const files = []
+		for ( i=0; i < clipboardItems.length; i++ ) {
+			item = clipboardItems[i]
+			if ( 'string' === item.kind && 'application/x-vnd.google-docs-image-clip+wrapped' === item.type ) {
+				files.push( ...await Converter.gdocsItemToFiles( item ) )
+			}
+		}
+		return files
+	},
+	gdocsClipboardItemsToSources: async clipboardItems => {
+		let i, item, src;
+		const srcs = []
+		for ( i=0; i < clipboardItems.length; i++ ) {
+			item = clipboardItems[i]
+			if ( 'string' === item.kind && 'application/x-vnd.google-docs-image-clip+wrapped' === item.type ) {
+				srcs.push( ...await Converter.gdocsItemToSources( item ) )
+			}
+		}
+		return srcs
+	},
+	gdocsItemToSources: async item => new Promise( (resolve, reject) => {
+		item.getAsString( async str => {
+			const src = Object.values(JSON.parse(JSON.parse( str ).data ).image_urls )
+			resolve(src)
+		} )
+	}),
+	gdocsItemToFiles: async item => {
+		const sources = await Converter.gdocsItemToSources(item)
+		const files = []
+		for ( i=0;i<sources.length; i++ ) {
+			files.push( await Converter.blobUrlToFile(sources[i]) )
+		}
+		return files
+	},
+	gdocsItemToHtml: async item => new Promise( (resolve, reject) => {
+		item.getAsString( html => resolve(html) )
+	}),
 
 	elementToFile: async el => {
 		const file = await Converter.urlToFile(el.src,el.alt)
@@ -101,7 +150,10 @@ const Converter = {
 		const mime = await Converter.urlToMime(url)
 		return mime.substr( 0, mime.indexOf('/'))
 	},
-
+	urlToBlobUrl: async (url) => {
+		const file = await Converter.blobUrlToFile( url )
+		return Converter.fileToBlobUrl( file )
+	},
 
 	blobToFile: ( blob, filename = '' ) => {
 		return new File([blob], safeFilename( blob, filename ), { type: blob.type } );

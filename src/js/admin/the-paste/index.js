@@ -18,9 +18,10 @@ const handleFiles = files => {
 		imageDialog( images )
 			.then( files => files.forEach( file => uploader.addFile( file ) ) )
 	}
-}
+};
 
-document.addEventListener( 'paste', e => {
+
+document.addEventListener( 'paste', async e => {
 	if ( document.body.matches('.the-paste-modal-open') ) {
 		e.preventDefault()
 	}
@@ -29,8 +30,11 @@ document.addEventListener( 'paste', e => {
 		return
 	}
 
-	if ( e.clipboardData.files.length ) {
-		return handleFiles( Array.from( e.clipboardData.files ) )
+	const files = Array.from( e.clipboardData.files )
+	files.push( ... await Converter.gdocsClipboardItemsToFiles( e.clipboardData.items ) )
+
+	if ( files.length ) {
+		return handleFiles( files )
 	}
 
 }, { capture: true } )

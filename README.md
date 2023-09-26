@@ -27,7 +27,7 @@ Applications tested so far:
 
 ### Mac OS 13.4:
 
-| Copy from / paste to         | Firefox 114+   | Chrome 114+    | Safari 16.5+   | Edge 114+      |
+| Copy from / paste to         | Firefox 117+   | Chrome 114+    | Safari 16.5+   | Edge 114+      |
 |------------------------------|----------------|----------------|----------------|----------------|
 | Image from Mac Finder        | OK             | OK             | OK             | OK             |
 | File from Mac Finder         | OK             | OK             | OK             | OK             |
@@ -44,30 +44,32 @@ Applications tested so far:
 | Singe image from LibreOffice | OK             | OK             | OK             | OK             |
 | Affinity Designer 2          | OK             | OK             | OK             | OK             |
 | Affinity Photo 2             | OK             | ?              | ?              | ?              |
+| Google Docs                  | OK             | OK             | ?              | ?              |
 
 ### Windows 10 (Virtual Box)
 
-| copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
-|--------------------------------|-----------------|-----------------|-----------------|
-| Image from Filesystem          | OK              | OK              | OK              |
-| File from Filesystem           | OK              | OK              | OK              |
-| Multiple files from filesystem | -               | OK              | OK              |
-| Screenshot                     | OK              | OK              | OK              |
-| A Webpage                      | -               | OK              | ?               |
-| Gimp                           | OK              | OK              | ?               |
-| Pictures App                   | OK              | ?               | OK              |
-| Paint                          | OK              | OK              | ?               |
-| Libre Office                   | OK              | OK              | ?               |
-| Adobe Photoshop 2023           | ?               | ?               | ?               |
-| Adobe Illustrator 2023         | ?               | ?               | ?               |
-| One Note                       | OK              | OK              | ?               |
+| copy from / paste to         | Firefox 117+   | Chrome 114+    | Edge 114+      |
+|------------------------------|----------------|----------------|----------------|
+| Image from Explorer          | OK             | OK             | OK             |
+| File from Explorer           | OK             | OK             | OK             |
+| Multiple files from Explorer | -              | OK             | OK             |
+| Screenshot                   | OK             | OK             | OK             |
+| A Webpage                    | -              | OK             | ?              |
+| Gimp                         | OK             | OK             | ?              |
+| Pictures App                 | OK             | ?              | OK             |
+| Paint                        | OK             | OK             | ?              |
+| Libre Office                 | OK             | OK             | ?              |
+| Adobe Photoshop 2023         | ?              | ?              | ?              |
+| Adobe Illustrator 2023       | ?              | ?              | ?              |
+| One Note                     | OK             | OK             | ?              |
+| Google Docs                  | ?              | ?              | ?              |
 
 ### Windows 11
 
 **Help wanted:** Being trapped in the realms of macOS, I am lacking some real-world Windows 11 hardware.  
 If you think supporting an OpenSource project could be the best thing to do ever, feel free to edit the table below.
 
-| copy from / paste to           | Firefox 114+    | Chrome 114+     | Edge 114+       |
+| copy from / paste to           | Firefox 117+    | Chrome 114+     | Edge 114+       |
 |--------------------------------|-----------------|-----------------|-----------------|
 | Image from Filesystem          | ?               | ?               | ?               |
 | File from Filesystem           | ?               | ?               | ?               |
