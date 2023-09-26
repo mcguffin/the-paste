@@ -2,8 +2,46 @@ import $ from 'jquery'
 import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
-import PasteOperation from 'paste-operation'
 import Uploader from 'uploader'
+
+class PasteOperation {
+
+	get hasPastedFiles() {
+		return this.files.length > 0
+	}
+
+	get pastedContent() {
+		return this.files.map( (file,idx) => {
+			const src = URL.createObjectURL(file)
+
+			return `<img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" />`
+		} )
+		.join('')
+	}
+
+	constructor(event) {
+		const body = event.target.closest('body')
+
+		this.files = Array.from(event.clipboardData.files)
+
+		// no files
+		if ( ! this.files.length ) {
+			return
+		}
+
+		if ( UA.browser === 'firefox' ) {
+			// firefox can only paste one file at a time
+			// luckily it is available in the DOM during the input event
+			body.addEventListener( 'input', e => {
+				if ( this.files.length === 1 ) {
+					body.querySelector('[src^="data:"]').alt = this.files[0].name
+				}
+				body.dispatchEvent(new Event('FilesPasted'))
+			}, { once: true } )
+		}
+	}
+}
+
 
 tinymce.PluginManager.add( 'the_paste', editor => {
 
@@ -100,11 +138,9 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 					loadedImg.src = await Converter.blobUrlToDataUrl(loadedImg.src)
 				}
 			}
-			editor.dom.doc.body.addEventListener('beforeinput', e => { console.log(e) })
-			editor.dom.doc.body.addEventListener('input', e => { console.log(e) })
-			editor.dom.doc.body.addEventListener('paste', e => { console.log(e) })
 			editor.dom.doc.body.addEventListener('FilesPasted', e => {
-				editor.dom.doc.body.querySelectorAll('[src^="blob:"],[src^="data:"]').forEach( async el => {
+				editor.dom.doc.body.querySelectorAll('[src^="blob:"]:not(.--paste-process),[src^="data:"]:not(.--paste-process)').forEach( async el => {
+					el.classList.add('--paste-process')
 
 					if ( ! thepaste.options.editor.auto_upload
 						&& 'image' === await Converter.urlToType(el.src)
@@ -118,22 +154,22 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 						Uploader.inlineUpload( el ).catch( err => Notices.error( err.message, true ) || el.remove() )
 					}
 				})
+				pasteOperation = null
 			})
 		})
 		.on( 'Paste', e => {
 			pasteOperation = new PasteOperation( e )
-			pasteOperation.forceBlob = true
 		})
-		.on( 'PastePreProcess', e => {
+		.on( 'PastePreProcess', e => { // not fired in FF
 			let content
-			if ( ! pasteOperation.isObserving && (content = pasteOperation.pastedContent ) ) {
+			// get html from pasteOperation
+			if ( content = pasteOperation.pastedContent ) {
 				e.content = content
 			}
 		})
-		.on( 'PastePostProcess', e => {
-			if ( ! pasteOperation.isObserving ) {
-				setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
-			}
+		.on( 'PastePostProcess', e => { // not fired in FF
+			// DOM modification can be processed
+			setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
 		});
 } );
 
