@@ -42,6 +42,8 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'include/autoload.php';
 Core\Core::instance( __FILE__ );
 
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
-	Admin\Admin::instance();
-	Admin\User::instance();
+	add_action( 'init', function() {
+		Admin\Admin::instance();
+		Admin\User::instance();
+	});
 }
