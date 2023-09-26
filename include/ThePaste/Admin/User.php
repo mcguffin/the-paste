@@ -115,6 +115,7 @@ class User extends Core\Singleton {
 					<p><label for="the-paste-placeholders"><a><?php esc_html_e( 'Available placeholders…', 'the-paste' ); ?></a></label></p>
 					<input type="checkbox" id="the-paste-placeholders" />
 					<dl>
+						<dt><code>&lt;postname&gt;</code></dt>
 						<dd><?php echo esc_html(
 							sprintf(
 								/* translators: 'Media Library' H1 from WP Core */

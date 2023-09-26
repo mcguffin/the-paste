@@ -72,7 +72,7 @@ class Admin extends Core\Singleton {
 						),
 					],
 					'filename_values'   => [
-						'username'  => $current_user->user_nicename,
+						'username'  => $current_user->display_name,
 						'userlogin' => $current_user->user_login,
 						'userid'    => $current_user->ID,
 					],

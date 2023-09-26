@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
-"POT-Creation-Date: 2023-09-24T14:35:16+00:00\n"
-"PO-Revision-Date: 2023-09-24 16:36+0200\n"
+"POT-Creation-Date: 2023-09-26T13:30:28+00:00\n"
+"PO-Revision-Date: 2023-09-26 15:37+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -93,15 +93,15 @@ msgstr "Nochmal"
 msgid "Title"
 msgstr "Titel"
 
-#: include/ThePaste/Admin/Admin.php:53
+#: include/ThePaste/Admin/Admin.php:56
 msgid "Upload pasted images"
 msgstr "Eingefügte Bilder sofort hochladen"
 
-#: include/ThePaste/Admin/Admin.php:54
+#: include/ThePaste/Admin/Admin.php:57
 msgid "Upload image"
 msgstr "Bild hochladen"
 
-#: include/ThePaste/Admin/Admin.php:56
+#: include/ThePaste/Admin/Admin.php:59
 msgid "Copy & Paste"
 msgstr "Kopieren & Einfügen"
 
@@ -136,61 +136,76 @@ msgstr "The Paste: Standard-Dateiname"
 msgid "Available placeholders…"
 msgstr "Verfügbare Platzhalter…"
 
-#: include/ThePaste/Admin/User.php:119
-msgid "Current post title if available, empty string otherwise"
-msgstr "Beitragstitel wenn verfügbar, ansonsten leerer String"
-
+#. translators: 'Media Library' H1 from WP Core
 #: include/ThePaste/Admin/User.php:121
-msgid "Name of current user"
-msgstr "Aktueller Benutzername"
+msgid "Current post title if available, ‘%s’ otherwise"
+msgstr "Beitragstitel wenn verfügbar, ansonsten „%s“"
 
 #: include/ThePaste/Admin/User.php:126
+msgid "Display name of current user"
+msgstr "Öffentlicher Name des Benutzers"
+
+#: include/ThePaste/Admin/User.php:128
+msgid "Login name of current user"
+msgstr "Benutzername"
+
+#: include/ThePaste/Admin/User.php:130
+msgid "Current user ID"
+msgstr "Benutzer-ID"
+
+#: include/ThePaste/Admin/User.php:135
 msgid "Four-digit year"
 msgstr "Jahr vierstellig"
 
-#: include/ThePaste/Admin/User.php:128
+#: include/ThePaste/Admin/User.php:137
 msgid "Two-digit year"
 msgstr "Jahr zweistellig"
 
-#: include/ThePaste/Admin/User.php:130
+#: include/ThePaste/Admin/User.php:139
 msgid "Number of month with leading zero (01 to 12)"
 msgstr "Monat als Zahl mit führender Null (01 bis 12)"
 
-#: include/ThePaste/Admin/User.php:132
+#: include/ThePaste/Admin/User.php:141
 msgid "Day of month with leading zero (01 to 31)"
 msgstr "Tag des Monats mit führender Null (01 bis 31)"
 
-#: include/ThePaste/Admin/User.php:134
+#: include/ThePaste/Admin/User.php:143
 msgid "Day of month (1 to 31)"
 msgstr "Tag des Monats (1 bis 31)"
 
-#: include/ThePaste/Admin/User.php:136
+#: include/ThePaste/Admin/User.php:145
 msgid "Two digit hour in 24-hour format"
 msgstr "Zweistellige Stunde im 24-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:138
+#: include/ThePaste/Admin/User.php:147
 msgid "Two digit hour in 12-hour format"
 msgstr "Zweistellige Stunde im 12-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:140
+#: include/ThePaste/Admin/User.php:149
 msgid "Two digit minute"
 msgstr "Zweistellige Minute"
 
-#: include/ThePaste/Admin/User.php:142
+#: include/ThePaste/Admin/User.php:151
 msgid "Two digit second"
 msgstr "Zweistellige Sekunde"
 
-#: include/ThePaste/Admin/User.php:144
+#: include/ThePaste/Admin/User.php:153
 msgid "Unix timestamp"
 msgstr "Unix-Zeitstempel"
 
-#: include/ThePaste/Admin/User.php:152
+#: include/ThePaste/Admin/User.php:161
 msgid "Support The Paste"
 msgstr "The Paste unterstützen"
 
-#: include/ThePaste/Admin/User.php:158
+#: include/ThePaste/Admin/User.php:167
 msgid "Paste some cash with PayPal"
 msgstr "Ein bisschen Cash mit PayPal einfügen"
+
+#~ msgid "Current post title if available, empty string otherwise"
+#~ msgstr "Beitragstitel wenn verfügbar, ansonsten leerer String"
+
+#~ msgid "Name of current user"
+#~ msgstr "Aktueller Benutzername"
 
 #~ msgid "Filename if available, ‘Pasted’ otherwise"
 #~ msgstr "Dateiname falls vorhanden, ansonsten ’Eingefügt'"
