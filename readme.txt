@@ -44,6 +44,14 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.0.2 =
+* Paste from Google Docs (Docs and Presentation)
+* More Filename placeholders
+* Fix PHP Fatal if network activated on a multisite
+
+= 2.0.1 =
+* Fix: Filename placeholders
+
 = 2.0.0 =
 * Paste files and images in the media Library
 * Paste multiple files (except firefox)
