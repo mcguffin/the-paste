@@ -115,10 +115,19 @@ class User extends Core\Singleton {
 					<p><label for="the-paste-placeholders"><a><?php esc_html_e( 'Available placeholders…', 'the-paste' ); ?></a></label></p>
 					<input type="checkbox" id="the-paste-placeholders" />
 					<dl>
-						<dt><code>&lt;postname&gt;</code></dt>
-						<dd><?php esc_html_e('Current post title if available, empty string otherwise', 'the-paste'); ?></dd>
+						<dd><?php echo esc_html(
+							sprintf(
+								/* translators: 'Media Library' H1 from WP Core */
+								__( 'Current post title if available, ‘%s’ otherwise', 'the-paste'),
+								__( 'Media Library' )
+							)
+						); ?></dd>
 						<dt><code>&lt;username&gt;</code></dt>
-						<dd><?php esc_html_e('Name of current user', 'the-paste'); ?></dd>
+						<dd><?php esc_html_e('Display name of current user', 'the-paste'); ?></dd>
+						<dt><code>&lt;userlogin&gt;</code></dt>
+						<dd><?php esc_html_e('Login name of current user', 'the-paste'); ?></dd>
+						<dt><code>&lt;userid&gt;</code></dt>
+						<dd><?php esc_html_e('Current user ID', 'the-paste'); ?></dd>
 					</dl>
 					<p><strong><?php esc_html_e('Date and time placeholders:'); ?></strong></p>
 					<dl>
@@ -183,7 +192,7 @@ class User extends Core\Singleton {
 					$options[$option] = (boolean) $value;
 
 				} else if ( in_array( $option, ['default_filename'] ) ) { // filename template
-					$options[$option] = strip_tags(trim( $value ), [ '<postname>', '<username>' ] );
+					$options[$option] = strip_tags(trim( $value ), [ '<postname>', '<username>', '<userlogin>', '<userid>' ] );
 				}
 			}
 			update_user_meta( $user_id, $this->option_name, $options );

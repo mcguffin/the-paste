@@ -16,8 +16,11 @@ const getFilename = suffix => {
 	let name = thepaste.options.default_filename
 
 	const now = new Date(),
-		postname = document.querySelector('#post [name="post_title"]#title')?.value,
-		username = document.querySelector('.display-name')?.textContent,
+		postname = document.querySelector('#post [name="post_title"]#title')?.value
+			|| document.querySelector('.wp-block-post-title')?.textContent
+			|| document.querySelector('h1')?.textContent,
+		replace_values = thepaste.options.filename_values,
+		// username = document.querySelector('.display-name')?.textContent,
 		map = [
 			{ s: '%Y', r: now.getFullYear() },
 			{ s: '%y', r: now.getFullYear() % 100 },
@@ -35,11 +38,13 @@ const getFilename = suffix => {
 	} else {
 		map.push( { s: '<postname>', r: '' } );
 	}
-	if ( 'undefined' !== typeof username ) {
-		map.push( { s: '<username>', r: username } );
-	} else {
-		map.push( { s: '<username>', r: '' } );
-	}
+	Object.keys( replace_values ).forEach( k => {
+		if ( !! replace_values[k] ) {
+			map.push( { s: `<${k}>`, r: replace_values[k] } );
+		} else {
+			map.push( { s: `<${k}>`, r: '' } );
+		}
+	})
 	map.forEach(function(el){
 		name = name.replace( el.s, el.r )
 	})

@@ -12,12 +12,13 @@ use ThePaste\Core;
 
 class Admin extends Core\Singleton {
 
-	private $core;
-
+	/** @var TinyMce\TinyMce */
 	private $mce;
 
+	/** @var Asset\Asset */
 	private $js;
 
+	/** @var Asset\Asset */
 	private $css;
 
 	/**
@@ -44,6 +45,8 @@ class Admin extends Core\Singleton {
 			$this->mce = TinyMce\TinyMceThePaste::instance();
 		}
 
+		$current_user = wp_get_current_user();
+
 		$this->css = Asset\Asset::get('css/admin/the-paste.css')->register();
 
 		$this->js = Asset\Asset::get('js/admin/the-paste.js')
@@ -68,6 +71,11 @@ class Admin extends Core\Singleton {
 							apply_filters('the_paste_max_embed_imge_size', 512 * 512 ) // backwards compatibility
 						),
 					],
+					'filename_values'   => [
+						'username'  => $current_user->user_nicename,
+						'userlogin' => $current_user->user_login,
+						'userid'    => $current_user->ID,
+					],
 					'jpeg_quality'     => apply_filters( 'jpeg_quality', 90, 'edit_image' ),
 					/**
 					 *	Filters the default filename
@@ -75,7 +83,9 @@ class Admin extends Core\Singleton {
 					 *	@param String $filename	The Filename. There are some placeholders:
 					 *							Placeholders:
 					 *								<postname> Name of current post
-					 *								<username> Name of current user
+					 *								<username> Display name of current user
+					 *								<userlogin> Login name of current user
+					 *								<userid> Current user ID
 					 *							Date and Time placeholders (a subset of php's strftime() format characters):
 					 *								%Y Four-digit year
 					 *								%y Two-digit year
