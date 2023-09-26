@@ -10,7 +10,6 @@ const source		= require( 'vinyl-source-stream' );
 const sourcemaps	= require( 'gulp-sourcemaps' );
 const es			= require( 'event-stream' );
 const child_process	= require( 'child_process' );
-const jsonlint      = require( 'gulp-jsonlint' );
 
 
 const package = require( './package.json' );
@@ -117,19 +116,12 @@ gulp.task('dev:scss', scss_task( true ) );
 gulp.task('watch:scss',cb => {
 	cb()
 })
-gulp.task('jsonlint', () => {
-	return gulp.src("./json/**/*.json")
-		.pipe(jsonlint())
-		.pipe(jsonlint.reporter())
-})
 
 
 gulp.task('watch', cb => {
 	gulp.watch( config.sass.watchPaths, gulp.parallel('dev:scss','watch:scss'));
 	gulp.watch('./src/js/**/*.js',gulp.parallel('dev:js'));
 	// gulp.watch('./languages/*.po',gulp.parallel('i18n:make-json'));
-
-	gulp.watch('./json/**/*.json', gulp.parallel('jsonlint'))
 });
 
 gulp.task('dev',gulp.series('dev:scss','dev:js','watch'));
