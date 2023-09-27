@@ -41,14 +41,25 @@
 .the-paste-instructions body:not(:focus-within) {
   display: none;
 }
-.media-toolbar .the-paste-instructions {
+.media-frame-title .the-paste-instructions, .media-toolbar .the-paste-instructions {
   white-space: nowrap;
 }
-.media-toolbar .the-paste-instructions:not([hidden]) {
+.media-frame-title .the-paste-instructions:not([hidden]), .media-toolbar .the-paste-instructions:not([hidden]) {
   display: inline-block;
 }
-.media-toolbar .the-paste-instructions .upload-instructions {
+.media-frame-title .the-paste-instructions .upload-instructions, .media-toolbar .the-paste-instructions .upload-instructions {
   display: none;
+}
+.media-modal-content .media-toolbar .the-paste-instructions {
+  display: none;
+}
+.media-frame-title > .the-paste-instructions:not([hidden]) {
+  position: absolute;
+  right: 56px;
+  top: 0;
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .the-paste-image-list {
