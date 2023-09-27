@@ -50,7 +50,8 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 = 2.0.3 =
 * UI Tweak (instruction placement)
 * Fix: Classic editor plugin crashing
-* Fix: somtimes not pasting in Firefox
+* Fix: sometimes not pasting in Firefox
+* Fix: Dialog overlays media frame in Block Editor
 
 = 2.0.2 =
 * Paste from Google Docs (Docs and Presentation)
