@@ -33,6 +33,8 @@ class Admin extends Core\Singleton {
 		add_action( 'admin_init', [ $this, 'register_assets' ] );
 		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
 		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
+		add_action( 'wp_enqueue_editor', [ $this, 'enqueue_assets' ] );
+
 	}
 
 	/**
