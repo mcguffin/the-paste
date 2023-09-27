@@ -2,10 +2,28 @@ import $ from 'jquery'
 import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
-import UA from 'ua'
+// import UA from 'ua'
 import Uploader from 'uploader'
 
 class PasteOperation {
+
+	static #instance = null
+	static #observer = null
+
+	#files = []
+
+	static init(event) {
+		PasteOperation.#instance = new PasteOperation(event)
+		return PasteOperation.get();
+	}
+
+	static get() {
+		return PasteOperation.#instance
+	}
+
+	static destroy() {
+		PasteOperation.#instance = null
+	}
 
 	get isAsync() {
 		return this.gdocsItems.length > 0
@@ -26,48 +44,74 @@ class PasteOperation {
 				.join('')
 	}
 
-	constructor(event) {
-		const body = event.target.closest('body')
-		this.gdocsItems = Converter.getGdocsClipboardItems( event.clipboardData.items )
-		this.files = Array.from( event.clipboardData.files )
+	get files() {
+		return this.#files
+	}
 
+	constructor(event) {
+		this.clipboardData = event.clipboardData
+		this.body = event.target.closest('body')
+		this.gdocsItems = Converter.getGdocsClipboardItems( event.clipboardData.items )
+		this.#files = Array.from( this.clipboardData.files??[] )
 
 		// no files
 		if ( ! this.isAsync && ! this.files.length ) {
 			return
 		}
+
 		if ( this.isAsync ) {
 			// google docs clipboard items present
 			(async () => {
 				let i
 				const html = await Converter.clipboardItemsToHtml( event.clipboardData.items )
 				const div = document.createElement('div')
-				const placeholder = body.querySelector('#the-pasted-async')
+				const placeholder = this.body.querySelector('#the-pasted-async')
 				const images = []
 
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
-				body.insertBefore( div, placeholder )
-				placeholder.remove()
+				this.body.insertBefore( div, placeholder )
 
 				if ( images.length ) {
 					for ( i=0; i < images.length; i++ ) {
 						images[i].src = await Converter.urlToBlobUrl(images[i].src)
 					}
-					body.dispatchEvent(new Event('FilesPasted'))
+					this.body.dispatchEvent(new Event('FilesPasted'))
 				}
+				this.body.querySelector('#the-pasted-async')?.remove()
 			})()
-		} else if ( UA.browser === 'firefox' ) {
-			// firefox can only paste one file at a time
-			// luckily it is available in the DOM during the input event
-			body.addEventListener( 'input', e => {
-				// this.files.push( ... await Converter.gdocsClipboardItemsToFiles( event.clipboardData.items ) )
-				if ( this.files.length === 1 ) {
-					body.querySelector('[src^="data:"]').alt = this.files[0].name
-				}
-				body.dispatchEvent(new Event('FilesPasted'))
-			}, { once: true } )
+		// } else if ( UA.browser === 'firefox' ) {
+		// Killed! @see https://www.mozilla.org/en-US/firefox/116.0/releasenotes/
+			// 	// firefox can only paste one file at a time
+			// 	// luckily it is available in the DOM during the input event
+			// 	body.addEventListener( 'input', e => {
+			// 		// this.files.push( ... await Converter.gdocsClipboardItemsToFiles( event.clipboardData.items ) )
+			// 		if ( this.files.length === 1 ) {
+			// 			body.querySelector('[src^="data:"]').alt = this.files[0].name
+			// 		}
+			// 		body.dispatchEvent(new Event('FilesPasted'))
+			// 	}, { once: true } )
+		} else if ( this.body.querySelector('[src^="data:"]:not(.--paste-process)') ) {
+			this.body.dispatchEvent(new Event('FilesPasted'))
 		}
+	}
+	observe() {
+		PasteOperation.#observer = new MutationObserver( entries => {
+			entries.forEach( entry => {
+
+			})
+		}, { childNodes: true, subtree: true } )
+		return this
+	}
+	dumpClipboardData() {
+		Array.from(this.clipboardData.files).forEach( el => console.log(el) )
+		Array.from(this.clipboardData.items).forEach( el => {
+			console.log(el,el.kind,el.type)
+			if ( 'string' === el.kind ) {
+				el.getAsString(s=>console.log(s))
+			}
+		} )
+		return this
 	}
 }
 
@@ -156,7 +200,11 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		return sub === 'blob:' || sub === 'data:';
 	}
 
-	let pasteOperation
+	const crawlPastedImages = () => {
+		return Array.from( editor.dom.doc.body.querySelectorAll('[src^="blob:"]:not(.--paste-process),[src^="data:"]:not(.--paste-process)') )
+	}
+
+
 	editor
 		.on( 'init', () => {
 			const processImage = async loadedImg => {
@@ -167,10 +215,12 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 					loadedImg.src = await Converter.blobUrlToDataUrl(loadedImg.src)
 				}
 			}
-			editor.dom.doc.body.addEventListener('FilesPasted', e => {
-				editor.dom.doc.body.querySelectorAll('[src^="blob:"]:not(.--paste-process),[src^="data:"]:not(.--paste-process)').forEach( async el => {
+			editor.dom.doc.body.addEventListener('FilesPasted', async e => {
+				let i, el
+				const images = crawlPastedImages()
+				for (i=0; i<images.length;i++) {
+					el = images[i]
 					el.classList.add('--paste-process')
-
 					if ( ! thepaste.options.editor.auto_upload
 						&& 'image' === await Converter.urlToType(el.src)
 			 		) {
@@ -182,23 +232,60 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 					} else {
 						Uploader.inlineUpload( el ).catch( err => Notices.error( err.message, true ) || el.remove() )
 					}
-				})
-				pasteOperation = null
+				}
 			})
 		})
 		.on( 'Paste', e => {
-			pasteOperation = new PasteOperation( e )
-		})
-		.on( 'PastePreProcess', e => { // not fired in FF
-			let content
-			// get html from pasteOperation
-			if ( content = pasteOperation.pastedContent ) {
-				e.content = content
+			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()
+			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {
+				PasteOperation.destroy()
+				return;
 			}
-		})
-		.on( 'PastePostProcess', e => { // not fired in FF
-			// DOM modification can be processed
-			setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
+			const editorPreProcess = e => {
+				/*
+				FF: Not Fired if clipboard contains file from FS
+				*/
+				let content
+				// get html from pasteOperation
+				if ( content = pasteOperation.pastedContent ) {
+					e.content = content
+				}
+				PasteOperation.destroy()
+			}
+			const editorPostProcess = e => {
+				setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
+				editor.off( 'PastePreProcess', editorPreProcess )
+				editor.off( 'PastePostProcess', editorPostProcess )
+			}
+
+			editor.once( 'input', async ie => {
+				/*
+				Fired in FF if clipboard contains file from FS
+				*/
+				const images = crawlPastedImages()
+				let idx, img
+				if ( ! images.length ) {
+					return
+				}
+				for (idx=0;idx<images.length;idx++) {
+					img = images[idx]
+					if ( !! pasteOperation.files[idx] ) {
+						img.alt = pasteOperation.files[idx].name
+						img.src = await Converter.dataUrlToBlobUrl(img.src)
+					}
+
+				}
+
+				setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
+
+				if ( images.length === pasteOperation.files.length ) {
+					// images already processed
+					editor.off( 'PastePreProcess', editorPreProcess )
+					editor.off( 'PastePostProcess', editorPostProcess )
+				}
+			})
+			.on( 'PastePreProcess', editorPreProcess )
+			.on( 'PastePostProcess', editorPostProcess )
 		});
 } );
 

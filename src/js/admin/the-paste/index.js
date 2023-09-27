@@ -1,5 +1,4 @@
 import Converter from 'converter'
-import UA from 'ua'
 import imageDialog from 'image-dialog'
 
 let uploader
