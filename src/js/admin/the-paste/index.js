@@ -51,13 +51,16 @@ const PasteInstructions = wp.media.View.extend({
 	}
 })
 
-_.extend( wp.media.view.UploaderInline.prototype, {
-	_parentRender:	wp.media.view.UploaderInline.prototype.render,
-	render:	function() {
-		this._parentRender.apply(this,arguments);
-		const pasteInstructions = new PasteInstructions()
-		pasteInstructions.render()
-		this.$('.upload-ui').append( pasteInstructions.el )
+_.extend( wp.media.view.MediaFrame.prototype, {
+	_parentInitialize:	wp.media.view.MediaFrame.prototype.initialize,
+	initialize: function(title) {
+		this._parentInitialize.apply(this,arguments);
+		this.on( 'attach', this.addPasteInstructions, this );
+		this.pasteInstructions = new PasteInstructions()
+		this.pasteInstructions.render()
+	},
+	addPasteInstructions: function() {
+		this.$el.find('#media-frame-title').append(this.pasteInstructions.el)
 	}
 })
 

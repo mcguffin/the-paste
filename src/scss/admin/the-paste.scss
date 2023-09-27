@@ -42,11 +42,15 @@
 }
 
 /*  */
+.media-frame-title {
+
+}
 .the-paste-instructions {
 
 	body:not(:focus-within) {
 		display: none;
 	}
+	.media-frame-title &,
 	.media-toolbar & {
 		&:not([hidden]) {
 			display: inline-block;
@@ -55,6 +59,17 @@
 		.upload-instructions {
 			display: none;
 		}
+	}
+	.media-modal-content .media-toolbar & {
+		display: none;
+	}
+	.media-frame-title > &:not([hidden]) {
+		position: absolute;
+		right:56px;
+		top:0;
+		height: 50px;
+		display: flex;
+		align-items: center;
 	}
 }
 
