@@ -9,7 +9,7 @@ Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Paste files and image data from clipboard into the WordPress media library.
+Paste files and image data from clipboard and instantly upload them to the WordPress media library.
 
 == Description ==
 
@@ -23,7 +23,10 @@ You can copy files and image data from many desktop applications:
 * Adobe Photoshop
 * Gimp
 * LibreOffice
+* GoogleDocs
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
+
+… and paste it to Classic Editor or directly to the media library.
 
 The most recent Desktop versions of Chrome, Firefox, Edge and Safari are supported.
 
@@ -43,6 +46,11 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 4. A layer pasted from Adobe Photoshop 2023
 
 == Changelog ==
+
+= 2.0.3 =
+* UI Tweak (instruction placement)
+* Fix: Classic editor plugin crashing
+* Fix: somtimes not pasting in Firefox
 
 = 2.0.2 =
 * Paste from Google Docs (Docs and Presentation)
