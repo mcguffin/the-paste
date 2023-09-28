@@ -1,6 +1,7 @@
 @import "mixins/index";
 @import "variables/index";
-body#tinymce { background-color: #ccc; }
+// debug
+// body#tinymce { background-color: #ccc; }
 
 progress.the-paste-progress {
 	--bar-height: 4px;

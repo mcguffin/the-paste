@@ -1,9 +1,5 @@
 /* WordPress Dashicons Vars */
 /* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
-body#tinymce {
-  background-color: #ccc;
-}
-
 progress.the-paste-progress {
   --bar-height: 4px;
   --bar-margin: 0px;
