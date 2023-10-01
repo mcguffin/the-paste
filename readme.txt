@@ -47,6 +47,9 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.0.5 =
+* Fix: Compatibility issue with [Real Media Library](https://wordpress.org/plugins/real-media-library-lite/)
+
 = 2.0.4 =
 * Remove debugging artefact
 

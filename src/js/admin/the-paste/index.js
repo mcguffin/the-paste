@@ -1,6 +1,6 @@
 import Converter from 'converter'
 import imageDialog from 'image-dialog'
-
+import { rml } from 'compat'
 let uploader
 
 const handleFiles = files => {
@@ -10,12 +10,12 @@ const handleFiles = files => {
 			images.push(file)
 			// uploader.addFile( file )
 		} else {
-			uploader.addFile( file )
+			uploader.addFile( rml.file(file) )
 		}
 	} )
 	if ( images.length ) {
 		imageDialog( images )
-			.then( files => files.forEach( file => uploader.addFile( file ) ) )
+			.then( files => files.forEach( file => uploader.addFile( rml.file(file) ) ) )
 	}
 };
 
