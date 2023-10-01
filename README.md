@@ -40,11 +40,14 @@ Applications tested so far:
 | QuickTime Player             | OK             | OK             | OK             | OK             |
 | Adobe Photoshop 2023         | OK             | OK             | OK             | OK             |
 | Adobe Illustrator 2023       | OK             | OK             | OK             | OK             |
+| Adobe XD                     | OK             | OK             | OK             | ?              |
+| Adobe XD (Copy as SVG    )   | -              | -              | -              | -              |
 | A Webpage                    | -              | OK             | OK             | ?              |
 | Singe image from LibreOffice | OK             | OK             | OK             | OK             |
 | Affinity Designer 2          | OK             | OK             | OK             | OK             |
 | Affinity Photo 2             | OK             | ?              | ?              | ?              |
 | Google Docs                  | OK             | OK             | ?              | ?              |
+| Signal (Desktop)             | OK             | OK             | OK             | ?              |
 
 ### Windows 10 (Virtual Box)
 
