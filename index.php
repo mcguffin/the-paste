@@ -5,7 +5,7 @@ Plugin Name: The Paste
 Plugin URI: https://wordpress.org/plugins/the-paste/
 Description: Paste files and image data from clipboard into the WordPress media library.
 Author: Jörn Lund
-Version: 2.0.4
+Version: 2.0.5
 Author URI: https://github.com/mcguffin
 License: GPL3
 Requires WP: 4.8
