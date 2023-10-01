@@ -54,7 +54,7 @@ Applications tested so far:
 | File from Explorer           | OK             | OK             | OK             |
 | Multiple files from Explorer | -              | OK             | OK             |
 | Screenshot                   | OK             | OK             | OK             |
-| A Webpage                    | -              | OK             | ?              |
+| A Webpage                    | OK             | OK             | ?              |
 | Gimp                         | OK             | OK             | ?              |
 | Pictures App                 | OK             | ?              | OK             |
 | Paint                        | OK             | OK             | ?              |
@@ -71,15 +71,15 @@ If you think supporting an OpenSource project could be the best thing to do ever
 
 | copy from / paste to           | Firefox 117+    | Chrome 114+     | Edge 114+       |
 |--------------------------------|-----------------|-----------------|-----------------|
-| Image from Filesystem          | ?               | ?               | ?               |
-| File from Filesystem           | ?               | ?               | ?               |
+| Image from Filesystem          | OK              | ?               | ?               |
+| File from Filesystem           | OK              | ?               | ?               |
 | Multiple files from filesystem | ?               | ?               | ?               |
-| Screenshot                     | ?               | ?               | ?               |
-| A Webpage                      | ?               | ?               | ?               |
+| Screenshot                     | OK              | ?               | ?               |
+| A Webpage                      | OK              | ?               | ?               |
 | Gimp                           | ?               | ?               | ?               |
 | Pictures App                   | ?               | ?               | ?               |
 | Paint                          | ?               | ?               | ?               |
-| Libre Office                   | ?               | ?               | ?               |
+| Libre Office                   | OK              | ?               | ?               |
 | Adobe Photoshop 2023           | ?               | ?               | ?               |
 | Adobe Illustrator 2023         | ?               | ?               | ?               |
 | One Note                       | ?               | ?               | ?               |
