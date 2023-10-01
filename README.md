@@ -54,12 +54,30 @@ Applications tested so far:
 | File from Explorer           | OK             | OK             | OK             |
 | Multiple files from Explorer | -              | OK             | OK             |
 | Screenshot                   | OK             | OK             | OK             |
-| A Webpage                    | OK             | OK             | ?              |
+| A Webpage                    | -              | OK             | ?              |
 | Gimp                         | OK             | OK             | ?              |
 | Pictures App                 | OK             | ?              | OK             |
 | Paint                        | OK             | OK             | ?              |
 | Libre Office                 | OK             | OK             | ?              |
 | Adobe Photoshop 2023         | ?              | ?              | ?              |
+| Adobe Illustrator 2023       | ?              | ?              | ?              |
+| One Note                     | OK             | OK             | ?              |
+| Google Docs                  | ?              | ?              | ?              |
+
+### Windows 10 (Real Machine)
+
+| copy from / paste to         | Firefox 117+   | Chrome 114+    | Edge 114+      |
+|------------------------------|----------------|----------------|----------------|
+| Image from Explorer          | OK             | OK             | OK             |
+| File from Explorer           | OK             | OK             | OK             |
+| Multiple files from Explorer | -              | OK             | OK             |
+| Screenshot                   | OK             | OK             | OK             |
+| A Webpage                    | OK             | OK             | OK             |
+| Gimp                         | OK             | OK             | ?              |
+| Pictures App                 | OK             | ?              | OK             |
+| Paint                        | OK             | OK             | ?              |
+| Libre Office                 | OK             | OK             | OK             |
+| Adobe Photoshop 2023         | OK             | ?              | OK             |
 | Adobe Illustrator 2023       | ?              | ?              | ?              |
 | One Note                     | OK             | OK             | ?              |
 | Google Docs                  | ?              | ?              | ?              |
@@ -71,18 +89,32 @@ If you think supporting an OpenSource project could be the best thing to do ever
 
 | copy from / paste to           | Firefox 117+    | Chrome 114+     | Edge 114+       |
 |--------------------------------|-----------------|-----------------|-----------------|
-| Image from Filesystem          | OK              | ?               | ?               |
-| File from Filesystem           | OK              | ?               | ?               |
-| Multiple files from filesystem | ?               | ?               | ?               |
-| Screenshot                     | OK              | ?               | ?               |
-| A Webpage                      | OK              | ?               | ?               |
+| Image from Filesystem          | OK              | ?               | OK              |
+| File from Filesystem           | OK              | ?               | OK              |
+| Multiple files from filesystem | -               | ?               | ?               |
+| Screenshot                     | OK              | ?               | OK              |
+| A Webpage                      | OK              | ?               | OK              |
 | Gimp                           | ?               | ?               | ?               |
 | Pictures App                   | ?               | ?               | ?               |
 | Paint                          | ?               | ?               | ?               |
-| Libre Office                   | OK              | ?               | ?               |
-| Adobe Photoshop 2023           | ?               | ?               | ?               |
+| Libre Office                   | OK              | ?               | OK              |
+| Adobe Photoshop 2023           | OK              | ?               | OK              |
 | Adobe Illustrator 2023         | ?               | ?               | ?               |
 | One Note                       | ?               | ?               | ?               |
+| WeChat                         | OK              | ?               | OK              |
+
+### Android (Tested with EMUI edition)
+
+| copy from / paste to           | Firefox         |
+|--------------------------------|-----------------|
+| Image from Filesystem          | OK              |
+| File from Filesystem           | OK              |
+| Multiple files from filesystem | -               |
+| Screenshot                     | OK              |
+| A Webpage                      | OK              |
+| Libre Office                   | OK              |
+| WeChat                         | OK              |
+
 
 Plugin API:
 -----------
