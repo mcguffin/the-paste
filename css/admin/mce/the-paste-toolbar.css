@@ -1,6 +1,6 @@
 /* WordPress Dashicons Vars */
 /* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
-.mce-i-thepaste:before {
+.mce-i-thepaste::before {
   content: "\f317"; /* https://developer.wordpress.org/resource/dashicons/ */
   display: inline-block;
   width: 20px;
@@ -14,6 +14,28 @@
   vertical-align: top;
   text-align: center;
   transition: color 0.1s ease-in 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+[aria-pressed=false] > button > .mce-i-thepaste_enable::after {
+  content: "";
+  height: 23px;
+  width: 2px;
+  background-color: #d63638;
+  -webkit-transform: translateX(-10px) rotate(45deg);
+          transform: translateX(-10px) rotate(45deg);
+  display: inline-block;
+}
+.mce-i-thepaste_enable::before {
+  content: "";
+  -webkit-clip-path: url(#the-paste-editor-paste-file);
+          clip-path: url(#the-paste-editor-paste-file);
+  background-color: currentcolor;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 1;
+  vertical-align: top;
+  text-align: center;
+  transition: color 0.1s ease-in 0;
 }
