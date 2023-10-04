@@ -21,6 +21,8 @@ class User extends Core\Singleton {
 
 	private $_options = null;
 
+	private $_user_id = null;
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -35,6 +37,20 @@ class User extends Core\Singleton {
 	}
 
 	/**
+	 *	Load options from user meta
+	 */
+	private function load_options() {
+		if ( is_null( $this->_options ) ) {
+			$this->_options = get_user_meta( get_current_user_id(), $this->option_name, true );
+
+			if ( ! is_array( $this->_options ) ) {
+				$this->_options = [];
+			}
+			$this->_options = wp_parse_args( $this->_options, $this->defaults );
+		}
+	}
+
+	/**
 	 *	Getter
 	 *
 	 *	@param string $what
@@ -43,17 +59,38 @@ class User extends Core\Singleton {
 
 		if ( isset( $this->defaults[$what] ) ) {
 			return $this->options[$what];
-		} else if ( 'options' === $what ) {
-			if ( is_null( $this->_options ) ) {
-				$this->_options = get_user_meta( get_current_user_id(), $this->option_name, true );
-
-				if ( ! is_array( $this->_options ) ) {
-					$this->_options = [];
-				}
-				$this->_options = wp_parse_args( $this->_options, $this->defaults );
+		} else if ( 'user_id' === $what ) {
+			if ( ! is_null( $this->_user_id ) ) {
+				return $this->_user_id;
 			}
-
+			return get_current_user_id();
+		} else if ( 'options' === $what ) {
+			$this->load_options();
 			return $this->_options;
+		}
+	}
+
+	/**
+	 *	Getter
+	 *
+	 *	@param string $what
+	 *	@param mixed $value
+	 */
+	public function __set( $what, $value ) {
+
+		if ( isset( $this->defaults[$what] ) ) {
+			$this->load_options();
+			if ( in_array( $what, [ 'tinymce', 'datauri' ] ) ) { // boolean options
+				$this->_options[$what] = (boolean) $value;
+
+			} else if ( in_array( $what, ['default_filename'] ) ) { // filename template
+				$this->_options[$what] = strip_tags(trim( $value ), [ '<postname>', '<username>', '<userlogin>', '<userid>' ] );
+			}
+		} else if ( 'user_id' === $what ) {
+			if ( $this->_user_id !== (int) $value ) {
+				$this->_user_id = (int) $value;
+				$this->_options = null;
+			}
 		}
 	}
 
@@ -180,6 +217,9 @@ class User extends Core\Singleton {
 	 */
 	public function save_user( $user_id ) {
 		if ( isset( $_POST[ $this->option_name ] ) ) {
+
+			$this->user_id = $user_id;
+
 			$options = wp_unslash( $_POST[ $this->option_name ] );
 
 			if ( ! is_array( $options ) ) {
@@ -189,14 +229,19 @@ class User extends Core\Singleton {
 			$options = array_intersect_key( $options, $this->defaults );
 
 			foreach ( $options as $option => $value ) {
-				if ( in_array( $option, [ 'tinymce', 'datauri' ] ) ) { // boolean options
-					$options[$option] = (boolean) $value;
-
-				} else if ( in_array( $option, ['default_filename'] ) ) { // filename template
-					$options[$option] = strip_tags(trim( $value ), [ '<postname>', '<username>', '<userlogin>', '<userid>' ] );
-				}
+				$this->$option = $value;
 			}
-			update_user_meta( $user_id, $this->option_name, $options );
+			$this->commit();
 		}
 	}
+
+
+	/**
+	 *	Save options
+	 */
+	public function commit() {
+		update_user_meta( $this->user_id, $this->option_name, $this->options );
+	}
+
+
 }
