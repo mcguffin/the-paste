@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
-"POT-Creation-Date: 2023-09-26T13:30:28+00:00\n"
-"PO-Revision-Date: 2023-09-26 15:37+0200\n"
+"POT-Creation-Date: 2023-10-04T12:23:12+00:00\n"
+"PO-Revision-Date: 2023-10-04 14:37+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -32,7 +32,7 @@ msgstr ""
 #. Description of the plugin
 msgid ""
 "Paste files and image data from clipboard into the WordPress media library."
-msgstr ""
+msgstr "Dateien und Bilder aus der Zwischenablage in die Mediathek einfügen."
 
 #. Author of the plugin
 msgid "Jörn Lund"
@@ -55,7 +55,7 @@ msgstr "Upload"
 msgid "Filename"
 msgstr "Dateiname"
 
-#: include/template/image-list.php:24 include/ThePaste/Admin/User.php:33
+#: include/template/image-list.php:24 include/ThePaste/Admin/User.php:35
 msgid "Pasted"
 msgstr "Eingefügt"
 
@@ -93,111 +93,115 @@ msgstr "Nochmal"
 msgid "Title"
 msgstr "Titel"
 
-#: include/ThePaste/Admin/Admin.php:56
+#: include/ThePaste/Admin/Admin.php:78
 msgid "Upload pasted images"
 msgstr "Eingefügte Bilder sofort hochladen"
 
-#: include/ThePaste/Admin/Admin.php:57
+#: include/ThePaste/Admin/Admin.php:79
 msgid "Upload image"
 msgstr "Bild hochladen"
 
-#: include/ThePaste/Admin/Admin.php:59
+#: include/ThePaste/Admin/Admin.php:81
 msgid "Copy & Paste"
 msgstr "Kopieren & Einfügen"
 
-#: include/ThePaste/Admin/User.php:75
+#: include/ThePaste/Admin/Admin.php:82
+msgid "Paste as file"
+msgstr "Als Datei einfügen"
+
+#: include/ThePaste/Admin/User.php:112
 msgid "The Paste: Enable Classic Editor"
 msgstr "The Paste: Classic Editor aktivieren"
 
-#: include/ThePaste/Admin/User.php:81
+#: include/ThePaste/Admin/User.php:118
 msgid "Allow pasting files and images in Classic Editor."
 msgstr "Erlaubt das Einfügen von Bildern und Dateien im Classic Editor."
 
-#: include/ThePaste/Admin/User.php:88
+#: include/ThePaste/Admin/User.php:125
 msgid "The Paste: Data URI Images"
 msgstr "The Paste: Data-URI-Bilder"
 
-#: include/ThePaste/Admin/User.php:94
+#: include/ThePaste/Admin/User.php:131
 msgid "Paste Data URI Images in Classic Editor."
 msgstr "Data-URI-Bilder im Classic Editor einfügen."
 
-#: include/ThePaste/Admin/User.php:97
+#: include/ThePaste/Admin/User.php:134
 msgid ""
 "If this option is disabled, you can still upload existing data URI images."
 msgstr ""
 "Wenn deaktiviert, kannst bereits vorhandene Data-URI-Bilder trotzdem "
 "hochladen."
 
-#: include/ThePaste/Admin/User.php:104
+#: include/ThePaste/Admin/User.php:141
 msgid "The Paste: Default filename"
 msgstr "The Paste: Standard-Dateiname"
 
-#: include/ThePaste/Admin/User.php:115
+#: include/ThePaste/Admin/User.php:152
 msgid "Available placeholders…"
 msgstr "Verfügbare Platzhalter…"
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/User.php:121
+#: include/ThePaste/Admin/User.php:159
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr "Beitragstitel wenn verfügbar, ansonsten „%s“"
 
-#: include/ThePaste/Admin/User.php:126
+#: include/ThePaste/Admin/User.php:164
 msgid "Display name of current user"
 msgstr "Öffentlicher Name des Benutzers"
 
-#: include/ThePaste/Admin/User.php:128
+#: include/ThePaste/Admin/User.php:166
 msgid "Login name of current user"
 msgstr "Benutzername"
 
-#: include/ThePaste/Admin/User.php:130
+#: include/ThePaste/Admin/User.php:168
 msgid "Current user ID"
 msgstr "Benutzer-ID"
 
-#: include/ThePaste/Admin/User.php:135
+#: include/ThePaste/Admin/User.php:173
 msgid "Four-digit year"
 msgstr "Jahr vierstellig"
 
-#: include/ThePaste/Admin/User.php:137
+#: include/ThePaste/Admin/User.php:175
 msgid "Two-digit year"
 msgstr "Jahr zweistellig"
 
-#: include/ThePaste/Admin/User.php:139
+#: include/ThePaste/Admin/User.php:177
 msgid "Number of month with leading zero (01 to 12)"
 msgstr "Monat als Zahl mit führender Null (01 bis 12)"
 
-#: include/ThePaste/Admin/User.php:141
+#: include/ThePaste/Admin/User.php:179
 msgid "Day of month with leading zero (01 to 31)"
 msgstr "Tag des Monats mit führender Null (01 bis 31)"
 
-#: include/ThePaste/Admin/User.php:143
+#: include/ThePaste/Admin/User.php:181
 msgid "Day of month (1 to 31)"
 msgstr "Tag des Monats (1 bis 31)"
 
-#: include/ThePaste/Admin/User.php:145
+#: include/ThePaste/Admin/User.php:183
 msgid "Two digit hour in 24-hour format"
 msgstr "Zweistellige Stunde im 24-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:147
+#: include/ThePaste/Admin/User.php:185
 msgid "Two digit hour in 12-hour format"
 msgstr "Zweistellige Stunde im 12-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:149
+#: include/ThePaste/Admin/User.php:187
 msgid "Two digit minute"
 msgstr "Zweistellige Minute"
 
-#: include/ThePaste/Admin/User.php:151
+#: include/ThePaste/Admin/User.php:189
 msgid "Two digit second"
 msgstr "Zweistellige Sekunde"
 
-#: include/ThePaste/Admin/User.php:153
+#: include/ThePaste/Admin/User.php:191
 msgid "Unix timestamp"
 msgstr "Unix-Zeitstempel"
 
-#: include/ThePaste/Admin/User.php:161
+#: include/ThePaste/Admin/User.php:199
 msgid "Support The Paste"
 msgstr "The Paste unterstützen"
 
-#: include/ThePaste/Admin/User.php:167
+#: include/ThePaste/Admin/User.php:205
 msgid "Paste some cash with PayPal"
 msgstr "Ein bisschen Cash mit PayPal einfügen"
 

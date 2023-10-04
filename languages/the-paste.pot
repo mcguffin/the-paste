@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-01T11:10:02+00:00\n"
+"POT-Creation-Date: 2023-10-04T12:23:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -48,7 +48,7 @@ msgid "Filename"
 msgstr ""
 
 #: include/template/image-list.php:24
-#: include/ThePaste/Admin/User.php:33
+#: include/ThePaste/Admin/User.php:35
 msgid "Pasted"
 msgstr ""
 
@@ -84,107 +84,111 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:58
+#: include/ThePaste/Admin/Admin.php:78
 msgid "Upload pasted images"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:59
+#: include/ThePaste/Admin/Admin.php:79
 msgid "Upload image"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:61
+#: include/ThePaste/Admin/Admin.php:81
 msgid "Copy & Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:75
+#: include/ThePaste/Admin/Admin.php:82
+msgid "Paste as file"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:112
 msgid "The Paste: Enable Classic Editor"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:81
+#: include/ThePaste/Admin/User.php:118
 msgid "Allow pasting files and images in Classic Editor."
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:88
+#: include/ThePaste/Admin/User.php:125
 msgid "The Paste: Data URI Images"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:94
+#: include/ThePaste/Admin/User.php:131
 msgid "Paste Data URI Images in Classic Editor."
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:97
+#: include/ThePaste/Admin/User.php:134
 msgid "If this option is disabled, you can still upload existing data URI images."
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:104
+#: include/ThePaste/Admin/User.php:141
 msgid "The Paste: Default filename"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:115
+#: include/ThePaste/Admin/User.php:152
 msgid "Available placeholders…"
 msgstr ""
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/User.php:122
+#: include/ThePaste/Admin/User.php:159
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:127
+#: include/ThePaste/Admin/User.php:164
 msgid "Display name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:129
+#: include/ThePaste/Admin/User.php:166
 msgid "Login name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:131
+#: include/ThePaste/Admin/User.php:168
 msgid "Current user ID"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:136
+#: include/ThePaste/Admin/User.php:173
 msgid "Four-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:138
+#: include/ThePaste/Admin/User.php:175
 msgid "Two-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:140
+#: include/ThePaste/Admin/User.php:177
 msgid "Number of month with leading zero (01 to 12)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:142
+#: include/ThePaste/Admin/User.php:179
 msgid "Day of month with leading zero (01 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:144
+#: include/ThePaste/Admin/User.php:181
 msgid "Day of month (1 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:146
+#: include/ThePaste/Admin/User.php:183
 msgid "Two digit hour in 24-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:148
+#: include/ThePaste/Admin/User.php:185
 msgid "Two digit hour in 12-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:150
+#: include/ThePaste/Admin/User.php:187
 msgid "Two digit minute"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:152
+#: include/ThePaste/Admin/User.php:189
 msgid "Two digit second"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:154
+#: include/ThePaste/Admin/User.php:191
 msgid "Unix timestamp"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:162
+#: include/ThePaste/Admin/User.php:199
 msgid "Support The Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:168
+#: include/ThePaste/Admin/User.php:205
 msgid "Paste some cash with PayPal"
 msgstr ""
