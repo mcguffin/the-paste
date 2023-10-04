@@ -34,18 +34,28 @@ The most recent Desktop versions of Chrome, Firefox, Edge and Safari are support
 
 You like it? You can't stop pasting? [Paste some cash with PayPal](https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE)!
 
+== Known Issues ==
+ - *Firefox* does not support pasting multiple files from the OS filesystem.
+ - *Safari* lacks the support to convert images to the webP format.
+ - *Edge* is working suspiciously well, which is very unusal in the Microsoft world and must be considered a bug.
+ - Pasting in TinyMCE triggers a JavaScript error if [Real Media Library](https://wordpress.org/plugins/real-media-library-lite/) is active. Pasting in the media library is still working.
+
+
 == Installation ==
 
 Follow the standard [WordPress plugin installation procedere](https://wordpress.org/documentation/article/manage-plugins/).
 
 == Screenshots ==
 
-1. Pasting into classic editor. You can either upload the image immediately or do so later.
+1. Pasting into classic editor. You can either upload the image immediately or do so later. Disable ‘Paste as file’ to turn off pasting.
 2. The media library is pastable too
 3. Pasted multiple images from macOS Photos into Chrome
 4. A layer pasted from Adobe Photoshop 2023
 
 == Changelog ==
+
+= 2.0.6 =
+* Feature: Toggle image pasting in tinymce toolbar
 
 = 2.0.5 =
 * Fix: Compatibility issue with [Real Media Library](https://wordpress.org/plugins/real-media-library-lite/)
