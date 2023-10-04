@@ -21,6 +21,9 @@ class Admin extends Core\Singleton {
 	/** @var Asset\Asset */
 	private $css;
 
+	/** @var string */
+	private $ajax_action_enable = 'the_paste_tinymce_enable';
+
 	/**
 	 *	@inheritdoc
 	 */
@@ -34,7 +37,25 @@ class Admin extends Core\Singleton {
 		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
 		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
 		add_action( 'wp_enqueue_editor', [ $this, 'enqueue_assets' ] );
+		add_action( "wp_ajax_{$this->ajax_action_enable}", [ $this, 'ajax_tinymce_enable' ] );
+	}
 
+	/**
+	 *	@action wp_ajax_the_paste_tinymce_enable
+	 */
+	public function ajax_tinymce_enable() {
+
+		check_ajax_referer( $this->ajax_action_enable );
+
+		$enabled = isset( $_REQUEST['enabled'] )
+			? (bool) wp_unslash( $_REQUEST['enabled'] )
+			: false;
+
+		$user = User::instance();
+		$user->tinymce = $enabled;
+		$user->commit();
+
+		wp_send_json( [ 'success' => true ] );
 	}
 
 	/**
@@ -43,9 +64,8 @@ class Admin extends Core\Singleton {
 	 */
 	public function register_assets() {
 		$user = User::instance();
-		if ( $user->tinymce ) {
-			$this->mce = TinyMce\TinyMceThePaste::instance();
-		}
+
+		$this->mce = TinyMce\TinyMceThePaste::instance();
 
 		$current_user = wp_get_current_user();
 
@@ -59,9 +79,11 @@ class Admin extends Core\Singleton {
 					'upload_image'         => __( 'Upload image', 'the-paste' ),
 					'the_paste'            => __( 'The Paste', 'plugin name', 'the-paste' ),
 					'copy_paste'           => __( 'Copy & Paste', 'the-paste' ),
+					'paste_files'          => __( 'Paste as file', 'the-paste' ),
 				],
 				'options' => [
 					'editor'           => [
+						'enabled'           => $user->tinymce,
 						'auto_upload'       => true,
 						'datauri'           => $user->datauri,
 						/**
@@ -72,6 +94,10 @@ class Admin extends Core\Singleton {
 						'force_upload_size' => apply_filters('the_paste_max_embed_image_size',
 							apply_filters('the_paste_max_embed_imge_size', 512 * 512 ) // backwards compatibility
 						),
+						'enable_ajax_url'   => add_query_arg( [
+							'action'      => $this->ajax_action_enable,
+							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
+						], admin_url( 'admin-ajax.php' ) ),
 					],
 					'filename_values'   => [
 						'username'  => $current_user->display_name,

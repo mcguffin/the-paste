@@ -2,21 +2,47 @@
 @import "variables/index";
 
 
-.mce-i-thepaste:before {
-	content: $dashicon-upload; /* https://developer.wordpress.org/resource/dashicons/ */
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	font-size: 20px;
-	line-height: 1;
-	font-family: dashicons;
-	text-decoration: inherit;
-	font-weight: 400;
-	font-style: normal;
-	vertical-align: top;
-	text-align: center;
-	-webkit-transition: color .1s ease-in 0;
-	transition: color .1s ease-in 0;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+.mce-i-thepaste {
+	&::before {
+		content: $dashicon-upload; /* https://developer.wordpress.org/resource/dashicons/ */
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
+		line-height: 1;
+		font-family: dashicons;
+		text-decoration: inherit;
+		font-weight: 400;
+		font-style: normal;
+		vertical-align: top;
+		text-align: center;
+		transition: color .1s ease-in 0;
+	}
+}
+
+.mce-i-thepaste_enable {
+	[aria-pressed="false"] > button > & {
+		&::after {
+			content:'';
+			height: 23px;
+			width: 2px;
+
+			background-color: wp-color(red-50);
+			transform: translateX(-10px) rotate(45deg);
+			display:inline-block;
+		}
+	}
+	&::before {
+		content:'';
+		clip-path: url(#the-paste-editor-paste-file);
+		background-color: currentcolor;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
+		line-height: 1;
+		vertical-align: top;
+		text-align: center;
+		transition: color .1s ease-in 0;
+	}
 }

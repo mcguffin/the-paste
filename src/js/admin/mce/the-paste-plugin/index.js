@@ -119,6 +119,7 @@ class PasteOperation {
 tinymce.PluginManager.add( 'the_paste', editor => {
 
 	let pasteBtn,
+		pasteOnOffBtn,
 		toolbar
 
 	if ( ! thepaste.options.editor.datauri ) {
@@ -143,6 +144,21 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		});
 
 	}
+
+	// enable / disable autoupload button
+	editor.addButton( 'thepaste_onoff', {
+		icon: 'thepaste_enable',
+		tooltip: thepaste.l10n.paste_files,
+		onPostRender: function() {
+			pasteOnOffBtn = this;
+		},
+		onClick: function() {
+			this.active( ! this.active() )
+			fetch(`${thepaste.options.editor.enable_ajax_url}&enabled=${this.active()?1:0}`)
+		},
+		active: thepaste.options.editor.enabled
+	});
+
 
 	// upload button in media toolbar flyout
 	editor.addButton('wp_img_thepaste_upload', {
@@ -236,6 +252,9 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			})
 		})
 		.on( 'Paste', e => {
+			if ( ! pasteOnOffBtn.active() ) {
+				return;
+			}
 			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()
 			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {
 				PasteOperation.destroy()

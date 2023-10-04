@@ -1,6 +1,7 @@
 import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
+import { rml } from 'compat'
 
 const allowedExtensions   = _wpPluploadSettings.defaults.filters.mime_types[0].extensions.split(',')
 const maxFileSize         = Math.min( 1024*1024*200, parseInt(_wpPluploadSettings.defaults.filters.max_file_size) ) // 100MB or uplaod max filesize
@@ -71,7 +72,7 @@ class WPUploader {
 			file.name = Uploader.getFilename( mime.extension(file.type) )
 		}
 
-		this.#file = file
+		this.#file = rml.file(file)
 
 		WPUploader.uploader.bind( 'UploadProgress', this.#progressHandler, this );
 		WPUploader.uploader.bind( 'FileUploaded', this.#uploadedHandler, this );
@@ -79,7 +80,6 @@ class WPUploader {
 	}
 
 	destructor() {
-		console.log('destruct')
 		WPUploader.uploader.unbind( 'UploadProgress', this.#progressHandler, this );
 		WPUploader.uploader.unbind( 'FileUploaded', this.#uploadedHandler, this );
 		WPUploader.uploader.unbind( 'Error', this.#errorHandler, this );
@@ -87,10 +87,10 @@ class WPUploader {
 
 	upload() {
 		if ( WPUploader.ready ) {
-			WPUploader.uploader.addFile( [this.#file] );
+			WPUploader.uploader.addFile( this.#file );
 		} else {
 			WPUploader.workflow.once( 'uploader:ready', () => {
-				WPUploader.uploader.addFile( [this.#file] )
+				WPUploader.uploader.addFile( this.#file )
 			} );
 		}
 	}
@@ -115,7 +115,6 @@ const Uploader = {
 		}
 		// dom
 		progress.max = 100
-
 		el.parentNode?.insertBefore(progress,el)
 		el.remove()
 
@@ -151,6 +150,7 @@ const Uploader = {
 			.then( html => $body.find(`[data-id="${id}"]`).replaceWith( `<p>${html}</p>` ) );
 			/*/
 			progress.replaceWith( newElement.childNodes[0] )
+
 			//*/
 		}
 		uploader.upload()

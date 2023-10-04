@@ -2,6 +2,9 @@
 
 namespace ThePaste\Admin\TinyMce;
 
+use ThePaste\Admin;
+
+
 class TinyMceThePaste extends TinyMce {
 
 	/**
@@ -14,7 +17,7 @@ class TinyMceThePaste extends TinyMce {
 	 */
 	protected $editor_buttons = [
 		'mce_buttons_2'	=> [
-			'thepaste'	=> 3000,
+			'thepaste_onoff' => 'pastetext',
 		],
 	];
 
@@ -36,6 +39,10 @@ class TinyMceThePaste extends TinyMce {
 		$this->mce_settings = [
 			'paste_data_images' => false, //
 		];
+		$user = Admin\User::instance();
+		if ( $user->datauri ) {
+			$this->editor_buttons['mce_buttons_2']['thepaste'] = false;
+		}
 		parent::__construct();
 	}
 }
