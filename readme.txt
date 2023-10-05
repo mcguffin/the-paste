@@ -5,7 +5,7 @@ Tags: copy paste, clipboard, media library, productivity
 Requires at least: 4.8
 Tested up to: 6.3
 Requires PHP: 7.4
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,14 +25,14 @@ You can copy files and image data from many desktop applications:
 * LibreOffice
 * GoogleDocs
 * Adobe XD
-* SVG from Adobe XD, Illustrator and Affinity Designer (Additional plugin for SVG Support required. My favorite: [Safe SVG](https://wordpress.org/plugins/safe-svg/))
+* SVG from Adobe XD, Illustrator, Figma and Affinity Designer (**Note:** An additional plugin for SVG Support is required. My favorite: [Safe SVG](https://wordpress.org/plugins/safe-svg/))
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
 
 … and paste it to Classic Editor or directly to the media library.
 
-Install [Safe SVG](https://wordpress.org/plugins/safe-svg/) to enable SVG support.
-
 The most recent Desktop versions of Chrome, Edge, Firefox and Safari are supported.
+
+Install [Safe SVG](https://wordpress.org/plugins/safe-svg/) to enable SVG support.
 
 [The paste at GitHub](https://github.com/mcguffin/the-paste)
 
