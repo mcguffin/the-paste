@@ -36,6 +36,10 @@ if ( ! defined('ABSPATH') )
 				<input type="radio" name="the-paste-format" value="image/jpeg">
 				<?php _e( 'jpeg', 'the-paste' ); ?>
 			</label>
+			<label data-format="image/svg+xml">
+				<input type="radio" name="the-paste-format" value="image/svg+xml">
+				<?php _e( 'SVG', 'the-paste' ); ?>
+			</label>
 		</div>
 	</div>
 	<button type="button" name="discard" class="button-link-delete button">

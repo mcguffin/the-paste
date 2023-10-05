@@ -1,7 +1,6 @@
 import Converter from 'converter'
 import mime from 'mime-types'
-
-const supportsWebp = (() => document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') == 0)();
+import {supports} from 'compat'
 
 const ImageListItem = wp.media.View.extend({
 	tagName:'form',
@@ -21,29 +20,57 @@ const ImageListItem = wp.media.View.extend({
 			rawImage.src = Converter.fileToBlobUrl(file);
 		})
 		.then( rawImage => {
+			let hasSize = rawImage.width && rawImage.height
 			this.canvas = this.$('canvas').get(0)
-			const ctx = this.canvas.getContext("2d");
+
+			if ( 'image/svg+xml' === this.file.type ) {
+				// append image to DOM to get actual size
+				if ( hasSize ) {
+					document.body.append(rawImage)
+				} else {
+					this.canvas.after(rawImage)
+				}
+			}
+			// draw canvas
 			this.canvas.width = rawImage.width;
 			this.canvas.height = rawImage.height;
-			ctx.drawImage(rawImage, 0, 0);
+			this.canvas.getContext("2d").drawImage(rawImage, 0, 0);
+
+			if ( 'image/svg+xml' === this.file.type ) {
+				if ( hasSize ) {
+					rawImage.remove()
+				} else {
+					// no known size: svg only
+					this.$(`[data-format]:not([data-format="image/svg+xml"])`).remove()
+				}
+			}
 		})
 	},
 	render: function() {
 		wp.media.View.prototype.render.apply(this,arguments);
 		const [ filename, basename, suffix ] = /(.*)\.([^.]+)$/.exec( this.file.name )
 		const type = mime.lookup(suffix)
-		if ( ! supportsWebp ) {
+		if ( ! supports.webp ) {
 			if ( 'image/webp' !== type ) {
 				this.$(`[data-format="image/webp"]`).remove()
 			}
 		}
+
 		this.$(`[name="the-paste-format"][value="${type}"]`).prop('checked', true )
 		this.$('[name="the-paste-filename"]').val( basename )
+
+		if ( ! supports.svg || 'image/svg+xml' !== type ) {
+			this.$(`[data-format="image/svg+xml"]`).remove()
+			if ( 'image/svg+xml' === type ) {
+				this.$(`[name="the-paste-format"][value="image/png"]`).prop('checked',true)
+			}
+		}
 	},
 	getFile: function() {
 		const type = this.$('[name="the-paste-format"]:checked').val()
 		const name = this.$('[name="the-paste-filename"]').val()
 		const filename = `${name}.${mime.extension(type)}`
+		// upload as-is
 		if ( this.file.type === type ) {
 			this.file.name = name
 			return new Promise((resolve,reject) => {

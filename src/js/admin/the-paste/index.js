@@ -21,6 +21,7 @@ const handleFiles = files => {
 
 
 document.addEventListener( 'paste', async e => {
+
 	if ( document.body.matches('.the-paste-modal-open') ) {
 		e.preventDefault()
 	}
@@ -30,7 +31,7 @@ document.addEventListener( 'paste', async e => {
 	}
 
 	const files = Array.from( e.clipboardData.files )
-	files.push( ... await Converter.gdocsClipboardItemsToFiles( e.clipboardData.items ) )
+	files.push( ... await Converter.clipboardItemsToFiles( e.clipboardData.items ) )
 
 	if ( files.length ) {
 		return handleFiles( files )

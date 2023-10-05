@@ -24,11 +24,15 @@ You can copy files and image data from many desktop applications:
 * Gimp
 * LibreOffice
 * GoogleDocs
+* Adobe XD
+* SVG from Adobe XD, Illustrator and Affinity Designer (Additional plugin for SVG Support required. My favorite: [Safe SVG](https://wordpress.org/plugins/safe-svg/))
 * [And some more...](https://github.com/mcguffin/the-paste#applications-tested-so-far)
 
 … and paste it to Classic Editor or directly to the media library.
 
-The most recent Desktop versions of Chrome, Firefox, Edge and Safari are supported.
+Install [Safe SVG](https://wordpress.org/plugins/safe-svg/) to enable SVG support.
+
+The most recent Desktop versions of Chrome, Edge, Firefox and Safari are supported.
 
 [The paste at GitHub](https://github.com/mcguffin/the-paste)
 
@@ -37,9 +41,8 @@ You like it? You can't stop pasting? [Paste some cash with PayPal](https://www.p
 == Known Issues ==
  - *Firefox* does not support pasting multiple files from the OS filesystem.
  - *Safari* lacks the support to convert images to the webP format.
- - *Edge* is working suspiciously well, which is very unusal in the Microsoft world and must be considered a bug.
  - Pasting in TinyMCE triggers a JavaScript error if [Real Media Library](https://wordpress.org/plugins/real-media-library-lite/) is active. Pasting in the media library is still working.
-
+ - *Edge* is working suspiciously well, which is very unusal in the Microsoft world and must be considered a bug.
 
 == Installation ==
 
@@ -51,11 +54,13 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 2. The media library is pastable too
 3. Pasted multiple images from macOS Photos into Chrome
 4. A layer pasted from Adobe Photoshop 2023
+5. Pasted from Affinity Designer. SVG Clipboard contents on the right.
 
 == Changelog ==
 
 = 2.0.6 =
 * Feature: Toggle image pasting in tinymce toolbar
+* Feature: Support SVG
 
 = 2.0.5 =
 * Fix: Compatibility issue with [Real Media Library](https://wordpress.org/plugins/real-media-library-lite/)

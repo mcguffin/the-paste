@@ -7,14 +7,18 @@ Paste image data into the Editor and upload it to the WordPress Media Library.
 
  - Developed in WP 3.8 – WP 6.3
  - Should work with WordPress 3.5+
+ - SVG supported with additional plugin [Safe SVG](https://wordpress.org/plugins/safe-svg/)
 
 Known Browser Support
 ---------------------
 
- - Chrome 32+
- - Firefox 26+
- - Safari 10+
- - Edge
+ - Chrome 114+
+ - Firefox 116+
+ - Safari 114+
+ - Edge 114+
+
+Older versions of Edge, Chrome and Safari may also work.  
+Nothing is known about 360 Safe, Arc, Avast Secure Browser, Blisk, Brave, DuckDuckGo, Konqueror, [Ladybird](https://ladybird.dev/), Maxthon, Naver Whale, Opera, Otter Browser, Pale Moon, qutebrowser, Sleipnir or Vivaldi.
 
 Known Issues
 ------------
@@ -40,11 +44,13 @@ Applications tested so far:
 | QuickTime Player             | OK             | OK             | OK             | OK             |
 | Adobe Photoshop 2023         | OK             | OK             | OK             | OK             |
 | Adobe Illustrator 2023       | OK             | OK             | OK             | OK             |
+| Adobe Illustrator 2023 (SVG) | OK             | OK             | ?              | ?              |
 | Adobe XD                     | OK             | OK             | OK             | ?              |
-| Adobe XD (Copy as SVG    )   | -              | -              | -              | -              |
+| Adobe XD (Copy as SVG)       | OK             | OK             | ?              | ?              |
 | A Webpage                    | -              | OK             | OK             | ?              |
 | Singe image from LibreOffice | OK             | OK             | OK             | OK             |
 | Affinity Designer 2          | OK             | OK             | OK             | OK             |
+| Affinity Designer 2 (SVG)    | OK             | OK             | ?              | ?              |
 | Affinity Photo 2             | OK             | ?              | ?              | ?              |
 | Google Docs                  | OK             | OK             | ?              | ?              |
 | Signal (Desktop)             | OK             | OK             | OK             | ?              |
@@ -134,7 +140,9 @@ Filter the default filename. You can use internal placeholders and a subset of p
 
 **WordPress Placeholders:**
  - `<postname>` Name of current post if present
- - `<username>` Name of current user
+ - `<userid>` Current user ID
+ - `<userlogin>` Login name of current user
+ - `<username>` Display name of current user
 
 **Date and Time placeholders:**
  - `%Y` Four-digit year
