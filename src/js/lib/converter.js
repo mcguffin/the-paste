@@ -8,7 +8,7 @@ const fixMime = {
 /**
  *	Generate a filename
  */
-const getFilename = suffix => {
+const generateFilename = suffix => {
 
 	const zerofill = (n,len = 2) => {
 		return ('00' + n.toString()).substr(-len)
@@ -60,55 +60,66 @@ const getFilename = suffix => {
 
 const safeFilename = ( file, filename = '' ) => {
 	let type = file.type
+	console.log(file,filename)
 	if ( !! fixMime[type] ) { // windows
 		type = fixMime[type]
 	}
+	const suffix = mime.extension(type)
 	filename = filename.replace(/[^\p{L}\p{M}\p{S}\p{N}\p{P}\p{Zs}]/ug,'-').trim()
 	if ( ! filename ) {
-		filename = getFilename( mime.extension(type) )
+		filename = generateFilename( suffix )
+	}
+	if ( suffix !== filename.split('.').pop() ) {
+		filename += `.${suffix}`
 	}
 	return filename
 }
 
-const Converter = {
-	clipboardItemsToFiles: async clipboardItems => {
-		let i, item, src, str, domParser;
-		const files = []
-		for ( i=0; i < clipboardItems.length; i++ ) {
-			item = clipboardItems[i]
-			console.log(item.kind,item.type)
-			if ( 'string' === item.kind ) {
-				// google docs
-				if ( 'application/x-vnd.google-docs-image-clip+wrapped' === item.type ) {
-					files.push( ...await Converter.gdocsItemToFiles( item ) )
-				} else if ( 'text/plain' === item.type && supports.svg ) {
-					str = await Converter.itemToString( item )
-					if ( str.indexOf('<svg') >= 0 ) {
-						domParser = new DOMParser()
-						if ( domParser.parseFromString(str,'image/svg+xml').querySelector('svg') ) {
-							files.push( Converter.stringToFile( str, 'image/svg+xml' ) )
-						}
+const itemHandler = type => {
+	return {
+		'text/plain': async item => {
+			if ( supports.svg ) {
+				const str = await Converter.itemToString( item )
+				if ( str.indexOf('<svg') >= 0 ) {
+					const domParser = new DOMParser()
+					if ( domParser.parseFromString(str,'image/svg+xml').querySelector('svg') ) {
+						return [ Converter.stringToFile( str, 'image/svg+xml' ) ]
 					}
 				}
 			}
-		}
-		return files
-	},
-	svgClipboardItemsToFiles: async clipboardItems => {
-		const svg = await Converter.clipboardItemsToSvg( clipboardItems )
+			return []
+		},
+		'text/html': async item => {
+			const div = document.createElement('div')
+			div.innerHTML = await Converter.itemToString( item )
 
-	},
-	clipboardItemsToSvg: async clipboardItems => {
-		let i, item, str
-		for ( i=0; i < clipboardItems.length; i++ ) {
-			item = clipboardItems[i]
-			console.log(item.type)
-			if ( 'string' === item.kind && 'text/plain' === item.type ) {
-				str = await Converter.itemToString( item )
-				console.log(str)
-			}
-		}
-		return false
+			const imgs = Array.from( div.querySelectorAll('img') ).map( img => Converter.elementToFile(img) )
+			return new Promise( (resolve,reject) => {
+				Promise.allSettled( imgs ).then( result => resolve( Array.from(result).map( promise => promise.value )) )
+			})
+		},
+		'application/x-vnd.google-docs-image-clip+wrapped': async item => await Converter.gdocsItemToFiles( item ),
+	}[type]??(()=>new Promise((resolve,reject)=>resolve([])))
+}
+
+const Converter = {
+	clipboardItemsToFiles: clipboardItems => {
+		const files = []
+		return new Promise((resolve,reject) => {
+			const promises = Array.from(clipboardItems).map( item => {
+				if ( 'string' === item.kind ) {
+					const handler = itemHandler(item.type)
+					return handler( item )
+						.then( f => {
+							files.push( ...f )
+						} )
+						.catch( err => {
+							console.error(err)
+						})
+				}
+			})
+			Promise.allSettled(promises).then( () => resolve(files))
+		})
 	},
 	clipboardItemsToHtml:  async clipboardItems => {
 		let i, item
@@ -119,29 +130,6 @@ const Converter = {
 			}
 		}
 		return ''
-	},
-	getGdocsClipboardItems: clipboardItems => Array.from(clipboardItems).filter( item => 'string' === item.kind && 'application/x-vnd.google-docs-document-slice-clip+wrapped' === item.type ),
-	// gdocsClipboardItemsToFiles: async clipboardItems => {
-	// 	let i, item, src;
-	// 	const files = []
-	// 	for ( i=0; i < clipboardItems.length; i++ ) {
-	// 		item = clipboardItems[i]
-	// 		if ( 'string' === item.kind && 'application/x-vnd.google-docs-image-clip+wrapped' === item.type ) {
-	// 			files.push( ...await Converter.gdocsItemToFiles( item ) )
-	// 		}
-	// 	}
-	// 	return files
-	// },
-	gdocsClipboardItemsToSources: async clipboardItems => {
-		let i, item, src;
-		const srcs = []
-		for ( i=0; i < clipboardItems.length; i++ ) {
-			item = clipboardItems[i]
-			if ( 'string' === item.kind && 'application/x-vnd.google-docs-image-clip+wrapped' === item.type ) {
-				srcs.push( ...await Converter.gdocsItemToSources( item ) )
-			}
-		}
-		return srcs
 	},
 	gdocsItemToSources: async item => new Promise( (resolve, reject) => {
 		item.getAsString( async str => {

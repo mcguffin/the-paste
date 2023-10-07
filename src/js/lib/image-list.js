@@ -48,8 +48,10 @@ const ImageListItem = wp.media.View.extend({
 	},
 	render: function() {
 		wp.media.View.prototype.render.apply(this,arguments);
-		const [ filename, basename, suffix ] = /(.*)\.([^.]+)$/.exec( this.file.name )
-		const type = mime.lookup(suffix)
+
+		const type     = this.file.type
+		const basename = this.file.name.replace(/\.([^\.]*)$/,'')
+
 		if ( ! supports.webp ) {
 			if ( 'image/webp' !== type ) {
 				this.$(`[data-format="image/webp"]`).remove()
@@ -73,7 +75,6 @@ const ImageListItem = wp.media.View.extend({
 		// upload as-is
 		if ( this.file.type === type ) {
 			return new Promise((resolve,reject) => {
-				console.log(this.file,type)
 				resolve( new File( [this.file], filename, { type } ) )
 			})
 		}
@@ -126,7 +127,6 @@ const ImageList = wp.media.View.extend({
 		for ( const item of this.items ) {
 			files.push( await item.getFile() )
 		}
-		files.forEach( f=> console.log(f))
 		return files
 	},
 	submit: function() {

@@ -11,6 +11,7 @@ class PasteOperation {
 	static #observer = null
 
 	#files = []
+	#isAsync
 
 	static init(event) {
 		PasteOperation.#instance = new PasteOperation(event)
@@ -26,7 +27,7 @@ class PasteOperation {
 	}
 
 	get isAsync() {
-		return this.gdocsItems.length > 0
+		return this.#isAsync
 	}
 
 	get hasPastedFiles() {
@@ -35,7 +36,7 @@ class PasteOperation {
 
 	get pastedContent() {
 		return this.isAsync
-			? '<p id="the-pasted-async"></p>' // this.gdocsItems.map( (item,idx) => `<img id="the-pasted-async-${idx}" />`).join('')
+			? '<p id="the-pasted-async"></p>'
 			: this.files.map( (file,idx) => {
 					const src = URL.createObjectURL(file)
 
@@ -51,9 +52,8 @@ class PasteOperation {
 	constructor(event) {
 		this.clipboardData = event.clipboardData
 		this.body = event.target.closest('body')
-		this.gdocsItems = Converter.getGdocsClipboardItems( event.clipboardData.items )
 		this.#files = Array.from( this.clipboardData.files??[] )
-
+		this.#isAsync = Array.from( event.clipboardData.items ).filter( item => item.kind === 'string' && item.type === 'text/html' ).length > 0
 		// no files
 		if ( ! this.isAsync && ! this.files.length ) {
 			return
@@ -71,10 +71,11 @@ class PasteOperation {
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
 				this.body.insertBefore( div, placeholder )
-
+console.log(images)
 				if ( images.length ) {
 					for ( i=0; i < images.length; i++ ) {
 						images[i].src = await Converter.urlToBlobUrl(images[i].src)
+console.log(images[i].src)
 					}
 					this.body.dispatchEvent(new Event('FilesPasted'))
 				}
@@ -256,6 +257,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				return;
 			}
 			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()
+
 			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {
 				PasteOperation.destroy()
 				return;

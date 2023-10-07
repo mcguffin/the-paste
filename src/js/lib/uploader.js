@@ -94,6 +94,10 @@ class WPUploader {
 			} );
 		}
 	}
+
+	dump() {
+		console.log(arguments)
+	}
 }
 
 
@@ -123,6 +127,7 @@ const Uploader = {
 			progress.value = percent
 		}
 		uploader.onError = error => {
+			console.error(error)
 			Notices.error( `<strong>${thepaste.l10n.the_paste}:</strong> ${error.message} File: <em>${file.name}</em>`, true )
 			progress.remove()
 		}
@@ -140,6 +145,7 @@ const Uploader = {
 			} else {
 				newElement.innerHTML = wp.media.string.link( {}, attachment )
 			}
+
 			/*
 			wp.media.post( 'send-attachment-to-editor', {
 				nonce:      wp.media.view.settings.nonce.sendToEditor,
@@ -149,6 +155,7 @@ const Uploader = {
 			})
 			.then( html => $body.find(`[data-id="${id}"]`).replaceWith( `<p>${html}</p>` ) );
 			/*/
+
 			progress.replaceWith( newElement.childNodes[0] )
 
 			//*/
