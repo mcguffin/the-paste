@@ -23,7 +23,7 @@ const handleFiles = files => {
 document.addEventListener( 'paste', async e => {
 
 	if ( document.body.matches('.the-paste-modal-open') ) {
-		e.preventDefault()
+		return
 	}
 
 	if ( ! uploader ) {

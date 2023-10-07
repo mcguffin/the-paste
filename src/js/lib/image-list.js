@@ -72,12 +72,12 @@ const ImageListItem = wp.media.View.extend({
 		const filename = `${name}.${mime.extension(type)}`
 		// upload as-is
 		if ( this.file.type === type ) {
-			this.file.name = name
 			return new Promise((resolve,reject) => {
 				console.log(this.file,type)
-				resolve( this.file )
+				resolve( new File( [this.file], filename, { type } ) )
 			})
 		}
+		// type conversion
 		return new Promise((resolve,reject) => {
 			this.canvas.toBlob( blob => {
 				resolve( Converter.blobToFile( blob, filename ) )
