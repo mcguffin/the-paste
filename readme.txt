@@ -58,6 +58,13 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.0.7 =
+* Support images from MS Teams chat
+* A11y: Paste Modal submit now submits on press enter
+* A11y: Aria hidden attributes on buttons
+* Fix: Cannot paste into textfield in paste modal
+* Fix: Filename entered in paste modal unfunctional
+
 = 2.0.6 =
 * Feature: Toggle image pasting in tinymce toolbar
 * Feature: Support SVG

@@ -11,7 +11,7 @@ if ( ! defined('ABSPATH') )
 	<div class="content"></div>
 	<div class="media-frame-toolbar">
 		<button type="button" class="button-primary button-hero">
-			<span class="dashicons dashicons-yes"></span>
+			<span aria-hidden="true" class="dashicons dashicons-yes"></span>
 			<?php esc_html_e( 'Upload', 'the-paste' ); ?>
 		</button>
 	</div>
@@ -43,7 +43,7 @@ if ( ! defined('ABSPATH') )
 		</div>
 	</div>
 	<button type="button" name="discard" class="button-link-delete button">
-		<span class="dashicons dashicons-trash"></span>
+		<span aria-hidden="true" class="dashicons dashicons-trash"></span>
 		<?php esc_html_e('Discard','the-paste') ?>
 	</button>
 </script>
