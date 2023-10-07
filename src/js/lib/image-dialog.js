@@ -4,6 +4,15 @@ import ImageList from 'image-list'
 const imageDialog = images => {
 	return new Promise( (resolve,reject) => {
 		const modal = new wp.media.view.Modal( {
+			events: {
+				'keydown': function(e) {
+					if ( e.key === 'Enter' ) {
+						list.submit()
+					} else if ( e.key === 'Escape' ) {
+						modal.close()
+					}
+				}
+			},
 			controller : {
 				trigger: () => {},
 			},
@@ -13,10 +22,9 @@ const imageDialog = images => {
 		const isModal = $('body').is('.modal-open')
 		list.on( 'thepaste:submit', async () => {
 			const files = await list.getFiles()
-			files.forEach( f=> console.log(f))
 			modal.remove()
 			$('body').toggleClass( 'the-paste-modal-open', false ) // block editor
-			$('body').toggleClass( 'modal-open', isModal )
+			$('body').toggleClass( 'modal-open', isModal ) // restore preious modal state
 			resolve( files )
 		})
 		modal.content( list );
