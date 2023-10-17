@@ -174,7 +174,7 @@ abstract class TinyMce extends Core\Singleton {
 			}
 		}
 
-		return $buttons;
+		return array_unique( $buttons);
 	}
 
 

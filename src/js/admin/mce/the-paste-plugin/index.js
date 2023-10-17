@@ -148,7 +148,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 
 	// enable / disable autoupload button
 	editor.addButton( 'thepaste_onoff', {
-		icon: 'thepaste_enable',
+		icon: 'thepaste_onoff',
 		tooltip: thepaste.l10n.paste_files,
 		onPostRender: function() {
 			pasteOnOffBtn = this;
