@@ -253,7 +253,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			})
 		})
 		.on( 'Paste', e => {
-			if ( ! pasteOnOffBtn.active() ) {
+			if ( !!pasteOnOffBtn && ! pasteOnOffBtn.active() ) {
 				return;
 			}
 			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()

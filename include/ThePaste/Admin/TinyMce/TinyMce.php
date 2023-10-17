@@ -110,7 +110,7 @@ abstract class TinyMce extends Core\Singleton {
 
 		foreach ( $this->editor_buttons as $hook => $buttons ) {
 			if ( $buttons !== false ) {
-				add_filter( $hook, [ $this, 'add_buttons' ], 1000 ); // prio:
+				add_filter( $hook, [ $this, 'add_buttons' ] ); // prio:
 			}
 		}
 
@@ -157,6 +157,9 @@ abstract class TinyMce extends Core\Singleton {
 		$hook = current_filter();
 		if ( isset( $this->editor_buttons[ $hook ] ) && is_array( $this->editor_buttons[ $hook ] ) ) {
 			foreach ( $this->editor_buttons[ $hook ] as $button => $position ) {
+				if ( in_array( $button, $buttons ) ) {
+					continue;
+				}
 				if ( is_string( $position ) ) {
 					$position = array_search( $position, $buttons, true );
 					if ( false !== $position ) {

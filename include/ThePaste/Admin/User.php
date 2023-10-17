@@ -14,6 +14,7 @@ class User extends Core\Singleton {
 	private $option_name = 'the_paste';
 
 	private $defaults = [
+		'tinymce_enabled'  => true,
 		'tinymce'          => true,
 		'datauri'          => false,
 		'default_filename' => 'Pasted'
@@ -112,11 +113,27 @@ class User extends Core\Singleton {
 				<?php esc_html_e( 'The Paste: Enable Classic Editor', 'the-paste' ); ?>
 			</th>
 			<td>
+				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="0" />
+				<label>
+					<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="1" <?php checked( $this->tinymce, true ); ?> />
+					<?php esc_html_e( 'Allow pasting files and images in Classic Editor.', 'the-paste' ); ?>
+				</label>
+			</td>
+		</tr>
+
+		<tr class="the-paste-tinymce">
+			<th scope="row">
+				<?php esc_html_e( 'The Paste Classic Editor: Paste as file', 'the-paste' ); ?>
+			</th>
+			<td>
 				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce]" value="0" />
 				<label>
 					<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce]" value="1" <?php checked( $this->tinymce, true ); ?> />
-					<?php esc_html_e( 'Allow pasting files and images in Classic Editor.', 'the-paste' ); ?>
+					<?php esc_html_e( 'Prefer Files when pasting in Classic Editor.', 'the-paste' ); ?>
 				</label>
+				<p class="description">
+					<?php esc_html_e( 'You can enable this option also in the editer toolbar.', 'the-paste' ); ?>
+				</p>
 			</td>
 		</tr>
 

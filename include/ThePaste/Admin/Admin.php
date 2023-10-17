@@ -33,6 +33,24 @@ class Admin extends Core\Singleton {
 			return;
 		}
 
+		// TinyMCE Advanced Plugin
+		add_filter( 'tadv_allowed_buttons', function( $tadv_buttons ) {
+			$user = User::instance();
+			if ( ! $user->tinymce_enabled ) {
+				return $tadv_buttons;
+			}
+
+			$tadv_buttons['thepaste_onoff'] = __( 'Paste as file', 'the-paste' );
+			add_action( 'admin_footer', [ $this, 'print_media_templates' ] );
+
+			if ( $user->datauri ) {
+				$tadv_buttons['thepaste'] = __( 'Upload pasted images', 'the-paste' );
+			}
+
+			return $tadv_buttons;
+		});
+
+
 		add_action( 'admin_init', [ $this, 'register_assets' ] );
 		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
 		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
@@ -65,7 +83,9 @@ class Admin extends Core\Singleton {
 	public function register_assets() {
 		$user = User::instance();
 
-		$this->mce = TinyMce\TinyMceThePaste::instance();
+		if ( $user->tinymce_enabled ) {
+			$this->mce = TinyMce\TinyMceThePaste::instance();
+		}
 
 		$current_user = wp_get_current_user();
 
