@@ -2,14 +2,14 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Paste 2.0.7\n"
+"Project-Id-Version: The Paste 2.0.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-10-07T13:07:00+00:00\n"
+"POT-Creation-Date: 2023-10-18T11:47:32+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: the-paste\n"
@@ -34,165 +34,183 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/template/image-list.php:9
+#: include/template/image-list.php:10
 msgid "Upload Pasted Images"
 msgstr ""
 
-#: include/template/image-list.php:15
-#: include/template/uploader.php:28
+#: include/template/image-list.php:16
+#: include/template/uploader.php:29
 msgid "Upload"
 msgstr ""
 
-#: include/template/image-list.php:23
+#: include/template/image-list.php:24
 msgid "Filename"
 msgstr ""
 
-#: include/template/image-list.php:24
-#: include/ThePaste/Admin/User.php:35
+#: include/template/image-list.php:25
+#: include/ThePaste/Admin/User.php:41
 msgid "Pasted"
 msgstr ""
 
-#: include/template/image-list.php:29
+#: include/template/image-list.php:30
 msgid "WebP"
 msgstr ""
 
-#: include/template/image-list.php:33
+#: include/template/image-list.php:34
 msgid "PNG"
 msgstr ""
 
-#: include/template/image-list.php:37
+#: include/template/image-list.php:38
 msgid "jpeg"
 msgstr ""
 
-#: include/template/image-list.php:41
+#: include/template/image-list.php:42
 msgid "SVG"
 msgstr ""
 
-#: include/template/image-list.php:47
+#: include/template/image-list.php:48
 msgid "Discard"
 msgstr ""
 
-#: include/template/the-paste-instructions.php:14
+#: include/template/the-paste-instructions.php:15
 msgid "Press <kbd>⌘</kbd>+<kbd>V</kbd> to paste"
 msgstr ""
 
-#: include/template/the-paste-instructions.php:16
+#: include/template/the-paste-instructions.php:17
 msgid "Press <kbd>ctrl</kbd>+<kbd>V</kbd> to paste"
 msgstr ""
 
-#: include/template/uploader.php:12
+#: include/template/uploader.php:13
 msgid "Try again"
 msgstr ""
 
-#: include/template/uploader.php:15
+#: include/template/uploader.php:16
 msgid "Title"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:78
-msgid "Upload pasted images"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:79
-msgid "Upload image"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:81
-msgid "Copy & Paste"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:82
+#: include/ThePaste/Admin/Admin.php:38
+#: include/ThePaste/Admin/Admin.php:97
 msgid "Paste as file"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:112
-msgid "The Paste: Enable Classic Editor"
+#: include/ThePaste/Admin/Admin.php:42
+#: include/ThePaste/Admin/Admin.php:93
+msgid "Upload pasted images"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:118
-msgid "Allow pasting files and images in Classic Editor."
+#: include/ThePaste/Admin/Admin.php:94
+msgid "Upload image"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:125
-msgid "The Paste: Data URI Images"
+#: include/ThePaste/Admin/Admin.php:96
+msgid "Copy & Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:131
-msgid "Paste Data URI Images in Classic Editor."
+#: include/ThePaste/Admin/User.php:121
+msgid "The Paste: Classic Editor"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:134
-msgid "If this option is disabled, you can still upload existing data URI images."
+#: include/ThePaste/Admin/User.php:128
+msgid "Paste files and image data."
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:141
-msgid "The Paste: Default filename"
+#: include/ThePaste/Admin/User.php:136
+msgid "Prefer File data when pasting."
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:140
+msgid "You can enable this option also in the editer toolbar."
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:148
+msgid "Paste Data URI Images."
 msgstr ""
 
 #: include/ThePaste/Admin/User.php:152
+msgid "If this option is disabled, you can still upload existing data URI images."
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:160
+msgid "The Paste: Image Quality"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:180
+msgid "The Paste: Default filename"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:191
 msgid "Available placeholders…"
 msgstr ""
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/User.php:159
+#: include/ThePaste/Admin/User.php:198
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:164
+#: include/ThePaste/Admin/User.php:203
 msgid "Display name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:166
+#: include/ThePaste/Admin/User.php:205
 msgid "Login name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:168
+#: include/ThePaste/Admin/User.php:207
 msgid "Current user ID"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:173
+#: include/ThePaste/Admin/User.php:212
 msgid "Four-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:175
+#: include/ThePaste/Admin/User.php:214
 msgid "Two-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:177
+#: include/ThePaste/Admin/User.php:216
 msgid "Number of month with leading zero (01 to 12)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:179
+#: include/ThePaste/Admin/User.php:218
 msgid "Day of month with leading zero (01 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:181
+#: include/ThePaste/Admin/User.php:220
 msgid "Day of month (1 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:183
+#: include/ThePaste/Admin/User.php:222
 msgid "Two digit hour in 24-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:185
+#: include/ThePaste/Admin/User.php:224
 msgid "Two digit hour in 12-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:187
+#: include/ThePaste/Admin/User.php:226
 msgid "Two digit minute"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:189
+#: include/ThePaste/Admin/User.php:228
 msgid "Two digit second"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:191
+#: include/ThePaste/Admin/User.php:231
+msgid "Date based on locale"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:233
+msgid "Time based on locale"
+msgstr ""
+
+#: include/ThePaste/Admin/User.php:236
 msgid "Unix timestamp"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:199
+#: include/ThePaste/Admin/User.php:244
 msgid "Support The Paste"
 msgstr ""
 
-#: include/ThePaste/Admin/User.php:205
+#: include/ThePaste/Admin/User.php:250
 msgid "Paste some cash with PayPal"
 msgstr ""

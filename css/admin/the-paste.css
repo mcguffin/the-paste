@@ -1,9 +1,3 @@
-/*
-// record: \F235
-// okay: \F147
-// reset: \F158
-
-*/
 /* WordPress Dashicons Vars */
 /* generated from https://raw.githubusercontent.com/WordPress/dashicons/master/codepoints.json */
 #the-paste {
@@ -37,7 +31,6 @@
   //*/
 }
 
-/*  */
 .the-paste-instructions body:not(:focus-within) {
   display: none;
 }
@@ -161,3 +154,4 @@
 .the-paste-image-list-item [name=discard]:focus {
   box-shadow: 0 0 0 1px currentColor;
 }
+/*# sourceMappingURL=the-paste.css.map */

@@ -71,7 +71,7 @@ function js_task(debug) {
 				let target = entry.replace(/(\.\/src\/js\/|\/index)/g,'');
 				const bundler = browserify({
 						entries: [entry],
-						debug: debug,
+						debug: true, // keep always true
 						paths:['./src/js/lib']
 					})
 					.transform( babelify.configure({}) )
