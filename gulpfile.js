@@ -1,15 +1,16 @@
-const fs			= require( 'fs' );
-const gulp			= require( 'gulp' );
-const glob			= require( 'glob' );
-const autoprefixer	= require( 'gulp-autoprefixer' );
-const browserify	= require( 'browserify' );
-const babelify		= require( 'babelify' );
-const buffer		= require( 'vinyl-buffer' );
-const sass			= require( 'gulp-sass' )( require('sass') );
-const source		= require( 'vinyl-source-stream' );
-const sourcemaps	= require( 'gulp-sourcemaps' );
-const es			= require( 'event-stream' );
-const child_process	= require( 'child_process' );
+const autoprefixer  = require( 'gulp-autoprefixer' );
+const browserify    = require( 'browserify' );
+const babelify      = require( 'babelify' );
+const buffer        = require( 'vinyl-buffer' );
+const child_process = require( 'child_process' );
+const es            = require( 'event-stream' );
+const fs            = require( 'fs' );
+const glob          = require( 'glob' );
+const gulp          = require( 'gulp' );
+const sass          = require( 'gulp-sass' )( require('sass') );
+const source        = require( 'vinyl-source-stream' );
+const sourcemaps    = require( 'gulp-sourcemaps' );
+const uglify        = require( 'gulp-uglify' );
 
 
 const package = require( './package.json' );
@@ -68,16 +69,26 @@ function js_task(debug) {
 			.filter( p => ! config.js.exclude.find( ex => p.indexOf(ex) !== -1 ) )
 			.map( entry => {
 				let target = entry.replace(/(\.\/src\/js\/|\/index)/g,'');
-				return browserify({
+				const bundler = browserify({
 						entries: [entry],
 						debug: debug,
 						paths:['./src/js/lib']
 					})
 					.transform( babelify.configure({}) )
-					.transform( 'browserify-shim' )
-					.plugin('tinyify')
+					.transform( 'browserify-shim' );
+
+				return bundler
+					// .plugin('tinyify')
 					.bundle()
 					.pipe(source(target))
+					.pipe(buffer())
+					.pipe(sourcemaps.init( { loadMaps: true } ) )
+					.pipe( uglify() )
+					.on('error', function (error) {
+						console.error(error.message);
+						// this.emit('end');
+					})
+					.pipe(sourcemaps.write( './' ) )
 					.pipe( gulp.dest( config.destPath ) );
 			} );
 
@@ -89,19 +100,25 @@ function scss_task(debug) {
 	conf.outputStyle = debug ? 'expanded' : 'compressed'
 
 	return cb => {
-		let g = gulp.src( config.sass.watchPaths ); // fuck gulp 4 sourcemaps!
-		if ( debug ) { // lets keep ye olde traditions
-			g = g.pipe( sourcemaps.init( ) )
-		}
-		g = g.pipe(
-			sass( conf )
-		)
-		.pipe(autoprefixer({}));
-		if ( debug ) {
-			g = g.pipe( sourcemaps.write( '.' ) )
-		}
-
-		return g.pipe( gulp.dest( config.destPath ) );
+		return gulp.src( config.sass.watchPaths )
+			.pipe( sourcemaps.init( ) )
+			.pipe( sass( conf ) )
+			.pipe(autoprefixer({}))
+			.pipe( sourcemaps.write( '.' ) )
+			.pipe( gulp.dest( config.destPath ) );
+		// let g = gulp.src( config.sass.watchPaths ); // fuck gulp 4 sourcemaps!
+		// if ( debug ) { // lets keep ye olde traditions
+		// 	g = g.pipe( sourcemaps.init( ) )
+		// }
+		// g = g.pipe(
+		// 	sass( conf )
+		// )
+		// ;
+		// if ( debug ) {
+		// 	g = g.pipe( sourcemaps.write( '.' ) )
+		// }
+		//
+		// return g.pipe( gulp.dest( config.destPath ) );
 	}
 }
 
