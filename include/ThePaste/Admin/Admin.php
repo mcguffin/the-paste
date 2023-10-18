@@ -1,9 +1,4 @@
 <?php
-/**
- *	@package ThePaste\Admin
- *	@version 1.0.0
- *	2018-09-22
- */
 
 namespace ThePaste\Admin;
 

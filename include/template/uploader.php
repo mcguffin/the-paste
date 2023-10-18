@@ -1,7 +1,8 @@
 <?php
 
-if ( ! defined('ABSPATH') ) 
+if ( ! defined('ABSPATH') ) {
 	die();
+}
 
 ?>
 <script type="text/html" id="tmpl-thepaste-uploader">

@@ -31,6 +31,4 @@ class Core extends Plugin implements CoreInterface {
 		$protocols[] = 'data';
 		return $protocols;
 	}
-
-
 }

@@ -60,8 +60,6 @@ class Plugin extends Singleton implements ComponentInterface {
 		return plugin_dir_url( $this->get_plugin_file() );
 	}
 
-
-
 	/**
 	 *	@inheritdoc
 	 */
@@ -70,7 +68,6 @@ class Plugin extends Singleton implements ComponentInterface {
 			$this->get_plugin_dir() => $this->get_plugin_url(),
 		];
 	}
-
 
 	/**
 	 *	@return string plugin slug
@@ -110,7 +107,6 @@ class Plugin extends Singleton implements ComponentInterface {
 		return $this->plugin_meta;
 	}
 
-
 	/**
 	 *	@action plugins_loaded
 	 */
@@ -140,10 +136,8 @@ class Plugin extends Singleton implements ComponentInterface {
 		load_plugin_textdomain( 'the-paste', false, $path . '/languages' );
 	}
 
-
-
 	/**
-	*	@inheritdoc
+	 *	@inheritdoc
 	 */
 	public function activate() {
 
@@ -154,7 +148,6 @@ class Plugin extends Singleton implements ComponentInterface {
 			$comp->activate();
 		}
 	}
-
 
 	/**
 	 *	@inheritdoc
@@ -177,7 +170,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	}
 
 	/**
-	*	@inheritdoc
+	 *	@inheritdoc
 	 */
 	public function deactivate() {
 		foreach ( self::$components as $component ) {
@@ -187,7 +180,7 @@ class Plugin extends Singleton implements ComponentInterface {
 	}
 
 	/**
-	*	@inheritdoc
+	 *	@inheritdoc
 	 */
 	public static function uninstall() {
 		foreach ( self::$components as $component ) {

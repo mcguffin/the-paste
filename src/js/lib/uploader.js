@@ -146,19 +146,7 @@ const Uploader = {
 				newElement.innerHTML = wp.media.string.link( {}, attachment )
 			}
 
-			/*
-			wp.media.post( 'send-attachment-to-editor', {
-				nonce:      wp.media.view.settings.nonce.sendToEditor,
-				attachment: attachment,
-				html:       html,
-				post_id:    wp.media.view.settings.post.id
-			})
-			.then( html => $body.find(`[data-id="${id}"]`).replaceWith( `<p>${html}</p>` ) );
-			/*/
-
 			progress.replaceWith( newElement.childNodes[0] )
-
-			//*/
 		}
 		uploader.upload()
 	},

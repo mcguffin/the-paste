@@ -1,9 +1,3 @@
-/*
-// record: \F235
-// okay: \F147
-// reset: \F158
-
-*/
 
 @import "mixins/index";
 @import "variables/index";
@@ -41,7 +35,6 @@
 	//*/
 }
 
-/*  */
 .media-frame-title {
 
 }
@@ -165,11 +158,6 @@
 	}
 	.the-paste-format {
 		margin-top:auto;
-		// grid-area:format;
-		label {
-			// display: block;
-			// white-space: nowrap;
-		}
 	}
 	[name="discard"] {
 		grid-area: discard;

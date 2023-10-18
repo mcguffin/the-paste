@@ -1,7 +1,5 @@
 @import "mixins/index";
 @import "variables/index";
-// debug
-// body#tinymce { background-color: #ccc; }
 
 progress.the-paste-progress {
 	--bar-height: 4px;
@@ -37,37 +35,3 @@ progress.the-paste-progress {
 		height: var(--bar-height);
 	}
 }
-
-// .thepaste-image-placeholder {
-// 	display:inline-grid;
-// 	max-width:100%;
-// 	position:relative;
-// 	* {
-// 		grid-row: 1;
-// 		grid-column: 1;
-// 	}
-// 	&:before {
-// 		content:'';
-// 		background:rgba(0,0,0,0.5);
-// 		grid-row: 1;
-// 		grid-column: 1;
-// 		order: 1;
-// 	}
-// 	// &:after {
-// 	// 	content:attr(data-progress) '%';
-// 	// 	position:absolute;
-// 	// 	left:0;
-// 	// 	top:50%;
-// 	// 	bottom:0;
-// 	// 	right:0;
-// 	// 	color:#fff;
-// 	// 	font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-// 	// 	font-size:30px;
-// 	// 	font-weight:700;
-// 	// 	line-height:0;
-// 	// 	text-align:center;
-// 	// }
-// 	& > * {
-// 		max-width:100%;
-// 	}
-// }

@@ -11,8 +11,10 @@ use ThePaste\Core;
 
 class User extends Core\Singleton {
 
+	/** @var tring */
 	private $option_name = 'the_paste';
 
+	/** @var array */
 	private $defaults = [
 		'tinymce_enabled'  => true,
 		'tinymce'          => true,
@@ -20,8 +22,10 @@ class User extends Core\Singleton {
 		'default_filename' => 'Pasted'
 	];
 
+	/** @var array */
 	private $_options = null;
 
+	/** @var int */
 	private $_user_id = null;
 
 	/**
@@ -251,7 +255,6 @@ class User extends Core\Singleton {
 			$this->commit();
 		}
 	}
-
 
 	/**
 	 *	Save options

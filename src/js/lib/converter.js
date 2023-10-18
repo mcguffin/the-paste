@@ -60,7 +60,7 @@ const generateFilename = suffix => {
 
 const safeFilename = ( file, filename = '' ) => {
 	let type = file.type
-	console.log(file,filename)
+
 	if ( !! fixMime[type] ) { // windows
 		type = fixMime[type]
 	}

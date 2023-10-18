@@ -2,7 +2,6 @@ import $ from 'jquery'
 import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
-// import UA from 'ua'
 import Uploader from 'uploader'
 
 class PasteOperation {
@@ -71,27 +70,14 @@ class PasteOperation {
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
 				this.body.insertBefore( div, placeholder )
-console.log(images)
 				if ( images.length ) {
 					for ( i=0; i < images.length; i++ ) {
 						images[i].src = await Converter.urlToBlobUrl(images[i].src)
-console.log(images[i].src)
 					}
 					this.body.dispatchEvent(new Event('FilesPasted'))
 				}
 				this.body.querySelector('#the-pasted-async')?.remove()
 			})()
-		// } else if ( UA.browser === 'firefox' ) {
-		// Killed! @see https://www.mozilla.org/en-US/firefox/116.0/releasenotes/
-			// 	// firefox can only paste one file at a time
-			// 	// luckily it is available in the DOM during the input event
-			// 	body.addEventListener( 'input', e => {
-			// 		// this.files.push( ... await Converter.gdocsClipboardItemsToFiles( event.clipboardData.items ) )
-			// 		if ( this.files.length === 1 ) {
-			// 			body.querySelector('[src^="data:"]').alt = this.files[0].name
-			// 		}
-			// 		body.dispatchEvent(new Event('FilesPasted'))
-			// 	}, { once: true } )
 		} else if ( this.body.querySelector('[src^="data:"]:not(.--paste-process)') ) {
 			this.body.dispatchEvent(new Event('FilesPasted'))
 		}
@@ -124,12 +110,10 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		toolbar
 
 	if ( ! thepaste.options.editor.datauri ) {
-
 		// always auto uploaded
 		thepaste.options.editor.auto_upload = true
 
 	} else {
-
 		// user choice
 		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
 
@@ -143,7 +127,6 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			},
 			active: thepaste.options.editor.auto_upload
 		});
-
 	}
 
 	// enable / disable autoupload button
@@ -288,7 +271,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				if ( ! images.length ) {
 					return
 				}
-				for (idx=0;idx<images.length;idx++) {
+				for ( idx=0; idx < images.length; idx++ ) {
 					img = images[idx]
 					if ( !! pasteOperation.files[idx] ) {
 						img.alt = pasteOperation.files[idx].name
@@ -309,5 +292,3 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			.on( 'PastePostProcess', editorPostProcess )
 		});
 } );
-
-// } )(jQuery);

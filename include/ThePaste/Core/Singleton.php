@@ -41,16 +41,4 @@ abstract class Singleton {
 	 */
 	protected function __construct() {
 	}
-
-	/**
-	 *	Array filter: Append instance to array.
-	 *	Use it for filters
-	 */
-	public function append_this( $arr ) {
-		$arr[] = $this;
-		return $arr;
-	}
-
-
-
 }

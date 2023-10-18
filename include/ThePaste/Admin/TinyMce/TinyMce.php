@@ -114,7 +114,6 @@ abstract class TinyMce extends Core\Singleton {
 			}
 		}
 
-
 		// add tinymce plugin parameters
 		if ( $this->plugin_params !== false ) {
 			add_action( 'wp_enqueue_editor', [ $this, 'action_enqueue_editor' ] );
