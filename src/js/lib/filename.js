@@ -27,7 +27,9 @@ const generateFilename = suffix => {
 			{ s: '%I', r: zerofill(now.getHours() % 12 ) },
 			{ s: '%M', r: zerofill(now.getMinutes()) },
 			{ s: '%S', r: zerofill(now.getSeconds()) },
-			{ s: '%s', r: Math.floor( now.getTime() / 1000 ) }
+			{ s: '%s', r: Math.floor( now.getTime() / 1000 ) },
+			{ s: '%x', r: now.toLocaleDateString() },
+			{ s: '%X', r: now.toLocaleTimeString() }
 		];
 	if ( 'undefined' !== typeof postname ) {
 		map.push( { s: '<postname>', r: postname } );

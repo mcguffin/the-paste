@@ -62,10 +62,11 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 * Introduce Image Quality option
 * Image Dialog: use generated filename if filename is empty
 * Rearrange user options
+* Add date and time format options for default filenames
 * Compatibility with [Advanced Editor Tools](https://wordpress.org/plugins/tinymce-advanced/)
 * Reduce JS filesize
 * Fix: missing TinyMCE toolbar icon
-* Fix: Image Quality setting not applied
+* Fix: Image Quality setting not effective
 
 = 2.0.7 =
 * Support images from MS Teams chat
