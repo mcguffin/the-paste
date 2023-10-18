@@ -1,9 +1,5 @@
 import mime from 'mime'
 
-const fixMime = {
-	'application/x-zip-compressed': 'application/zip',
-}
-
 /**
  *	Generate a filename
  */
@@ -53,13 +49,9 @@ const generateFilename = suffix => {
 	}
 	return name;
 }
-
 const safeFilename = ( file, filename = '' ) => {
 	let type = file.type
 
-	if ( !! fixMime[type] ) { // windows
-		type = fixMime[type]
-	}
 	const suffix = mime.extension(type)
 	filename = filename.replace(/[^\p{L}\p{M}\p{S}\p{N}\p{P}\p{Zs}]/ug,'-').trim()
 	if ( ! filename ) {
