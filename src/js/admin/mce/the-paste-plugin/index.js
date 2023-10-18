@@ -68,14 +68,16 @@ class PasteOperation {
 
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
-				this.body.insertBefore( div, placeholder )
+
+				Array.from(div.childNodes).forEach( node => placeholder.parentNode.insertBefore( node, placeholder ) )
+				placeholder?.remove()
+
 				if ( images.length ) {
 					for ( i=0; i < images.length; i++ ) {
 						images[i].src = await Converter.urlToBlobUrl(images[i].src)
 					}
 					this.body.dispatchEvent(new Event('FilesPasted'))
 				}
-				this.body.querySelector('#the-pasted-async')?.remove()
 			})()
 		} else if ( this.body.querySelector('[src^="data:"]:not(.--paste-process)') ) {
 			this.body.dispatchEvent(new Event('FilesPasted'))
