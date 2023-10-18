@@ -1,5 +1,4 @@
 import $ from 'jquery'
-import mime from 'mime-types'
 import Converter from 'converter'
 import Notices from 'notices'
 import Uploader from 'uploader'

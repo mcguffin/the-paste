@@ -1,5 +1,5 @@
 import Converter from 'converter'
-import mime from 'mime-types'
+import mime from 'mime'
 import { supports } from 'compat'
 import { generateFilename } from 'filename'
 

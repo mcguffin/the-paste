@@ -1,4 +1,4 @@
-import mime from 'mime-types'
+import mime from 'mime'
 
 const fixMime = {
 	'application/x-zip-compressed': 'application/zip',
@@ -49,9 +49,6 @@ const generateFilename = suffix => {
 		name = name.replace( el.s, el.r )
 	})
 	if ( 'string' === typeof suffix) {
-		if ( 'jpeg' === suffix ) { // dammit mime-types lib!
-			suffix = 'jpg'
-		}
 		name += '.' + suffix;
 	}
 	return name;

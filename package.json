@@ -36,7 +36,6 @@
     "gulp-jsonlint": "*",
     "gulp-sass": "*",
     "gulp-sourcemaps": "*",
-    "mime-types": "^2.1.35",
     "gulp-uglify": "*",
     "sass": "*",
     "tinyify": "*",

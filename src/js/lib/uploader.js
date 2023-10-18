@@ -1,4 +1,4 @@
-import mime from 'mime-types'
+import mime from 'mime'
 import Converter from 'converter'
 import Notices from 'notices'
 import { rml } from 'compat'
@@ -145,7 +145,6 @@ const Uploader = {
 			} else {
 				newElement.innerHTML = wp.media.string.link( {}, attachment )
 			}
-
 			progress.replaceWith( newElement.childNodes[0] )
 		}
 		uploader.upload()

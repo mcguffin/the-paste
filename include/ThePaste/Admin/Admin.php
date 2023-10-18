@@ -114,6 +114,7 @@ class Admin extends Core\Singleton {
 							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
 						], admin_url( 'admin-ajax.php' ) ),
 					],
+					'mime_types'        => $this->get_mimetype_mapping(),
 					'filename_values'   => [
 						'username'  => $current_user->display_name,
 						'userlogin' => $current_user->user_login,
@@ -165,12 +166,34 @@ class Admin extends Core\Singleton {
 	/**
 	 *	@action 'print_media_templates'
 	 */
-	function print_media_templates() {
+	public function print_media_templates() {
 		if ( current_user_can( 'upload_files' ) ) {
 			$rp = Core\Core::instance()->get_plugin_dir() . '/include/template/{,*/,*/*/,*/*/*/}*.php';
 			foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {
 				include $template_file;
 			}
 		}
+	}
+
+	/**
+	 *	@return array
+	 */
+	private function get_mimetype_mapping() {
+
+		$mime_mapping = [];
+
+		foreach( get_allowed_mime_types() as $extensions => $mime ) {
+			foreach( explode( '|', $extensions ) as $extension ) {
+				$mime_mapping[$extension] = $mime;
+			}
+		}
+		uksort( $mime_mapping, function($a,$b) {
+			// handle ambigous file extensions: put prefered suffix o front
+			if ( in_array($a,['jpg','gz','tif','mov','mpeg','m4v','3gp','3g2','txt','html','m4a','ra','ogg','mid','ppt','xls'])) {
+				return -1;
+			}
+			return 0;
+		});
+		return $mime_mapping;
 	}
 }
