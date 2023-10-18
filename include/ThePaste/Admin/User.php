@@ -18,6 +18,7 @@ class User extends Core\Singleton {
 	private $defaults = [
 		'tinymce_enabled'  => true,
 		'tinymce'          => true,
+		'image_quality'    => 90,
 		'datauri'          => false,
 		'default_filename' => 'Pasted'
 	];
@@ -88,6 +89,9 @@ class User extends Core\Singleton {
 			if ( in_array( $what, [ 'tinymce', 'datauri' ] ) ) { // boolean options
 				$this->_options[$what] = (boolean) $value;
 
+			} else if ( in_array( $what, [ 'image_quality' ] ) ) { // boolean options
+				$this->_options[$what] = absint( $value );
+
 			} else if ( in_array( $what, ['default_filename'] ) ) { // filename template
 				$this->_options[$what] = strip_tags(trim( $value ), [ '<postname>', '<username>', '<userlogin>', '<userid>' ] );
 			}
@@ -112,48 +116,23 @@ class User extends Core\Singleton {
 
 		?>
 
-		<tr class="the-paste-tinymce">
+		<tr class="the-paste-quality">
 			<th scope="row">
-				<?php esc_html_e( 'The Paste: Enable Classic Editor', 'the-paste' ); ?>
+				<?php esc_html_e( 'The Paste: Image Quality', 'the-paste' ); ?>
 			</th>
 			<td>
-				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="0" />
-				<label>
-					<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="1" <?php checked( $this->tinymce, true ); ?> />
-					<?php esc_html_e( 'Allow pasting files and images in Classic Editor.', 'the-paste' ); ?>
+				<input type="hidden" name="<?php echo $this->option_name; ?>[image_quality]" value="0" />
+				<label class="regular-text">
+					<input type="range" name="<?php echo $this->option_name; ?>[image_quality]" min="0" max="100" value="<?php echo absint( $this->image_quality ); ?>" oninput="this.nextElementSibling.value = this.value" />
+					<input type="number" value="<?php echo absint( $this->image_quality ); ?>"  oninput="this.previousElementSibling.value = this.value">
 				</label>
-			</td>
-		</tr>
-
-		<tr class="the-paste-tinymce">
-			<th scope="row">
-				<?php esc_html_e( 'The Paste Classic Editor: Paste as file', 'the-paste' ); ?>
-			</th>
-			<td>
-				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce]" value="0" />
-				<label>
-					<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce]" value="1" <?php checked( $this->tinymce, true ); ?> />
-					<?php esc_html_e( 'Prefer Files when pasting in Classic Editor.', 'the-paste' ); ?>
-				</label>
-				<p class="description">
-					<?php esc_html_e( 'You can enable this option also in the editer toolbar.', 'the-paste' ); ?>
-				</p>
-			</td>
-		</tr>
-
-		<tr class="the-paste-datauri">
-			<th scope="row">
-				<?php esc_html_e( 'The Paste: Data URI Images', 'the-paste' ); ?>
-			</th>
-			<td>
-				<input type="hidden" name="<?php echo $this->option_name; ?>[datauri]" value="0" />
-				<label>
-					<input type="checkbox" name="<?php echo $this->option_name; ?>[datauri]" value="1" <?php checked( $this->datauri, true ); ?> />
-					<?php esc_html_e( 'Paste Data URI Images in Classic Editor.', 'the-paste' ); ?>
-				</label>
-				<p class="description">
-					<?php esc_html_e( 'If this option is disabled, you can still upload existing data URI images.', 'the-paste' ); ?>
-				</p>
+				<style>
+				.the-paste-quality label {
+					display: inline-grid;
+					grid-template-columns: 1fr 80px;
+					grid-gap: 1em;
+				}
+				</style>
 			</td>
 		</tr>
 
@@ -163,7 +142,7 @@ class User extends Core\Singleton {
 			</th>
 			<td>
 				<label>
-					<input type="text" name="<?php echo $this->option_name; ?>[default_filename]" value="<?php echo esc_attr( $this->default_filename ); ?>" />
+					<input type="text" class="regular-text" name="<?php echo $this->option_name; ?>[default_filename]" value="<?php echo esc_attr( $this->default_filename ); ?>" />
 				</label>
 				<div class="description">
 					<style>
@@ -212,6 +191,45 @@ class User extends Core\Singleton {
 						<dd><?php esc_html_e( 'Unix timestamp', 'the-paste' ); ?></dd>
 					</dl>
 				</div>
+			</td>
+		</tr>
+
+		<tr class="the-paste-tinymce">
+			<th scope="row">
+				<?php esc_html_e( 'The Paste: Classic Editor', 'the-paste' ); ?>
+			</th>
+			<td>
+				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="0" />
+				<p>
+					<label>
+						<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce_enabled]" value="1" <?php checked( $this->tinymce, true ); ?> />
+						<?php esc_html_e( 'Paste files and image data.', 'the-paste' ); ?>
+					</label>
+				</p>
+
+				<input type="hidden" name="<?php echo $this->option_name; ?>[tinymce]" value="0" />
+				<p>
+					<label>
+						<input type="checkbox" name="<?php echo $this->option_name; ?>[tinymce]" value="1" <?php checked( $this->tinymce, true ); ?> />
+						<?php esc_html_e( 'Prefer File data when pasting.', 'the-paste' ); ?>
+					</label>
+				</p>
+				<p class="description">
+					<?php esc_html_e( 'You can enable this option also in the editer toolbar.', 'the-paste' ); ?>
+				</p>
+
+				<!-- TODO: remove in 2.1 -->
+				<input type="hidden" name="<?php echo $this->option_name; ?>[datauri]" value="0" />
+				<p>
+					<label>
+						<input type="checkbox" name="<?php echo $this->option_name; ?>[datauri]" value="1" <?php checked( $this->datauri, true ); ?> />
+						<?php esc_html_e( 'Paste Data URI Images.', 'the-paste' ); ?>
+					</label>
+				</p>
+				<p class="description">
+					<?php esc_html_e( 'If this option is disabled, you can still upload existing data URI images.', 'the-paste' ); ?>
+				</p>
+
 			</td>
 		</tr>
 
