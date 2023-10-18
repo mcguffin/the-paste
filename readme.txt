@@ -58,6 +58,15 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.0.8 =
+* Introduce Image Quality option
+* Image Dialog: use generated filename if filename is empty
+* Rearrange user options
+* Compatibility with [Advanced Editor Tools](https://wordpress.org/plugins/tinymce-advanced/)
+* Reduce JS filesize
+* Fix: missing TinyMCE toolbar icon
+* Fix: Image Quality setting not applied
+
 = 2.0.7 =
 * Support images from MS Teams chat
 * A11y: Paste Modal submit now submits on press enter
