@@ -1,6 +1,6 @@
 {
   "name": "the-paste",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Image Paste Plugin for WordPress",
   "main": "js/admin/the-paste.js",
   "scripts": {
