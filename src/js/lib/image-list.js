@@ -1,6 +1,7 @@
 import Converter from 'converter'
 import mime from 'mime-types'
-import {supports} from 'compat'
+import { supports } from 'compat'
+import { generateFilename } from 'filename'
 
 const ImageListItem = wp.media.View.extend({
 	tagName:'form',
@@ -60,6 +61,7 @@ const ImageListItem = wp.media.View.extend({
 
 		this.$(`[name="the-paste-format"][value="${type}"]`).prop('checked', true )
 		this.$('[name="the-paste-filename"]').val( basename )
+		this.$('[name="the-paste-filename"]').prop( 'placeholder', generateFilename() )
 
 		if ( ! supports.svg || 'image/svg+xml' !== type ) {
 			this.$(`[data-format="image/svg+xml"]`).remove()
@@ -70,7 +72,7 @@ const ImageListItem = wp.media.View.extend({
 	},
 	getFile: function() {
 		const type = this.$('[name="the-paste-format"]:checked').val()
-		const name = this.$('[name="the-paste-filename"]').val()
+		const name = this.$('[name="the-paste-filename"]').val() || generateFilename()
 		const filename = `${name}.${mime.extension(type)}`
 		// upload as-is
 		if ( this.file.type === type ) {
@@ -82,7 +84,7 @@ const ImageListItem = wp.media.View.extend({
 		return new Promise((resolve,reject) => {
 			this.canvas.toBlob( blob => {
 				resolve( Converter.blobToFile( blob, filename ) )
-			}, type )
+			}, type, thepaste.options.jpeg_quality * 0.01 )
 		})
 	},
 	discard: function() {
