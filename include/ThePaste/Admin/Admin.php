@@ -29,22 +29,15 @@ class Admin extends Core\Singleton {
 		}
 
 		// TinyMCE Advanced Plugin
-		add_filter( 'tadv_allowed_buttons', function( $tadv_buttons ) {
-			$user = User::instance();
-			if ( ! $user->tinymce_enabled ) {
+		if ( $this->get_options()->tinymce_enabled ) {
+			add_filter( 'tadv_allowed_buttons', function( $tadv_buttons ) {
+
+				$tadv_buttons['thepaste_onoff'] = __( 'Paste as file', 'the-paste' );
+				add_action( 'admin_footer', [ $this, 'print_media_templates' ] );
+
 				return $tadv_buttons;
-			}
-
-			$tadv_buttons['thepaste_onoff'] = __( 'Paste as file', 'the-paste' );
-			add_action( 'admin_footer', [ $this, 'print_media_templates' ] );
-
-			if ( $user->datauri ) {
-				$tadv_buttons['thepaste'] = __( 'Upload pasted images', 'the-paste' );
-			}
-
-			return $tadv_buttons;
-		});
-
+			});
+		}
 
 		add_action( 'admin_init', [ $this, 'register_assets' ] );
 		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
@@ -64,9 +57,9 @@ class Admin extends Core\Singleton {
 			? (bool) wp_unslash( $_REQUEST['enabled'] )
 			: false;
 
-		$user = User::instance();
+		$user = UserOptions::instance();
 		$user->tinymce = $enabled;
-		$user->commit();
+		$user->save();
 
 		wp_send_json( [ 'success' => true ] );
 	}
@@ -76,9 +69,11 @@ class Admin extends Core\Singleton {
 	 *	@action admin_print_scripts
 	 */
 	public function register_assets() {
-		$user = User::instance();
 
-		if ( $user->tinymce_enabled ) {
+		$options = (object) $this->get_options();
+		$user    = UserOptions::instance();
+
+		if ( $options->tinymce_enabled ) {
 			$this->mce = TinyMce\TinyMceThePaste::instance();
 		}
 
@@ -99,8 +94,7 @@ class Admin extends Core\Singleton {
 				'options' => [
 					'editor'           => [
 						'enabled'           => $user->tinymce,
-						'auto_upload'       => true,
-						'datauri'           => $user->datauri,
+						// 'auto_upload'       => true,
 						/**
 						 *	Size limit for data uri images
 						 *
@@ -120,7 +114,7 @@ class Admin extends Core\Singleton {
 						'userlogin' => $current_user->user_login,
 						'userid'    => $current_user->ID,
 					],
-					'jpeg_quality'     => apply_filters( 'jpeg_quality', 90, 'edit_image' ),
+					'jpeg_quality'     => apply_filters( 'jpeg_quality', $options->image_quality, 'edit_image' ),
 					/**
 					 *	Filters the default filename
 					 *
@@ -141,11 +135,24 @@ class Admin extends Core\Singleton {
 					 *								%M Two digit minute
 					 *								%S Two digit second
 					 *								%s Unix timestamp
+					 *								%x Date based on locale
+					 *								%X Time based on locale
 					 */
 					'default_filename' => apply_filters( 'the_paste_default_filename', $user->default_filename ),
 				],
 			], 'thepaste' )
 			->register();
+	}
+
+	/**
+	 *	@return AbstractOptions
+	 */
+	private function get_options() {
+		if ( (bool) get_option( 'the_paste_enable_profile' ) ) {
+			return UserOptions::instance()->options;
+		} else {
+			return WritingOptions::instance()->options;
+		}
 	}
 
 	/**

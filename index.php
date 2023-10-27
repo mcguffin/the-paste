@@ -44,6 +44,7 @@ Core\Core::instance( __FILE__ );
 if ( is_admin() || defined( 'DOING_AJAX' ) ) {
 	add_action( 'init', function() {
 		Admin\Admin::instance();
-		Admin\User::instance();
+		Admin\UserOptions::instance();
+		Admin\WritingOptions::instance();
 	});
 }

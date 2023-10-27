@@ -35,14 +35,12 @@ class TinyMceThePaste extends TinyMce {
 	 *	@inheritdoc
 	 */
 	protected function __construct() {
+
 		$this->plugin_params = [];
 		$this->mce_settings = [
 			'paste_data_images' => false, //
 		];
-		$user = Admin\User::instance();
-		if ( $user->datauri ) {
-			$this->editor_buttons['mce_buttons_2']['thepaste'] = false;
-		}
+
 		parent::__construct();
 	}
 }
