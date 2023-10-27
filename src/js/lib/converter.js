@@ -17,10 +17,18 @@ const itemHandler = type => {
 			return []
 		},
 		'text/html': async item => {
+			const loc = new URL( document.location )
 			const div = document.createElement('div')
 			div.innerHTML = await Converter.itemToString( item )
 
-			const imgs = Array.from( div.querySelectorAll('img') ).map( img => Converter.elementToFile(img) )
+			const imgs = Array.from( div.querySelectorAll('img') )
+				.filter( img => {
+					// remove images from same domain
+					const u = new URL(img.src)
+					return ! ['http:','https:'].includes(u.protocol) || loc.hostname !== u.hostname
+				} )
+				.map( img => Converter.elementToFile(img) )
+
 			return new Promise( (resolve,reject) => {
 				Promise.allSettled( imgs ).then( result => resolve( Array.from(result).map( promise => promise.value )) )
 			})

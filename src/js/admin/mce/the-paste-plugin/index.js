@@ -69,7 +69,7 @@ class PasteOperation {
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
 
-				Array.from(div.childNodes).forEach( node => placeholder.parentNode.insertBefore( node, placeholder ) )
+				Array.from(div.childNodes).forEach( node => placeholder?.parentNode?.insertBefore( node, placeholder ) )
 				placeholder?.remove()
 
 				if ( images.length ) {
@@ -237,7 +237,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			})
 		})
 		.on( 'Paste', e => {
-			if ( !!pasteOnOffBtn && ! pasteOnOffBtn.active() ) {
+			if ( !!pasteOnOffBtn && ! pasteOnOffBtn.active() || document.body.matches('.modal-open') ) {
 				return;
 			}
 			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()
