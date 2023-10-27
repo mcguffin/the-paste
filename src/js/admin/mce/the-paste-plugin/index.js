@@ -106,29 +106,8 @@ class PasteOperation {
 
 tinymce.PluginManager.add( 'the_paste', editor => {
 
-	let pasteBtn,
-		pasteOnOffBtn,
+	let pasteOnOffBtn,
 		toolbar
-
-	if ( ! thepaste.options.editor.datauri ) {
-		// always auto uploaded
-		thepaste.options.editor.auto_upload = true
-
-	} else {
-		// user choice
-		thepaste.options.editor.auto_upload = localStorage.getItem( 'thepaste.auto_upload' ) !== 'false';
-
-		// enable / disable autoupload button
-		editor.addButton( 'thepaste', {
-			icon: 'thepaste',
-			tooltip: thepaste.l10n.upload_pasted_images,
-			cmd : 'cmd_thepaste',
-			onPostRender: function() {
-				pasteBtn = this;
-			},
-			active: thepaste.options.editor.auto_upload
-		});
-	}
 
 	// enable / disable autoupload button
 	editor.addButton( 'thepaste_onoff', {
@@ -144,6 +123,22 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		active: thepaste.options.editor.enabled
 	});
 
+
+	// init media toolbar flyout
+	editor.once( 'preinit', function() {
+		if ( editor.wp && editor.wp._createToolbar ) {
+
+			toolbar = editor.wp._createToolbar( [
+				'wp_img_alignleft',
+				'wp_img_aligncenter',
+				'wp_img_alignright',
+				'wp_img_alignnone',
+				'wp_img_thepaste_upload',
+				'wp_img_edit',
+				'wp_img_remove',
+			] );
+		}
+	} );
 
 	// upload button in media toolbar flyout
 	editor.addButton('wp_img_thepaste_upload', {
@@ -171,40 +166,16 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		}
 	} );
 
-	// enable / disable autoupload
-	editor.addCommand( 'cmd_thepaste', function() {
-		thepaste.options.editor.auto_upload = ! thepaste.options.editor.auto_upload;
-		localStorage.setItem( 'thepaste.auto_upload', thepaste.options.editor.auto_upload.toString() );
-		pasteBtn.active( thepaste.options.editor.auto_upload );
-	});
-
-	// init media toolbar flyout
-	editor.once( 'preinit', function() {
-		if ( editor.wp && editor.wp._createToolbar ) {
-
-			toolbar = editor.wp._createToolbar( [
-				'wp_img_alignleft',
-				'wp_img_aligncenter',
-				'wp_img_alignright',
-				'wp_img_alignnone',
-				'wp_img_thepaste_upload',
-				'wp_img_edit',
-				'wp_img_remove',
-			] );
-		}
-	} );
-
 
 	// true if data source or blob image
 	function canUpload( img ) {
-		var sub = img.src.substring(0,5);
+		const sub = img.src.substring(0,5);
 		return sub === 'blob:' || sub === 'data:';
 	}
 
 	const crawlPastedImages = () => {
 		return Array.from( editor.dom.doc.body.querySelectorAll('[src^="blob:"]:not(.--paste-process),[src^="data:"]:not(.--paste-process)') )
 	}
-
 
 	editor
 		.on( 'init', () => {
@@ -222,17 +193,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				for (i=0; i<images.length;i++) {
 					el = images[i]
 					el.classList.add('--paste-process')
-					if ( ! thepaste.options.editor.auto_upload
-						&& 'image' === await Converter.urlToType(el.src)
-			 		) {
-						if ( el.complete ) {
-							processImage( el )
-						} else {
-							el.onload = async () => processImage( el )
-						}
-					} else {
-						Uploader.inlineUpload( el ).catch( err => Notices.error( err.message, true ) || el.remove() )
-					}
+					Uploader.inlineUpload( el ).catch( err => Notices.error( err.message, true ) || el.remove() )
 				}
 			})
 		})
