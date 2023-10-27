@@ -135,15 +135,35 @@ const Uploader = {
 
 			const newElement = document.createElement('p')
 			const attachment = args.attachment.attributes
+			const link = getUserSetting( 'urlbutton', 'none' )
 
 			if ( 'image' === attachment.type ) {
-				newElement.innerHTML = wp.media.string.image( { link: 'none' }, attachment )
+				newElement.innerHTML = wp.media.string.image( {
+					link,
+					align: getUserSetting( 'align', 'none' ),
+					size:  getUserSetting( 'imgsize', 'medium' ),
+				}, attachment )
+
 			} else if ( 'video' === attachment.type ) {
-				newElement.innerHTML = wp.media.string.video( { link: 'embed' }, attachment )
+				newElement.innerHTML = wp.media.string.video( {
+					link: link !== 'none'
+						? link
+						: 'embed'
+				}, attachment )
+
 			} else if ( 'audio' === attachment.type ) {
-				newElement.innerHTML = wp.media.string.audio( { link: 'embed' }, attachment )
+				newElement.innerHTML = wp.media.string.audio( {
+					link: link !== 'none'
+						? link
+						: 'embed'
+				}, attachment )
+
 			} else {
-				newElement.innerHTML = wp.media.string.link( {}, attachment )
+				newElement.innerHTML = wp.media.string.link( {
+					link: link !== 'none'
+						? link
+						: 'file'
+				}, attachment )
 			}
 			progress.replaceWith( newElement.childNodes[0] )
 		}
