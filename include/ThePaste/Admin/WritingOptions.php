@@ -94,14 +94,14 @@ class WritingOptions extends AbstractOptions {
 		register_setting( $this->optionset, $option_name, 'boolval' );
 		add_settings_field(
 			$option_name,
-			__( 'Profile options',  'the-paste' ),
+			__( 'User profile options', 'the-paste' ),
 			[ $this, 'checkbox_ui' ],
 			$this->optionset,
 			$settings_section,
 			[
 				'option_name'        => $option_name,
 				'option_value'       => (bool) get_option( $option_name ),
-				'option_label'       => __( 'Allow users to manage their own pasting options',  'the-paste' )
+				'option_label'       => __( 'Allow users to manage their personal pasting options', 'the-paste' )
 			]
 		);
 

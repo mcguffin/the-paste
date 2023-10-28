@@ -44,6 +44,10 @@ class Admin extends Core\Singleton {
 		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
 		add_action( 'wp_enqueue_editor', [ $this, 'enqueue_assets' ] );
 		add_action( "wp_ajax_{$this->ajax_action_enable}", [ $this, 'ajax_tinymce_enable' ] );
+
+		// block editor
+		// add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_assets' ] );
+
 	}
 
 	/**
@@ -89,7 +93,7 @@ class Admin extends Core\Singleton {
 					'upload_image'         => __( 'Upload image', 'the-paste' ),
 					'the_paste'            => __( 'The Paste', 'plugin name', 'the-paste' ),
 					'copy_paste'           => __( 'Copy & Paste', 'the-paste' ),
-					'paste_files'          => __( 'Paste as file', 'the-paste' ),
+					'paste_files'          => __( 'Prefer pasting files', 'the-paste' ),
 				],
 				'options' => [
 					'editor'           => [

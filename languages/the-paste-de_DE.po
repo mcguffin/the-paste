@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: The Paste v0.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
-"POT-Creation-Date: 2023-10-04T12:23:12+00:00\n"
-"PO-Revision-Date: 2023-10-04 14:37+0200\n"
+"POT-Creation-Date: 2023-10-28T21:33:26+00:00\n"
+"PO-Revision-Date: 2023-10-28 23:34+0200\n"
 "Last-Translator: Jörn Lund <joern@podpirate.org>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -22,6 +22,7 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
 #. Plugin Name of the plugin
+#: include/ThePaste/Admin/WritingOptions.php:64
 msgid "The Paste"
 msgstr ""
 
@@ -42,168 +43,212 @@ msgstr ""
 msgid "https://github.com/mcguffin"
 msgstr ""
 
-#: include/template/image-list.php:9
+#: include/template/image-list.php:10
 msgid "Upload Pasted Images"
 msgstr "Eingefügte Bilder hochladen"
 
 # @ cheese
-#: include/template/image-list.php:15 include/template/uploader.php:28
+#: include/template/image-list.php:16 include/template/uploader.php:29
 msgid "Upload"
 msgstr "Upload"
 
-#: include/template/image-list.php:23
+#: include/template/image-list.php:24
 msgid "Filename"
 msgstr "Dateiname"
 
-#: include/template/image-list.php:24 include/ThePaste/Admin/User.php:35
+#: include/template/image-list.php:25 include/ThePaste/Admin/UserOptions.php:19
 msgid "Pasted"
 msgstr "Eingefügt"
 
-#: include/template/image-list.php:29
+#: include/template/image-list.php:30
 msgid "WebP"
 msgstr "WebP"
 
-#: include/template/image-list.php:33
+#: include/template/image-list.php:34
 msgid "PNG"
 msgstr "PNG"
 
-#: include/template/image-list.php:37
+#: include/template/image-list.php:38
 msgid "jpeg"
 msgstr "jpeg"
 
-#: include/template/image-list.php:43
+#: include/template/image-list.php:42
+msgid "SVG"
+msgstr "SVG"
+
+#: include/template/image-list.php:48
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: include/template/the-paste-instructions.php:14
+#: include/template/the-paste-instructions.php:15
 msgid "Press <kbd>⌘</kbd>+<kbd>V</kbd> to paste"
 msgstr "<kbd>⌘</kbd>+<kbd>V</kbd> zum einfügen"
 
-#: include/template/the-paste-instructions.php:16
+#: include/template/the-paste-instructions.php:17
 msgid "Press <kbd>ctrl</kbd>+<kbd>V</kbd> to paste"
 msgstr "<kbd>ctrl</kbd>+<kbd>V</kbd> zum einfügen"
 
 # @ cheese
-#: include/template/uploader.php:12
+#: include/template/uploader.php:13
 msgid "Try again"
 msgstr "Nochmal"
 
 # @ default
-#: include/template/uploader.php:15
+#: include/template/uploader.php:16
 msgid "Title"
 msgstr "Titel"
 
-#: include/ThePaste/Admin/Admin.php:78
-msgid "Upload pasted images"
-msgstr "Eingefügte Bilder sofort hochladen"
+#: include/ThePaste/Admin/AbstractOptions.php:121
+msgid "Enable The Paste in TinyMCE"
+msgstr "Aktiviere The Paste im TinyMCE"
 
-#: include/ThePaste/Admin/Admin.php:79
-msgid "Upload image"
-msgstr "Bild hochladen"
-
-#: include/ThePaste/Admin/Admin.php:81
-msgid "Copy & Paste"
-msgstr "Kopieren & Einfügen"
-
-#: include/ThePaste/Admin/Admin.php:82
-msgid "Paste as file"
-msgstr "Als Datei einfügen"
-
-#: include/ThePaste/Admin/User.php:112
-msgid "The Paste: Enable Classic Editor"
-msgstr "The Paste: Classic Editor aktivieren"
-
-#: include/ThePaste/Admin/User.php:118
-msgid "Allow pasting files and images in Classic Editor."
-msgstr "Erlaubt das Einfügen von Bildern und Dateien im Classic Editor."
-
-#: include/ThePaste/Admin/User.php:125
-msgid "The Paste: Data URI Images"
-msgstr "The Paste: Data-URI-Bilder"
-
-#: include/ThePaste/Admin/User.php:131
-msgid "Paste Data URI Images in Classic Editor."
-msgstr "Data-URI-Bilder im Classic Editor einfügen."
-
-#: include/ThePaste/Admin/User.php:134
-msgid ""
-"If this option is disabled, you can still upload existing data URI images."
-msgstr ""
-"Wenn deaktiviert, kannst bereits vorhandene Data-URI-Bilder trotzdem "
-"hochladen."
-
-#: include/ThePaste/Admin/User.php:141
-msgid "The Paste: Default filename"
-msgstr "The Paste: Standard-Dateiname"
-
-#: include/ThePaste/Admin/User.php:152
+#: include/ThePaste/Admin/AbstractOptions.php:173
 msgid "Available placeholders…"
 msgstr "Verfügbare Platzhalter…"
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/User.php:159
+#: include/ThePaste/Admin/AbstractOptions.php:180
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr "Beitragstitel wenn verfügbar, ansonsten „%s“"
 
-#: include/ThePaste/Admin/User.php:164
+#: include/ThePaste/Admin/AbstractOptions.php:185
 msgid "Display name of current user"
 msgstr "Öffentlicher Name des Benutzers"
 
-#: include/ThePaste/Admin/User.php:166
+#: include/ThePaste/Admin/AbstractOptions.php:187
 msgid "Login name of current user"
 msgstr "Benutzername"
 
-#: include/ThePaste/Admin/User.php:168
+#: include/ThePaste/Admin/AbstractOptions.php:189
 msgid "Current user ID"
 msgstr "Benutzer-ID"
 
-#: include/ThePaste/Admin/User.php:173
+#: include/ThePaste/Admin/AbstractOptions.php:194
 msgid "Four-digit year"
 msgstr "Jahr vierstellig"
 
-#: include/ThePaste/Admin/User.php:175
+#: include/ThePaste/Admin/AbstractOptions.php:196
 msgid "Two-digit year"
 msgstr "Jahr zweistellig"
 
-#: include/ThePaste/Admin/User.php:177
+#: include/ThePaste/Admin/AbstractOptions.php:198
 msgid "Number of month with leading zero (01 to 12)"
 msgstr "Monat als Zahl mit führender Null (01 bis 12)"
 
-#: include/ThePaste/Admin/User.php:179
+#: include/ThePaste/Admin/AbstractOptions.php:200
 msgid "Day of month with leading zero (01 to 31)"
 msgstr "Tag des Monats mit führender Null (01 bis 31)"
 
-#: include/ThePaste/Admin/User.php:181
+#: include/ThePaste/Admin/AbstractOptions.php:202
 msgid "Day of month (1 to 31)"
 msgstr "Tag des Monats (1 bis 31)"
 
-#: include/ThePaste/Admin/User.php:183
+#: include/ThePaste/Admin/AbstractOptions.php:204
 msgid "Two digit hour in 24-hour format"
 msgstr "Zweistellige Stunde im 24-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:185
+#: include/ThePaste/Admin/AbstractOptions.php:206
 msgid "Two digit hour in 12-hour format"
 msgstr "Zweistellige Stunde im 12-Stunden-Format"
 
-#: include/ThePaste/Admin/User.php:187
+#: include/ThePaste/Admin/AbstractOptions.php:208
 msgid "Two digit minute"
 msgstr "Zweistellige Minute"
 
-#: include/ThePaste/Admin/User.php:189
+#: include/ThePaste/Admin/AbstractOptions.php:210
 msgid "Two digit second"
 msgstr "Zweistellige Sekunde"
 
-#: include/ThePaste/Admin/User.php:191
+#: include/ThePaste/Admin/AbstractOptions.php:213
+msgid "Date based on locale"
+msgstr "Lokalisiertes Datum"
+
+#: include/ThePaste/Admin/AbstractOptions.php:215
+msgid "Time based on locale"
+msgstr "Lokalisierte Uhrzeit"
+
+#: include/ThePaste/Admin/AbstractOptions.php:218
 msgid "Unix timestamp"
 msgstr "Unix-Zeitstempel"
 
-#: include/ThePaste/Admin/User.php:199
+#: include/ThePaste/Admin/AbstractOptions.php:232
+msgid "Paste some cash with PayPal"
+msgstr "Ein bisschen Cash mit PayPal einfügen"
+
+#: include/ThePaste/Admin/Admin.php:35
+msgid "Paste as file"
+msgstr "Als Datei einfügen"
+
+#: include/ThePaste/Admin/Admin.php:92
+msgid "Upload pasted images"
+msgstr "Eingefügte Bilder sofort hochladen"
+
+#: include/ThePaste/Admin/Admin.php:93
+msgid "Upload image"
+msgstr "Bild hochladen"
+
+#: include/ThePaste/Admin/Admin.php:95
+msgid "Copy & Paste"
+msgstr "Kopieren & Einfügen"
+
+#: include/ThePaste/Admin/Admin.php:96
+msgid "Prefer pasting files"
+msgstr "Bevorzugt Dateien einfügen"
+
+#: include/ThePaste/Admin/UserOptions.php:65
+msgid "The Paste: Classic Editor"
+msgstr "The Paste: Classic Editor"
+
+#: include/ThePaste/Admin/UserOptions.php:74
+msgid "The Paste: Image Quality"
+msgstr "The Paste: Bildqualität"
+
+#: include/ThePaste/Admin/UserOptions.php:83
+msgid "The Paste: Default filename"
+msgstr "The Paste: Standard-Dateiname"
+
+#: include/ThePaste/Admin/UserOptions.php:92
+#: include/ThePaste/Admin/WritingOptions.php:110
 msgid "Support The Paste"
 msgstr "The Paste unterstützen"
 
-#: include/ThePaste/Admin/User.php:205
-msgid "Paste some cash with PayPal"
-msgstr "Ein bisschen Cash mit PayPal einfügen"
+#: include/ThePaste/Admin/WritingOptions.php:70
+msgid "Classic Editor"
+msgstr "Classic Editor"
+
+#: include/ThePaste/Admin/WritingOptions.php:78
+msgid "Image Quality"
+msgstr "Bildqualität"
+
+#: include/ThePaste/Admin/WritingOptions.php:86
+msgid "Default filename"
+msgstr "Standard-Dateiname"
+
+#: include/ThePaste/Admin/WritingOptions.php:97
+msgid "User profile options"
+msgstr "Einstellungen beim Profil bearbeiten"
+
+#: include/ThePaste/Admin/WritingOptions.php:104
+msgid "Allow users to manage their personal pasting options"
+msgstr "Erlaubt Benutzer:innen eigene Paste-Einstellungen"
+
+#~ msgid "The Paste: Enable Classic Editor"
+#~ msgstr "The Paste: Classic Editor aktivieren"
+
+#~ msgid "Allow pasting files and images in Classic Editor."
+#~ msgstr "Erlaubt das Einfügen von Bildern und Dateien im Classic Editor."
+
+#~ msgid "The Paste: Data URI Images"
+#~ msgstr "The Paste: Data-URI-Bilder"
+
+#~ msgid "Paste Data URI Images in Classic Editor."
+#~ msgstr "Data-URI-Bilder im Classic Editor einfügen."
+
+#~ msgid ""
+#~ "If this option is disabled, you can still upload existing data URI images."
+#~ msgstr ""
+#~ "Wenn deaktiviert, kannst bereits vorhandene Data-URI-Bilder trotzdem "
+#~ "hochladen."
 
 #~ msgid "Current post title if available, empty string otherwise"
 #~ msgstr "Beitragstitel wenn verfügbar, ansonsten leerer String"
