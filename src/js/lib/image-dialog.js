@@ -11,6 +11,9 @@ const imageDialog = images => {
 					} else if ( e.key === 'Escape' ) {
 						modal.close()
 					}
+				},
+				'click .media-modal-close': function(e) {
+					modal.close()
 				}
 			},
 			controller : {
