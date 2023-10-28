@@ -55,15 +55,19 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 3. Pasted multiple images from macOS Photos into Chrome
 4. A layer pasted from Adobe Photoshop 2023
 5. Pasted from Affinity Designer. SVG Clipboard contents on the right.
-6. Plugin options (under Settings > Writing)
+6. Plugin options (Settings > Writing)
 
 == Changelog ==
 
 = 2.1.0 =
-* Settings: Allow admin to override user settings
+* Introduce Admin Settings
 * Remove DataURI pasting feature
-* TinyMCE: use attachment display settings on paste
-* TinyMCE: upload images only if source is from a different origin
+* TinyMCE: "Paste as File" is now "Prefer pasting files"
+* TinyMCE: Restore functionality of "Paste as Text"
+* TinyMCE: use current attachment display settings when pasting
+* TinyMCE: skip images with src from same origin
+
+= 2.0.9 =
 * Fix: pasting plain HTML broken
 
 = 2.0.8 =

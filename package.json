@@ -69,6 +69,14 @@
       "git": {
         "user": "mcguffin",
         "remote": "git@github.com:mcguffin/the-paste.git"
+      },
+      "settings": {
+        "components": {
+          "writing": {
+            "flags": []
+          }
+        },
+        "flags": []
       }
     },
     "name": "The Paste",
@@ -106,5 +114,6 @@
       "svn_user": "podpirate",
       "svn": "https://plugins.svn.wordpress.org/the-paste/"
     }
-  }
+  },
+  "dependencies": {}
 }
