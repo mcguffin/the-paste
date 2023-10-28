@@ -21,17 +21,6 @@
 }
 
 .mce-i-thepaste_onoff {
-	[aria-pressed="false"] > button > & {
-		&::after {
-			content:'';
-			height: 23px;
-			width: 2px;
-
-			background-color: wp-color(red-50);
-			transform: translateX(-10px) rotate(45deg);
-			display:inline-block;
-		}
-	}
 	&::before {
 		content:'';
 		clip-path: url(#the-paste-editor-paste-file);
