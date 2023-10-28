@@ -6,13 +6,13 @@ import Uploader from 'uploader'
 class PasteOperation {
 
 	static #instance = null
-	static #observer = null
+	static #isEnabled = true
 
 	#files = []
-	#isAsync
+	#isAsync = false
 
-	static init(event) {
-		PasteOperation.#instance = new PasteOperation(event)
+	static init( event, preferFiles = true ) {
+		PasteOperation.#instance = new PasteOperation( event, preferFiles )
 		return PasteOperation.get();
 	}
 
@@ -22,6 +22,10 @@ class PasteOperation {
 
 	static destroy() {
 		PasteOperation.#instance = null
+	}
+
+	static setEnabled(enabled) {
+		PasteOperation.#isEnabled = enabled
 	}
 
 	get isAsync() {
@@ -34,7 +38,7 @@ class PasteOperation {
 
 	get pastedContent() {
 		return this.isAsync
-			? '<p id="the-pasted-async"></p>'
+			? '<p id="the-pasted-async"></p>' // paste html
 			: this.files.map( (file,idx) => {
 					const src = URL.createObjectURL(file)
 
@@ -47,11 +51,18 @@ class PasteOperation {
 		return this.#files
 	}
 
-	constructor(event) {
+	constructor( event, preferFiles ) {
 		this.clipboardData = event.clipboardData
 		this.body = event.target.closest('body')
-		this.#files = Array.from( this.clipboardData.files??[] )
-		this.#isAsync = Array.from( event.clipboardData.items ).filter( item => item.kind === 'string' && item.type === 'text/html' ).length > 0
+console.log(PasteOperation.#isEnabled)
+		if ( PasteOperation.#isEnabled ) {
+			this.#files = Array.from( this.clipboardData.files??[] )
+
+			if ( ! this.files.length || ! preferFiles ) {
+				this.#isAsync = Array.from( this.clipboardData.items ).filter( item => item.kind === 'string' && item.type === 'text/html' ).length > 0
+			}
+		}
+
 		// no files
 		if ( ! this.isAsync && ! this.files.length ) {
 			return
@@ -83,14 +94,7 @@ class PasteOperation {
 			this.body.dispatchEvent(new Event('FilesPasted'))
 		}
 	}
-	observe() {
-		PasteOperation.#observer = new MutationObserver( entries => {
-			entries.forEach( entry => {
 
-			})
-		}, { childNodes: true, subtree: true } )
-		return this
-	}
 	dumpClipboardData() {
 		Array.from(this.clipboardData.files).forEach( el => console.log(el) )
 		Array.from(this.clipboardData.items).forEach( el => {
@@ -107,7 +111,8 @@ class PasteOperation {
 tinymce.PluginManager.add( 'the_paste', editor => {
 
 	let pasteOnOffBtn,
-		toolbar
+		toolbar,
+		isPlaintextState = false
 
 	// enable / disable autoupload button
 	editor.addButton( 'thepaste_onoff', {
@@ -178,15 +183,11 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 	}
 
 	editor
+		.on( 'PastePlainTextToggle', ( { state } ) => {
+			PasteOperation.setEnabled( ! state )
+			pasteOnOffBtn.disabled( state )
+		})
 		.on( 'init', () => {
-			const processImage = async loadedImg => {
-				if ( loadedImg.naturalWidth * loadedImg.naturalHeight > thepaste.options.editor.force_upload_size ) {
-					Uploader.inlineUpload(loadedImg).catch( err => Notices.error( err.message, true ) || loadedImg.remove() )
-				} else if ( loadedImg.src.substr(0,4) === 'blob' ) {
-					// make data src
-					loadedImg.src = await Converter.blobUrlToDataUrl(loadedImg.src)
-				}
-			}
 			editor.dom.doc.body.addEventListener('FilesPasted', async e => {
 				let i, el
 				const images = crawlPastedImages()
@@ -198,11 +199,13 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			})
 		})
 		.on( 'Paste', e => {
-			if ( !!pasteOnOffBtn && ! pasteOnOffBtn.active() || document.body.matches('.modal-open') ) {
+			if ( document.body.matches('.modal-open') ) {
 				return;
 			}
-			const pasteOperation = PasteOperation.init(e) //.dumpClipboardData()
+			const preferFiles = !pasteOnOffBtn || pasteOnOffBtn.active()
+			const pasteOperation = PasteOperation.init( e, preferFiles ) //.dumpClipboardData()
 
+			// nothing to paste
 			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {
 				PasteOperation.destroy()
 				return;
