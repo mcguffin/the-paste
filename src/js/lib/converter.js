@@ -46,7 +46,7 @@ const Converter = {
 					const handler = itemHandler(item.type)
 					return handler( item )
 						.then( f => {
-							files.push( ...f )
+							files.push( ...f.filter( fl => fl.size > 0 ) )
 						} )
 						.catch( err => {
 							console.error(err)
@@ -134,7 +134,7 @@ const Converter = {
 		return blob.type.substr(0,blob.type.indexOf('/'))
 	},
 	blobUrlToBlob: async ( blobUrl, filename = '' ) => {
-		const blob = await fetch(blobUrl).then( r => r.blob() );
+		const blob = await fetch(blobUrl, { mode: 'no-cors'}).then( r => r.blob() );
 		return blob
 	},
 	blobUrlToFile: async ( blobUrl, filename = '' ) => {
