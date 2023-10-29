@@ -239,7 +239,8 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 					img = images[idx]
 					if ( !! pasteOperation.files[idx] ) {
 						img.alt = pasteOperation.files[idx].name
-						img.src = await Converter.dataUrlToBlobUrl(img.src)
+						// img.src = await Converter.dataUrlToBlobUrl(img.src)
+						img.src = URL.createObjectURL(pasteOperation.files[idx])
 					}
 				}
 
