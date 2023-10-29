@@ -7,7 +7,7 @@ const itemHandler = type => {
 		'text/plain': async item => {
 			if ( supports.svg ) {
 				const str = await Converter.itemToString( item )
-				if ( str.indexOf('<svg') >= 0 ) {
+				if ( str.toLowerCase().indexOf('<svg') >= 0 ) {
 					const domParser = new DOMParser()
 					if ( domParser.parseFromString(str,'image/svg+xml').querySelector('svg') ) {
 						return [ Converter.stringToFile( str, 'image/svg+xml' ) ]

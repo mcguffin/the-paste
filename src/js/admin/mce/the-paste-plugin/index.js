@@ -70,7 +70,8 @@ class PasteOperation {
 		if ( this.isAsync ) {
 			// google docs clipboard items present
 			(async () => {
-				let i
+				let i, u
+				const loc = new URL( document.location )
 				const html = await Converter.clipboardItemsToHtml( event.clipboardData.items )
 				const div = document.createElement('div')
 				const placeholder = this.body.querySelector('#the-pasted-async')
@@ -78,13 +79,20 @@ class PasteOperation {
 
 				div.innerHTML = html
 				images.push( ...Array.from(div.querySelectorAll('img')) )
+				const nodes = Array.from(div.childNodes).filter( node => [ Node.ELEMENT_NODE , Node.TEXT_NODE ].includes(node.nodeType))
 
-				Array.from(div.childNodes).forEach( node => placeholder?.parentNode?.insertBefore( node, placeholder ) )
+				while ( nodes.length ) {
+					placeholder?.before( nodes.shift() )
+				}
+				// .forEach( node => placeholder?.before( node ) )
 				placeholder?.remove()
 
 				if ( images.length ) {
 					for ( i=0; i < images.length; i++ ) {
-						images[i].src = await Converter.urlToBlobUrl(images[i].src)
+						u = new URL(images[i].src)
+						if ( ! ['http:','https:'].includes(u.protocol) || loc.hostname !== u.hostname ) {
+							images[i].src = await Converter.urlToBlobUrl(images[i].src)
+						}
 					}
 					this.body.dispatchEvent(new Event('FilesPasted'))
 				}
