@@ -62,6 +62,7 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 = 2.1.0 =
 * Introduce Admin Settings
 * Remove DataURI pasting feature
+* Quality slider in paste dialog
 * TinyMCE: "Paste as File" is now "Prefer pasting files"
 * TinyMCE: Restore functionality of "Paste as Text"
 * TinyMCE: Use current attachment display settings when pasting
