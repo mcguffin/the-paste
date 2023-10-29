@@ -99,14 +99,6 @@ class Admin extends Core\Singleton {
 					'editor'           => [
 						'enabled'           => $user->tinymce,
 						// 'auto_upload'       => true,
-						/**
-						 *	Size limit for data uri images
-						 *
-						 *	@param Int $size	Max image size in pixels (width * height) being pasted as data url
-						 */
-						'force_upload_size' => apply_filters('the_paste_max_embed_image_size',
-							apply_filters('the_paste_max_embed_imge_size', 512 * 512 ) // backwards compatibility
-						),
 						'enable_ajax_url'   => add_query_arg( [
 							'action'      => $this->ajax_action_enable,
 							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
