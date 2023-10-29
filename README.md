@@ -50,7 +50,7 @@ Applications tested so far:
 | A Webpage                    | -              | OK             | OK             | ?              |
 | Singe image from LibreOffice | OK             | OK             | OK             | OK             |
 | Affinity Designer 2          | OK             | OK             | OK             | OK             |
-| Affinity Designer 2 (SVG)    | OK             | OK             | ?              | ?              |
+| Affinity Designer 2 (SVG)    | OK             | OK             | OK             | ?              |
 | Affinity Photo 2             | OK             | ?              | ?              | ?              |
 | Google Docs                  | OK             | OK             | ?              | ?              |
 | Signal (Desktop)             | OK             | OK             | OK             | ?              |
@@ -127,11 +127,6 @@ If you think supporting an OpenSource project could be the best thing to do ever
 
 Plugin API:
 -----------
-### Filter `the_paste_max_embed_image_size`
-Filter the maximum image size (in pixels) being pasted as data-url.
-
-**Default (integer):** `262144` (= 512*512)
-
 ### Filter `the_paste_default_filename`
 
 Filter the default filename. You can use internal placeholders and a subset of php‘s `strftime()` as date/time placeholders.
