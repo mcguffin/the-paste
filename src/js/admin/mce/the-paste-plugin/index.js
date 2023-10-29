@@ -81,8 +81,8 @@ class PasteOperation {
 				images.push( ...Array.from(div.querySelectorAll('img')) )
 				const nodes = Array.from(div.childNodes).filter( node => [ Node.ELEMENT_NODE , Node.TEXT_NODE ].includes(node.nodeType))
 
-				while ( nodes.length ) {
-					placeholder?.before( nodes.shift() )
+				for ( i=0;i<nodes.length;i++ ) {
+					placeholder?.before( nodes[i] )
 				}
 				// .forEach( node => placeholder?.before( node ) )
 				placeholder?.remove()
