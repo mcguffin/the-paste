@@ -70,7 +70,7 @@
   bottom: 100px;
   right: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
   grid-template-rows: repeat(auto-fit, -webkit-min-content);
   grid-template-rows: repeat(auto-fit, min-content);
   grid-gap: 1em;
@@ -102,14 +102,14 @@
 }
 
 .the-paste-image-list-item {
-  --toolbar-size: 80px;
+  --toolbar-size: 100px;
+  container-type: inline-size;
+  container-name: thePasteItem;
   display: grid;
-  grid-template-areas: "canvas canvas" "name discard";
-  grid-template-columns: auto -webkit-min-content;
-  grid-template-columns: auto min-content;
-  grid-template-rows: calc(100% - var(--toolbar-size)) var(--toolbar-size);
+  grid-template-areas: "canvas" "name";
+  grid-template-rows: calc(100% - 2em - var(--toolbar-size)) var(--toolbar-size);
   grid-gap: 1em 2em;
-  padding: 2em;
+  padding: 1em;
   background-color: #fff;
   height: 100%;
   min-height: 450px;
@@ -130,28 +130,73 @@
   width: auto;
   height: auto;
 }
-.the-paste-image-list-item .the-paste-filename {
+@container (width > 700px) {
+  .the-paste-image-list-item canvas, .the-paste-image-list-item canvas + img {
+    max-width: calc(100% - 2em);
+  }
+}
+.the-paste-image-list-item .the-paste-toolbar {
   grid-area: name;
   color: #646970;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: -webkit-min-content auto -webkit-min-content;
+  grid-template-columns: min-content auto min-content;
+  grid-template-rows: auto 3em;
+  grid-gap: 1em 3em;
+  margin: 0;
+  height: var(--toolbar-size);
 }
-.the-paste-image-list-item .the-paste-filename [type=text] {
+@container (width > 700px) {
+  .the-paste-image-list-item .the-paste-toolbar {
+    margin: 1em;
+  }
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-filename {
+  grid-column: 1/span 2;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-format {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 1em;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-format label {
+  display: flex;
+  align-items: center;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-quality {
+  display: flex;
+  grid-gap: 1em;
+  align-items: center;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-quality :first-child {
+  width: -webkit-max-content;
+  width: max-content;
+  margin-left: auto;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-quality [type=range] {
+  flex: 1 1 auto;
+  max-width: 300px;
+}
+.the-paste-image-list-item .the-paste-toolbar .the-paste-quality [type=number] {
+  width: 5em;
+}
+.the-paste-image-list-item .the-paste-toolbar [name=discard] {
+  grid-column: 3;
+  grid-row: 1/span 2;
+  margin: 18px 0 auto 0;
+}
+.the-paste-image-list-item .the-paste-toolbar [name=discard], .the-paste-image-list-item .the-paste-toolbar [name=discard]:hover, .the-paste-image-list-item .the-paste-toolbar [name=discard]:focus {
+  border-color: currentColor;
+}
+.the-paste-image-list-item .the-paste-toolbar [name=discard]:focus {
+  box-shadow: 0 0 0 1px currentColor;
+}
+.the-paste-image-list-item .the-paste-toolbar [type=text] {
   display: block;
   width: 100%;
   font-size: 1.3em;
 }
 .the-paste-image-list-item .the-paste-format {
-  margin-top: auto;
-}
-.the-paste-image-list-item [name=discard] {
-  grid-area: discard;
-  margin: auto;
-}
-.the-paste-image-list-item [name=discard], .the-paste-image-list-item [name=discard]:hover, .the-paste-image-list-item [name=discard]:focus {
-  border-color: currentColor;
-}
-.the-paste-image-list-item [name=discard]:focus {
-  box-shadow: 0 0 0 1px currentColor;
+  margin: auto 0;
 }
 /*# sourceMappingURL=the-paste.css.map */
