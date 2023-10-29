@@ -19,8 +19,8 @@ if ( ! defined('ABSPATH') ) {
 </script>
 <script type="text/html" id="tmpl-the-paste-image-list-item">
 	<canvas></canvas>
-	<div class="the-paste-filename">
-		<label>
+	<div class="the-paste-toolbar">
+		<label class="the-paste-filename">
 			<?php esc_html_e( 'Filename', 'the-paste' );  ?>
 			<input type="text" name="the-paste-filename" value="<?php esc_attr_e( 'Pasted', 'the-paste' ); ?>" placeholder="" />
 		</label>
@@ -42,9 +42,14 @@ if ( ! defined('ABSPATH') ) {
 				<?php _e( 'SVG', 'the-paste' ); ?>
 			</label>
 		</div>
+		<label class="the-paste-quality">
+			<span><?php esc_html_e( 'Image Quality', 'the-paste' ); ?></span>
+			<input type="range" min="0" max="100" value="{{{ thepaste.options.jpeg_quality }}}" oninput="this.nextElementSibling.value = this.value" />
+			<input type="number" min="0" max="100" name="the-paste-quality" value="{{{ thepaste.options.jpeg_quality }}}"  oninput="this.previousElementSibling.value = this.value">
+		</label>
+		<button type="button" name="discard" class="button-link-delete button">
+			<span aria-hidden="true" class="dashicons dashicons-trash"></span>
+			<?php esc_html_e('Discard','the-paste') ?>
+		</button>
 	</div>
-	<button type="button" name="discard" class="button-link-delete button">
-		<span aria-hidden="true" class="dashicons dashicons-trash"></span>
-		<?php esc_html_e('Discard','the-paste') ?>
-	</button>
 </script>

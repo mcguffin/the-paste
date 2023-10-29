@@ -112,10 +112,10 @@
 	}
 }
 .the-paste-image-list-item {
-	--toolbar-size: 80px;
+	--toolbar-size: 100px;
 	display:grid;
-	grid-template-areas: 'canvas canvas'
-		'name discard';
+	grid-template-areas: 'canvas'
+		'name';
 	grid-template-columns: auto min-content;
 	grid-template-rows: calc(100% - var(--toolbar-size)) var(--toolbar-size);
 	grid-gap: 1em 2em;
@@ -144,12 +144,59 @@
 		background-size:25px 25px; /* Must be a square */
 		background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square */
 	}
-	.the-paste-filename {
+	.the-paste-toolbar {
 		grid-area:name;
 		color: wp-color(gray-50);
-		display: flex;
+		display: grid;
+		grid-template-columns: min-content auto min-content;
+		grid-template-rows: auto 3em;
+		grid-gap: 1em 3em;
+		margin: auto 0;
 
-		flex-direction: column;
+
+		.the-paste-filename {
+			grid-column: 1 /span 2;
+		}
+		.the-paste-format {
+			display: grid;
+			grid-auto-flow: column;
+			grid-gap: 1em;
+			label {
+				display: flex;
+				align-items: center;
+			}
+		}
+		.the-paste-quality {
+			display: flex;
+			grid-gap: 1em;
+			align-items: center;
+			:first-child {
+				width: max-content;
+				margin-left: auto;
+			}
+			[type="range"] {
+				flex:1 1 auto;
+				max-width: 300px;
+			}
+			[type="number"] {
+				width: 5em;
+			}
+		}
+
+		[name="discard"] {
+			grid-column: 3;
+			grid-row: 1 / span 2;
+			margin: 18px 0 auto 0;
+			&,
+			&:hover,
+			&:focus {
+				border-color: currentColor;
+			}
+			&:focus {
+				box-shadow: 0 0 0 1px currentColor;
+			}
+		}
+
 		[type="text"] {
 			display: block;
 			width: 100%;
@@ -157,18 +204,7 @@
 		}
 	}
 	.the-paste-format {
-		margin-top:auto;
+		margin: auto 0;
 	}
-	[name="discard"] {
-		grid-area: discard;
-		margin: auto;
-		&,
-		&:hover,
-		&:focus {
-			border-color: currentColor;
-		}
-		&:focus {
-			box-shadow: 0 0 0 1px currentColor;
-		}
-	}
+
 }

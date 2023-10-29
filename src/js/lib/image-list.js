@@ -9,6 +9,7 @@ const ImageListItem = wp.media.View.extend({
 	className: 'the-paste-image-list-item',
 	events: {
 		'click [name="discard"]': 'discard',
+		'change [name="the-paste-format"]': 'updateView',
 	},
 	initialize : function( { file } ) {
 		wp.media.View.prototype.initialize.apply( this, arguments );
@@ -47,6 +48,15 @@ const ImageListItem = wp.media.View.extend({
 			}
 		})
 	},
+	updateView: function() {
+		// if input fmt != output fmt
+		const outputFormat = this.$('[name="the-paste-format"]:checked').val()
+		if ( outputFormat !== this.file.type && ['image/webp','image/jpeg'].includes( outputFormat ) ) {
+			this.$('.the-paste-quality').show()
+		} else {
+			this.$('.the-paste-quality').hide()
+		}
+	},
 	render: function() {
 		wp.media.View.prototype.render.apply(this,arguments);
 
@@ -69,22 +79,27 @@ const ImageListItem = wp.media.View.extend({
 				this.$(`[name="the-paste-format"][value="image/png"]`).prop('checked',true)
 			}
 		}
+
+		this.updateView()
 	},
 	getFile: function() {
 		const type = this.$('[name="the-paste-format"]:checked').val()
 		const name = this.$('[name="the-paste-filename"]').val() || generateFilename()
 		const filename = `${name}.${mime.extension(type)}`
+		const quality  = parseFloat( this.$('[name="the-paste-quality"]').val() ) || thepaste.options.jpeg_quality
 		// upload as-is
+
 		if ( this.file.type === type ) {
 			return new Promise((resolve,reject) => {
 				resolve( new File( [this.file], filename, { type } ) )
 			})
 		}
+
 		// type conversion
 		return new Promise((resolve,reject) => {
 			this.canvas.toBlob( blob => {
 				resolve( Converter.blobToFile( blob, filename ) )
-			}, type, thepaste.options.jpeg_quality * 0.01 )
+			}, type, quality * 0.01 )
 		})
 	},
 	discard: function() {
