@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: copy paste, clipboard, media library, productivity
 Requires at least: 4.8
-Tested up to: 6.3
+Tested up to: 6.4
 Requires PHP: 7.4
 Stable tag: 2.0.9
 License: GPLv2 or later
@@ -64,8 +64,10 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 * Remove DataURI pasting feature
 * TinyMCE: "Paste as File" is now "Prefer pasting files"
 * TinyMCE: Restore functionality of "Paste as Text"
-* TinyMCE: use current attachment display settings when pasting
-* TinyMCE: skip images with src from same origin
+* TinyMCE: Use current attachment display settings when pasting
+* TinyMCE: Skip images with src from same origin
+* Fix: Resolve some Block Editor conflicts
+* Fix: Paste issue in Classic Block
 
 = 2.0.9 =
 * Fix: pasting plain HTML broken
