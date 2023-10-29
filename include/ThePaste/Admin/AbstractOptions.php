@@ -24,6 +24,15 @@ abstract class AbstractOptions extends Core\Singleton {
 	protected $_options = [];
 
 	/**
+	 *	@inheritdoc
+	 */
+	protected function __construct() {
+
+		$this->defaults['default_filename'] = __( 'Pasted', 'the-paste' );
+
+	}
+
+	/**
 	 *	Load options from DB
 	 */
 	abstract public function load();

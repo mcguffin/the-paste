@@ -16,7 +16,7 @@ class UserOptions extends AbstractOptions {
 	 */
 	protected function __construct() {
 
-		$this->defaults['default_filename'] = __( 'Pasted', 'the-paste' );
+		parent::__construct();
 
 		$this->load();
 

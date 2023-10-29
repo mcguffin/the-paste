@@ -23,6 +23,8 @@ class WritingOptions extends AbstractOptions {
 	 */
 	protected function __construct() {
 
+		parent::__construct();
+
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 
 		add_option( 'the_paste_enable_profile', '1', '', true );
