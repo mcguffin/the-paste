@@ -41,8 +41,7 @@ class PasteOperation {
 			? '<p id="the-pasted-async"></p>' // paste html
 			: this.files.map( (file,idx) => {
 					const src = URL.createObjectURL(file)
-
-					return `<img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" />`
+					return `<p><img id="the-pasted-${file.type}-${idx}" src="${src}" alt="${file.name}" /></p>`
 				} )
 				.join('')
 	}
@@ -54,7 +53,7 @@ class PasteOperation {
 	constructor( event, preferFiles ) {
 		this.clipboardData = event.clipboardData
 		this.body = event.target.closest('body')
-console.log(PasteOperation.#isEnabled)
+
 		if ( PasteOperation.#isEnabled ) {
 			this.#files = Array.from( this.clipboardData.files??[] )
 
@@ -242,7 +241,6 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 						img.alt = pasteOperation.files[idx].name
 						img.src = await Converter.dataUrlToBlobUrl(img.src)
 					}
-
 				}
 
 				setTimeout( () => editor.dom.doc.body.dispatchEvent(new Event('FilesPasted')))
