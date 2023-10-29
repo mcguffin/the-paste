@@ -113,31 +113,32 @@ const ImageList = wp.media.View.extend({
 	events: {
 		'click .media-frame-toolbar button': 'submit',
 	},
-	initialize : function( { files } ) {
+	initialize : function() {
 		wp.media.View.prototype.initialize.apply( this, arguments );
-		this.files = files
+		this.files = []
 		this.items = []
 		this.button = new wp.media.view.Button({
 			className: 'button-primary button-hero',
 		})
-	},
-	render: function() {
-		wp.media.View.prototype.render.apply(this,arguments);
-		this.files.forEach( file => {
-			const item = new ImageListItem({file,controller:this})
-			item.render()
-			this.$('.content').append(item.$el)
-			this.items.push( item )
-			item.render()
-		} )
+		this.render()
 	},
 	discardItem:function(item) {
 		this.files = this.files.filter( file => file !== item.file )
 		this.items = this.items.filter( it => it !== item )
 		item.$el.remove()
 		if ( ! this.items.length ) {
-			this.controller.close()
+			this.trigger('thepaste:cancel')
 		}
+	},
+	addFiles: function( files ) {
+		this.files.push( ...files )
+		files.forEach( file => {
+			const item = new ImageListItem({file,controller:this})
+			item.render()
+			this.$('.content').append(item.$el)
+			this.items.push( item )
+			item.render()
+		} )
 	},
 	getFiles: async function() {
 		const files = []
@@ -150,6 +151,5 @@ const ImageList = wp.media.View.extend({
 		this.trigger('thepaste:submit')
 	},
 })
-
 
 module.exports = ImageList

@@ -80,7 +80,7 @@
 		bottom: 100px;
 		right:0;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
 		grid-template-rows: repeat(auto-fit, min-content);
 		grid-gap: 1em;
 		border: 1em solid wp-color(gray-2);
@@ -113,13 +113,15 @@
 }
 .the-paste-image-list-item {
 	--toolbar-size: 100px;
+	container-type: inline-size;
+	container-name: thePasteItem;
 	display:grid;
 	grid-template-areas: 'canvas'
 		'name';
-	grid-template-columns: auto min-content;
-	grid-template-rows: calc(100% - var(--toolbar-size)) var(--toolbar-size);
+	// grid-template-columns: auto min-content;
+	grid-template-rows: calc(100% - 2em - var(--toolbar-size)) var(--toolbar-size);
 	grid-gap: 1em 2em;
-	padding: 2em;
+	padding: 1em;
 	background-color: #fff;
 	height: 100%;
 	min-height: 450px;
@@ -131,6 +133,9 @@
 			grid-area: canvas;
 			margin: auto;
 			max-width: 100%;
+			@container (width > 700px) {
+				max-width: calc(100% - 2em);
+			}
 			max-height: 100%;
 			width: auto;
 			height: auto;
@@ -151,8 +156,12 @@
 		grid-template-columns: min-content auto min-content;
 		grid-template-rows: auto 3em;
 		grid-gap: 1em 3em;
-		margin: auto 0;
-
+		margin: 0;
+		height: var(--toolbar-size);
+		@container (width > 700px) {
+			// display: none;
+			margin: 1em;
+		}
 
 		.the-paste-filename {
 			grid-column: 1 /span 2;
