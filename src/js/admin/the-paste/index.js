@@ -3,43 +3,6 @@ import imageDialog from 'image-dialog'
 import { rml } from 'compat'
 let uploader
 
-const handleFiles = files => {
-	const images = []
-	files.forEach( file => {
-		if ( /^image\//.test( file.type ) ) {
-			images.push(file)
-			// uploader.addFile( file )
-		} else {
-			uploader.addFile( rml.file(file) )
-		}
-	} )
-	if ( images.length ) {
-		imageDialog( images )
-			.then( files => files.forEach( file => uploader.addFile( rml.file(file) ) ) )
-	}
-};
-
-
-document.addEventListener( 'paste', async e => {
-
-	if ( document.body.matches('.the-paste-modal-open') ) {
-		return
-	}
-
-	if ( ! uploader ) {
-		return
-	}
-
-	const files = Array.from( e.clipboardData.files )
-	files.push( ... await Converter.clipboardItemsToFiles( e.clipboardData.items ) )
-
-	if ( files.length ) {
-		return handleFiles( files )
-	}
-
-}, { capture: true } )
-
-
 // Show paste notice in media library
 const PasteInstructions = wp.media.View.extend({
 	template: wp.template('the-paste-instructions'),
@@ -77,12 +40,34 @@ _.extend( wp.media.view.AttachmentsBrowser.prototype, {
 		pasteInstructions.render()
 		this.toolbar.set( 'pasteInstructions', pasteInstructions );
 
-		if ( !! this.controller.uploader.uploader ) {
+		document.addEventListener( 'paste', async e => {
+
+			if ( ! this.$el.is(':visible') ) {
+				return;
+			}
+
+			const files = Array.from( e.clipboardData.files )
+			files.push( ... await Converter.clipboardItemsToFiles( e.clipboardData.items ) ) // why did we do this?
+
+			if ( files.length ) {
+				return await this.handlePastedFiles( files )
+			}
+
+		}, { capture: true } )
+	},
+	handlePastedFiles: async function(files) {
+		const images = [],
 			uploader = this.controller.uploader.uploader.uploader
-		} else {
-			setTimeout( () => {
-				uploader = this.controller.uploader.uploader.uploader
-			}, 50 )
+		files.forEach( file => {
+			if ( /^image\//.test( file.type ) ) {
+				images.push(file)
+			} else {
+				uploader.addFile( rml.file(file) )
+			}
+		} )
+		if ( images.length ) {
+			const uploadFiles = await imageDialog( images )
+			uploadFiles.forEach( file => uploader.addFile( rml.file(file) ) )
 		}
 	}
 })

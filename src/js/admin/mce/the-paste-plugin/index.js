@@ -100,6 +100,8 @@ class PasteOperation {
 			console.log(el,el.kind,el.type)
 			if ( 'string' === el.kind ) {
 				el.getAsString(s=>console.log(s))
+			} else {
+				console.log(el.getAsFile())
 			}
 		} )
 		return this
@@ -188,6 +190,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 		})
 		.on( 'init', () => {
 			editor.dom.doc.body.addEventListener('FilesPasted', async e => {
+
 				let i, el
 				const images = crawlPastedImages()
 				for (i=0; i<images.length;i++) {
@@ -218,6 +221,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				if ( content = pasteOperation.pastedContent ) {
 					e.content = content
 				}
+
 				PasteOperation.destroy()
 			}
 			const editorPostProcess = e => {
@@ -239,8 +243,8 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 					img = images[idx]
 					if ( !! pasteOperation.files[idx] ) {
 						img.alt = pasteOperation.files[idx].name
-						// img.src = await Converter.dataUrlToBlobUrl(img.src)
 						img.src = URL.createObjectURL(pasteOperation.files[idx])
+						// img.src = await Converter.dataUrlToBlobUrl(img.src)
 					}
 				}
 

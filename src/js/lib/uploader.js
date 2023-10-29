@@ -29,6 +29,7 @@ class WPUploader {
 	#uploadedHandler = ( up, args, response ) => {
 		if ( this.#isitMe(args) ) {
 			this.onUploaded( args )
+			this.#removeListeners()
 		}
 	}
 	#errorHandler = ( up, args, c = 0 ) => {
@@ -52,7 +53,7 @@ class WPUploader {
 				state:    'insert',
 				title:    thepaste.l10n.copy_paste,
 				multiple: false
-			} ).close();
+			})
 		}
 		return WPUploader.#workflow
 	}
@@ -74,25 +75,37 @@ class WPUploader {
 
 		this.#file = rml.file(file)
 
+	}
+
+	destructor() {
+		WPUploader.workflow.close()
+	}
+
+	upload() {
+		if ( WPUploader.ready ) {
+			this.#upload()
+		} else {
+			WPUploader.workflow.once( 'uploader:ready', () => {
+				this.#upload()
+			} );
+		}
+	}
+	#upload() {
+		this.#addListeners()
+		WPUploader.uploader.addFile( this.#file );
+		WPUploader.workflow.close()
+	}
+
+	#addListeners() {
 		WPUploader.uploader.bind( 'UploadProgress', this.#progressHandler, this );
 		WPUploader.uploader.bind( 'FileUploaded', this.#uploadedHandler, this );
 		WPUploader.uploader.bind( 'Error', this.#errorHandler, this );
 	}
 
-	destructor() {
+	#removeListeners() {
 		WPUploader.uploader.unbind( 'UploadProgress', this.#progressHandler, this );
 		WPUploader.uploader.unbind( 'FileUploaded', this.#uploadedHandler, this );
 		WPUploader.uploader.unbind( 'Error', this.#errorHandler, this );
-	}
-
-	upload() {
-		if ( WPUploader.ready ) {
-			WPUploader.uploader.addFile( this.#file );
-		} else {
-			WPUploader.workflow.once( 'uploader:ready', () => {
-				WPUploader.uploader.addFile( this.#file )
-			} );
-		}
 	}
 
 	dump() {
@@ -105,9 +118,9 @@ const Uploader = {
 	inlineUpload: async el => {
 
 		const file = await Converter.elementToFile( el )
-
 		const uploader = WPUploader.get(file)
 		const progress = document.createElement('progress')
+
 		progress.classList.add('the-paste-progress')
 
 		if ( ! sizeAllowed(file) ) {
@@ -121,7 +134,6 @@ const Uploader = {
 		progress.max = 100
 		el.parentNode?.insertBefore(progress,el)
 		el.remove()
-
 		// upload process
 		uploader.onProgress = percent => {
 			progress.value = percent
