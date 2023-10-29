@@ -214,7 +214,7 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 			}
 			const preferFiles = !pasteOnOffBtn || pasteOnOffBtn.active()
 			const pasteOperation = PasteOperation.init( e, preferFiles ) //.dumpClipboardData()
-
+			// pasteOperation.dumpClipboardData()
 			// nothing to paste
 			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {
 				PasteOperation.destroy()

@@ -33,7 +33,7 @@ const itemHandler = type => {
 				Promise.allSettled( imgs ).then( result => resolve( Array.from(result).map( promise => promise.value )) )
 			})
 		},
-		'application/x-vnd.google-docs-image-clip+wrapped': async item => await Converter.gdocsItemToFiles( item ),
+		// 'application/x-vnd.google-docs-image-clip+wrapped': async item => await Converter.gdocsItemToFiles( item ), // <== dont need this
 	}[type]??(()=>new Promise((resolve,reject)=>resolve([])))
 }
 
@@ -48,9 +48,7 @@ const Converter = {
 						.then( f => {
 							files.push( ...f.filter( fl => fl.size > 0 ) )
 						} )
-						.catch( err => {
-							console.error(err)
-						})
+						.catch( err => console.error(err) )
 				}
 			})
 			Promise.allSettled(promises).then( () => resolve(files))
@@ -73,6 +71,7 @@ const Converter = {
 		} )
 	}),
 	gdocsItemToFiles: async item => {
+		let i
 		const sources = await Converter.gdocsItemToSources(item)
 		const files = []
 		for ( i=0;i<sources.length; i++ ) {
