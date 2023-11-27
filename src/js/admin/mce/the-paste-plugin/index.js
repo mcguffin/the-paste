@@ -103,13 +103,14 @@ class PasteOperation {
 	}
 
 	dumpClipboardData() {
-		Array.from(this.clipboardData.files).forEach( el => console.log(el) )
+		const prefix = '[the paste]'
+		Array.from(this.clipboardData.files).forEach( el => console.log(prefix,el) )
 		Array.from(this.clipboardData.items).forEach( el => {
-			console.log(el,el.kind,el.type)
+			console.log(prefix,el,el.kind,el.type)
 			if ( 'string' === el.kind ) {
 				el.getAsString(s=>console.log(s))
 			} else {
-				console.log(el.getAsFile())
+				console.log(prefix,el.getAsFile())
 			}
 		} )
 		return this
@@ -213,7 +214,10 @@ tinymce.PluginManager.add( 'the_paste', editor => {
 				return;
 			}
 			const preferFiles = !pasteOnOffBtn || pasteOnOffBtn.active()
-			const pasteOperation = PasteOperation.init( e, preferFiles ) //.dumpClipboardData()
+			const pasteOperation = PasteOperation.init( e, preferFiles ) //
+			if ( thepaste.options.editor.debugMode ) {
+				pasteOperation.dumpClipboardData()
+			}
 			// pasteOperation.dumpClipboardData()
 			// nothing to paste
 			if ( ! pasteOperation.isAsync && ! pasteOperation.files.length ) {

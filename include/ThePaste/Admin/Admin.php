@@ -97,8 +97,9 @@ class Admin extends Core\Singleton {
 				],
 				'options' => [
 					'editor'           => [
-						'enabled'           => $user->tinymce,
 						// 'auto_upload'       => true,
+						'debugMode'         => false,
+						'enabled'           => $user->tinymce,
 						'enable_ajax_url'   => add_query_arg( [
 							'action'      => $this->ajax_action_enable,
 							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
