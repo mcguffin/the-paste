@@ -59,6 +59,10 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.1.1 =
+* Fix PHP Fatal on Alpine/Solaris (`GLOB_BRACE`)
+* Fix some tweaks in block editor
+
 = 2.1.0 =
 * Introduce Admin Settings
 * Quality slider in image dialog

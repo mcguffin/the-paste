@@ -32,6 +32,7 @@ _.extend( wp.media.view.MediaFrame.prototype, {
 _.extend( wp.media.view.AttachmentsBrowser.prototype, {
 	_parentInitialize:	wp.media.view.AttachmentsBrowser.prototype.initialize,
 	initialize:	function() {
+
 		this._parentInitialize.apply(this,arguments);
 
 		const pasteInstructions = new PasteInstructions({
@@ -47,6 +48,13 @@ _.extend( wp.media.view.AttachmentsBrowser.prototype, {
 			}
 
 			const files = Array.from( e.clipboardData.files )
+
+			// prevent event bubbling to block editor element. File gets uploaded twice otherwise.
+			if ( files.length ) {
+				e.preventDefault()
+				e.stopPropagation()
+			}
+
 			files.push( ... await Converter.clipboardItemsToFiles( e.clipboardData.items ) ) // why did we do this?
 
 			if ( files.length ) {

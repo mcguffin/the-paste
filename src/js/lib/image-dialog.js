@@ -34,22 +34,22 @@ const imageDialog = images => {
 		list.on( 'thepaste:submit', async () => {
 			const files = await list.getFiles()
 			modal.close()
-			// $('body').toggleClass( 'the-paste-modal-open', false ) // block editor
-			// $('body').toggleClass( 'modal-open', isModal ) // restore preious modal state
 			resolve( files )
 		})
-		list.on('thepaste:cancel',() => modal.close() )
+		list.on('thepaste:cancel',() => {
+			modal.close()
+			resolve([])
+		} )
 		modal.content( list );
 		list.addFiles(images)
 		modal.open();
 		modal.on('close', () => {
 			$('body').toggleClass( 'the-paste-modal-open', false )
 			$('body').toggleClass( 'modal-open', isModal )
-			// setTimeout( () => {
+			setTimeout( () => {
 				modal.remove()
 				modal = null
-				console.log('closed',modal)
-			// }, 10 )
+			}, 10 )
 		})
 		$('body').toggleClass( 'the-paste-modal-open', true )
 	})
