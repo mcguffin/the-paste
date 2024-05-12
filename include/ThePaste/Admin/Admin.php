@@ -172,8 +172,8 @@ class Admin extends Core\Singleton {
 	 */
 	public function print_media_templates() {
 		if ( current_user_can( 'upload_files' ) ) {
-			$rp = Core\Core::instance()->get_plugin_dir() . '/include/template/{,*/,*/*/,*/*/*/}*.php';
-			foreach ( glob( $rp, GLOB_BRACE ) as $template_file ) {
+			$rp = Core\Core::instance()->get_plugin_dir() . '/include/template/*.php';
+			foreach ( glob( $rp ) as $template_file ) {
 				include $template_file;
 			}
 		}
