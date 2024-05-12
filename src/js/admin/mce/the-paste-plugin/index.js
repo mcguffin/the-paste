@@ -118,7 +118,7 @@ class PasteOperation {
 }
 
 
-tinymce.PluginManager.add( 'the_paste', editor => {
+tinymce.PluginManager.add( 'the_paste', function(editor) {
 
 	let pasteOnOffBtn,
 		toolbar,
