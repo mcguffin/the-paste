@@ -114,6 +114,5 @@
       "svn_user": "podpirate",
       "svn": "https://plugins.svn.wordpress.org/the-paste/"
     }
-  },
-  "dependencies": {}
+  }
 }
