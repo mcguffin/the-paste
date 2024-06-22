@@ -2,16 +2,12 @@ const autoprefixer  = require( 'gulp-autoprefixer' );
 const browserify    = require( 'browserify' );
 const babelify      = require( 'babelify' );
 const buffer        = require( 'vinyl-buffer' );
-const child_process = require( 'child_process' );
-const es            = require( 'event-stream' );
-const fs            = require( 'fs' );
 const glob          = require( 'glob' );
 const gulp          = require( 'gulp' );
 const sass          = require( 'gulp-sass' )( require('sass') );
 const source        = require( 'vinyl-source-stream' );
 const sourcemaps    = require( 'gulp-sourcemaps' );
-const uglify        = require( 'gulp-uglify' );
-
+const uglify        = require( 'gulp-uglify-es' ).default;
 
 const package = require( './package.json' );
 
@@ -29,10 +25,6 @@ const config = {
 		precision: 8,
 		stopOnError: false,
 		functions: {
-			'base64Encode($string)': $string => {
-				var buffer = new Buffer( $string.getValue() );
-				return sass.types.String( buffer.toString('base64') );
-			}
 		},
 		includePaths:[
 			'./src/scss/',
@@ -54,15 +46,6 @@ const config = {
 	}
 }
 
-
-gulp.task('i18n:make-pot',cb => {
-	//child_process.execSync(`wp i18n make-pot . languages/${package.name}.pot --domain=${package.name} --include=src/js/*.js,*.php --exclude=*.*`);
-	child_process.execSync(`wp i18n make-pot . languages/${package.name}.pot --domain=${package.name} --exclude=tmp,node_modules,vendor,*.js`)
-	cb();
-})
-
-
-
 function js_task(debug) {
 	return cb => {
 		let tasks = glob.sync("./src/js/**/index.js")
@@ -78,7 +61,6 @@ function js_task(debug) {
 					.transform( 'browserify-shim' );
 
 				return bundler
-					// .plugin('tinyify')
 					.bundle()
 					.pipe(source(target))
 					.pipe(buffer())
@@ -91,8 +73,7 @@ function js_task(debug) {
 					.pipe(sourcemaps.write( './' ) )
 					.pipe( gulp.dest( config.destPath ) );
 			} );
-
-		return es.merge(tasks).on('end',cb)
+		return Promise.all(tasks)
 	}
 }
 function scss_task(debug) {
@@ -138,14 +119,11 @@ gulp.task('watch:scss',cb => {
 gulp.task('watch', cb => {
 	gulp.watch( config.sass.watchPaths, gulp.parallel('dev:scss','watch:scss'));
 	gulp.watch('./src/js/**/*.js',gulp.parallel('dev:js'));
-	// gulp.watch('./languages/*.po',gulp.parallel('i18n:make-json'));
 });
 
 gulp.task('dev',gulp.series('dev:scss','dev:js','watch'));
 
-gulp.task('i18n', gulp.series( 'i18n:make-pot'));
-
-gulp.task('build', gulp.series('build:js','build:scss' /*, 'i18n'*/));
+gulp.task('build', gulp.series('build:js','build:scss'));
 
 gulp.task('default',cb => {
 	console.log('run either `gulp build` or `gulp dev`');
