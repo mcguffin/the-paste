@@ -63,6 +63,7 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 * Bring TinyMCE activation to Editor toolbar
 * SVG paste: Without SVG upload allowed you can still upload pasted SVG as raster image
 * Fix: Pasting with Safe SVG forbidden
+* Fix: render shortcode after inserting in tinymce
 
 = 2.1.2 =
 * Fix Classic Editor + Safari not pasting image (re-arrange js build)

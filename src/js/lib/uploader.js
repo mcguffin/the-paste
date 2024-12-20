@@ -177,8 +177,12 @@ const Uploader = {
 						: 'file'
 				}, attachment )
 			}
-			tinymce.activeEditor.execCommand( 'mceInsertContent', false, newElement.innerHTML );
-			progress.remove()
+			if ( tinymce.activeEditor ) {
+				tinymce.activeEditor.execCommand( 'mceInsertContent', false, newElement.innerHTML );
+				progress.remove()
+			} else {
+				progress.replaceWith( newElement.childNodes[0] )
+			}
 		}
 		uploader.upload()
 	},
