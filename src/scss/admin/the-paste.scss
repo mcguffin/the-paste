@@ -75,22 +75,22 @@
 	}
 	.content {
 		position: absolute;
-		left:0;
+		left: 0;
 		top: 50px;
 		bottom: 100px;
-		right:0;
+		right: 0;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
 		grid-template-rows: repeat(auto-fit, min-content);
 		grid-gap: 1em;
 		border: 1em solid wp-color(gray-2);
 		// padding: 2em;
-		overflow:auto;
+		overflow: auto;
 	}
 	.media-frame-toolbar {
-		bottom:0;
-		right:0;
-		left:0;
+		bottom: 0;
+		right: 0;
+		left: 0;
 		padding: 20px;
 		height: 100px;
 		display: flex;
@@ -115,7 +115,7 @@
 	--toolbar-size: 100px;
 	container-type: inline-size;
 	container-name: thePasteItem;
-	display:grid;
+	display: grid;
 	grid-template-areas: 'canvas'
 		'name';
 	// grid-template-columns: auto min-content;
@@ -146,11 +146,11 @@
 			linear-gradient(135deg, wp-color(gray-10) 25%, transparent 25%),
 			linear-gradient(45deg, transparent 75%, wp-color(gray-10) 75%),
 			linear-gradient(135deg, transparent 75%, wp-color(gray-10) 75%);
-		background-size:25px 25px; /* Must be a square */
-		background-position:0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square */
+		background-size: 25px 25px; /* Must be a square */
+		background-position: 0 0, 12.5px 0, 12.5px -12.5px, 0px 12.5px; /* Must be half of one side of the square */
 	}
 	.the-paste-toolbar {
-		grid-area:name;
+		grid-area: name;
 		color: wp-color(gray-50);
 		display: grid;
 		grid-template-columns: min-content auto min-content;

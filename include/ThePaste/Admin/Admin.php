@@ -17,7 +17,10 @@ class Admin extends Core\Singleton {
 	private $css;
 
 	/** @var string */
-	private $ajax_action_enable = 'the_paste_tinymce_enable';
+	private $ajax_action_preferfiles = 'the_paste_tinymce_preferfiles';
+
+	/** @var string */
+	private $ajax_action_onoff = 'the_paste_tinymce_onoff';
 
 	/**
 	 *	@inheritdoc
@@ -32,7 +35,8 @@ class Admin extends Core\Singleton {
 		if ( $this->get_options()->tinymce_enabled ) {
 			add_filter( 'tadv_allowed_buttons', function( $tadv_buttons ) {
 
-				$tadv_buttons['thepaste_onoff'] = __( 'Paste as file', 'the-paste' );
+				$tadv_buttons['thepaste_onoff']       = __( 'Use The Paste', 'the-paste' );
+				$tadv_buttons['thepaste_preferfiles'] = __( 'Paste as file', 'the-paste' );
 				add_action( 'admin_footer', [ $this, 'print_media_templates' ] );
 
 				return $tadv_buttons;
@@ -43,8 +47,11 @@ class Admin extends Core\Singleton {
 		add_action( 'wp_enqueue_media', [ $this, 'enqueue_assets' ] );
 		add_action( 'print_media_templates',  [ $this, 'print_media_templates' ] );
 		add_action( 'wp_enqueue_editor', [ $this, 'enqueue_assets' ] );
-		add_action( "wp_ajax_{$this->ajax_action_enable}", [ $this, 'ajax_tinymce_enable' ] );
+		add_action( "wp_ajax_{$this->ajax_action_onoff}", [ $this, 'ajax_tinymce_enable' ] );
+		add_action( "wp_ajax_{$this->ajax_action_preferfiles}", [ $this, 'ajax_tinymce_enable' ] );
+/*
 
+*/
 		// block editor
 		// add_action( 'enqueue_block_editor_assets', [ $this, 'enqueue_assets' ] );
 
@@ -55,14 +62,20 @@ class Admin extends Core\Singleton {
 	 */
 	public function ajax_tinymce_enable() {
 
-		check_ajax_referer( $this->ajax_action_enable );
+		$action = wp_unslash( $_REQUEST['action'] );
+
+		check_ajax_referer( $action );
 
 		$enabled = isset( $_REQUEST['enabled'] )
 			? (bool) wp_unslash( $_REQUEST['enabled'] )
 			: false;
 
 		$user = UserOptions::instance();
-		$user->tinymce = $enabled;
+		if ( $action === $this->ajax_action_preferfiles ) {
+			$user->tinymce         = $enabled;
+		} else if ( $action === $this->ajax_action_onoff ) {
+			$user->tinymce_enabled = $enabled;
+		}
 		$user->save();
 
 		wp_send_json( [ 'success' => true ] );
@@ -77,9 +90,7 @@ class Admin extends Core\Singleton {
 		$options = (object) $this->get_options();
 		$user    = UserOptions::instance();
 
-		if ( $options->tinymce_enabled ) {
-			$this->mce = TinyMce\TinyMceThePaste::instance();
-		}
+		$this->mce = TinyMce\TinyMceThePaste::instance();
 
 		$current_user = wp_get_current_user();
 
@@ -93,16 +104,22 @@ class Admin extends Core\Singleton {
 					'upload_image'         => __( 'Upload image', 'the-paste' ),
 					'the_paste'            => __( 'The Paste', 'plugin name', 'the-paste' ),
 					'copy_paste'           => __( 'Copy & Paste', 'the-paste' ),
+					'paste_onoff'          => __( 'Use The Paste', 'the-paste' ),
 					'paste_files'          => __( 'Prefer pasting files', 'the-paste' ),
 				],
 				'options' => [
 					'editor'           => [
 						// 'auto_upload'       => true,
-						'debugMode'         => false,
-						'enabled'           => $user->tinymce,
-						'enable_ajax_url'   => add_query_arg( [
-							'action'      => $this->ajax_action_enable,
-							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
+						'debugMode'            => false,
+						'preferfiles'          => $user->tinymce,
+						'enabled'              => $user->tinymce_enabled,
+						'preferfiles_ajax_url' => add_query_arg( [
+							'action'      => $this->ajax_action_preferfiles,
+							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_preferfiles ),
+						], admin_url( 'admin-ajax.php' ) ),
+						'onoff_ajax_url'       => add_query_arg( [
+							'action'      => $this->ajax_action_onoff,
+							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_onoff ),
 						], admin_url( 'admin-ajax.php' ) ),
 					],
 					'mime_types'        => $this->get_mimetype_mapping() + [ 'svg' => 'image/svg+xml' ],

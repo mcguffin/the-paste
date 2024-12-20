@@ -17,7 +17,8 @@ class TinyMceThePaste extends TinyMce {
 	 */
 	protected $editor_buttons = [
 		'mce_buttons_2'	=> [
-			'thepaste_onoff' => 'pastetext',
+			'thepaste_onoff'       => 'pastetext',
+			'thepaste_preferfiles' => 'thepaste_onoff',
 		],
 	];
 

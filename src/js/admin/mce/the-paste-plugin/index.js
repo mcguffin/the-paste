@@ -120,23 +120,42 @@ class PasteOperation {
 
 tinymce.PluginManager.add( 'the_paste', function(editor) {
 
-	let pasteOnOffBtn,
+	let pasteFilesBtn,
+		pasteOnOffBtn,
 		toolbar,
 		isPlaintextState = false
+
 
 	// enable / disable autoupload button
 	editor.addButton( 'thepaste_onoff', {
 		icon: 'thepaste_onoff',
-		tooltip: thepaste.l10n.paste_files,
+		tooltip: thepaste.l10n.paste_onoff,
 		onPostRender: function() {
 			pasteOnOffBtn = this;
 		},
 		onClick: function() {
 			this.active( ! this.active() )
-			fetch(`${thepaste.options.editor.enable_ajax_url}&enabled=${this.active()?1:0}`)
+			fetch(`${thepaste.options.editor.onoff_ajax_url}&enabled=${this.active()?1:0}`)
+			pasteFilesBtn.disabled( ! this.active() )
 		},
 		active: thepaste.options.editor.enabled
 	});
+
+	// enable / disable autoupload button
+	editor.addButton( 'thepaste_preferfiles', {
+		icon: 'thepaste_preferfiles',
+		tooltip: thepaste.l10n.paste_files,
+		onPostRender: function() {
+			pasteFilesBtn = this;
+		},
+		onClick: function() {
+			this.active( ! this.active() )
+			fetch(`${thepaste.options.editor.preferfiles_ajax_url}&enabled=${this.active()?1:0}`)
+		},
+		disabled: ! thepaste.options.editor.enabled,
+		active: thepaste.options.editor.preferfiles
+	});
+
 
 
 	// init media toolbar flyout
@@ -196,6 +215,7 @@ tinymce.PluginManager.add( 'the_paste', function(editor) {
 		.on( 'PastePlainTextToggle', ( { state } ) => {
 			PasteOperation.setEnabled( ! state )
 			pasteOnOffBtn.disabled( state )
+			pasteFilesBtn.disabled( state )
 		})
 		.on( 'init', () => {
 			editor.dom.doc.body.addEventListener('FilesPasted', async e => {
@@ -210,10 +230,10 @@ tinymce.PluginManager.add( 'the_paste', function(editor) {
 			})
 		})
 		.on( 'Paste', e => {
-			if ( document.body.matches('.modal-open') ) {
+			if ( document.body.matches('.modal-open') || ! pasteOnOffBtn.active() ) {
 				return;
 			}
-			const preferFiles = !pasteOnOffBtn || pasteOnOffBtn.active()
+			const preferFiles = !pasteFilesBtn || pasteFilesBtn.active()
 			const pasteOperation = PasteOperation.init( e, preferFiles ) //
 			if ( thepaste.options.editor.debugMode ) {
 				pasteOperation.dumpClipboardData()

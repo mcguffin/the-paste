@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: copy paste, clipboard, media library, productivity
 Requires at least: 4.8
-Tested up to: 6.4
+Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 2.1.2
 License: GPLv2 or later
@@ -58,6 +58,11 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 6. Plugin options (Settings > Writing)
 
 == Changelog ==
+
+= 2.1.3 =
+* Bring TinyMCE activation to Editor toolbar
+* SVG paste: Without SVG upload allowed you can still upload pasted SVG as raster image
+* Fix: Pasting with Safe SVG forbidden
 
 = 2.1.2 =
 * Fix Classic Editor + Safari not pasting image (re-arrange js build)

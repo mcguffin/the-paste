@@ -123,23 +123,28 @@ abstract class AbstractOptions extends Core\Singleton {
 	public function tinymce_ui() {
 
 		?>
-		<p><?php
+		<p class="the-paste-tinymce-ui"><?php
 		$this->checkbox_ui([
 			'option_name'  => 'the_paste[tinymce_enabled]',
 			'option_value' => $this->tinymce_enabled,
 			'option_label' => __( 'Enable The Paste in TinyMCE', 'the-paste' ),
 		]);
-		?></p>
-<?php /*
-		<p><?php
+
 		$this->checkbox_ui([
-			'option_name'        => 'the_paste[tinymce]',
-			'option_value'       => $this->tinymce,
-			'option_label'       => __( 'Prefer File data when pasting.', 'the-paste' ),
-			// 'option_description' => __( 'You can enable this option also in the editer toolbar.', 'the-paste' )
+			'option_name'  => 'the_paste[tinymce]',
+			'option_value' => $this->tinymce,
+			'option_label' => __( 'Prefer pasting files', 'the-paste' ),
 		]);
+
 		?></p>
-*/ ?>
+		<style>
+		.the-paste-tinymce-ui {
+			display: grid;
+			grid-auto-flow: column;
+			grid-auto-columns: max-content;
+			gap: 1em;
+		}
+		</style>
 		<?php
 
 	}
