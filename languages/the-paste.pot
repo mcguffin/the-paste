@@ -2,16 +2,16 @@
 # This file is distributed under the GPL3.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Paste 2.1.2\n"
+"Project-Id-Version: The Paste 2.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/the-paste\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-06-22T08:25:37+00:00\n"
+"POT-Creation-Date: 2024-12-20T13:28:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.10.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: the-paste\n"
 
 #. Plugin Name of the plugin
@@ -103,97 +103,103 @@ msgstr ""
 msgid "Enable The Paste in TinyMCE"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:182
+#: include/ThePaste/Admin/AbstractOptions.php:136
+#: include/ThePaste/Admin/Admin.php:108
+msgid "Prefer pasting files"
+msgstr ""
+
+#: include/ThePaste/Admin/AbstractOptions.php:187
 msgid "Available placeholders…"
 msgstr ""
 
 #. translators: 'Media Library' H1 from WP Core
-#: include/ThePaste/Admin/AbstractOptions.php:189
+#: include/ThePaste/Admin/AbstractOptions.php:194
 msgid "Current post title if available, ‘%s’ otherwise"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:194
+#: include/ThePaste/Admin/AbstractOptions.php:199
 msgid "Display name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:196
+#: include/ThePaste/Admin/AbstractOptions.php:201
 msgid "Login name of current user"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:198
+#: include/ThePaste/Admin/AbstractOptions.php:203
 msgid "Current user ID"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:203
+#: include/ThePaste/Admin/AbstractOptions.php:208
 msgid "Four-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:205
+#: include/ThePaste/Admin/AbstractOptions.php:210
 msgid "Two-digit year"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:207
+#: include/ThePaste/Admin/AbstractOptions.php:212
 msgid "Number of month with leading zero (01 to 12)"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:209
+#: include/ThePaste/Admin/AbstractOptions.php:214
 msgid "Day of month with leading zero (01 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:211
+#: include/ThePaste/Admin/AbstractOptions.php:216
 msgid "Day of month (1 to 31)"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:213
+#: include/ThePaste/Admin/AbstractOptions.php:218
 msgid "Two digit hour in 24-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:215
+#: include/ThePaste/Admin/AbstractOptions.php:220
 msgid "Two digit hour in 12-hour format"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:217
+#: include/ThePaste/Admin/AbstractOptions.php:222
 msgid "Two digit minute"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:219
+#: include/ThePaste/Admin/AbstractOptions.php:224
 msgid "Two digit second"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:222
+#: include/ThePaste/Admin/AbstractOptions.php:227
 msgid "Date based on locale"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:224
+#: include/ThePaste/Admin/AbstractOptions.php:229
 msgid "Time based on locale"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:227
+#: include/ThePaste/Admin/AbstractOptions.php:232
 msgid "Unix timestamp"
 msgstr ""
 
-#: include/ThePaste/Admin/AbstractOptions.php:241
+#: include/ThePaste/Admin/AbstractOptions.php:246
 msgid "Paste some cash with PayPal"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:35
+#: include/ThePaste/Admin/Admin.php:38
+#: include/ThePaste/Admin/Admin.php:107
+msgid "Use The Paste"
+msgstr ""
+
+#: include/ThePaste/Admin/Admin.php:39
 msgid "Paste as file"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:92
+#: include/ThePaste/Admin/Admin.php:103
 msgid "Upload pasted images"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:93
+#: include/ThePaste/Admin/Admin.php:104
 msgid "Upload image"
 msgstr ""
 
-#: include/ThePaste/Admin/Admin.php:95
+#: include/ThePaste/Admin/Admin.php:106
 msgid "Copy & Paste"
-msgstr ""
-
-#: include/ThePaste/Admin/Admin.php:96
-msgid "Prefer pasting files"
 msgstr ""
 
 #: include/ThePaste/Admin/UserOptions.php:65
