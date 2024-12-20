@@ -105,7 +105,7 @@ class Admin extends Core\Singleton {
 							'_ajax_nonce' => wp_create_nonce( $this->ajax_action_enable ),
 						], admin_url( 'admin-ajax.php' ) ),
 					],
-					'mime_types'        => $this->get_mimetype_mapping(),
+					'mime_types'        => $this->get_mimetype_mapping() + [ 'svg' => 'image/svg+xml' ],
 					'filename_values'   => [
 						'username'  => $current_user->display_name,
 						'userlogin' => $current_user->user_login,
