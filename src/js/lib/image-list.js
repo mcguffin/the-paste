@@ -63,8 +63,8 @@ const ImageListItem = wp.media.View.extend({
 		const type     = this.file.type
 		const basename = this.file.name.replace(/\.([^\.]*)$/,'')
 
-		if ( ! supports.webp ) {
-			if ( 'image/webp' !== type ) {
+		if ( 'image/webp' !== type ) {
+			if ( ! supports.webp || ! mime.extension('image/webp') ) {
 				this.$(`[data-format="image/webp"]`).remove()
 			}
 		}

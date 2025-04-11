@@ -59,6 +59,9 @@ Follow the standard [WordPress plugin installation procedere](https://wordpress.
 
 == Changelog ==
 
+= 2.1.4 =
+* Fix Image dialog: hide webp option if extension not allowed in multisite
+
 = 2.1.3 =
 * Bring TinyMCE activation to Editor toolbar
 * SVG paste: Without SVG upload allowed you can still upload pasted SVG as raster image
