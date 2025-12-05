@@ -3,7 +3,7 @@ Contributors: podpirate
 Donate link: https://www.paypal.com/donate/?hosted_button_id=F8NKC6TCASUXE
 Tags: copy paste, clipboard, media library, productivity
 Requires at least: 4.8
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 7.4
 Stable tag: 2.1.3
 License: GPLv2 or later
