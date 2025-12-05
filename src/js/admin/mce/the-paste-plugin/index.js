@@ -54,11 +54,15 @@ class PasteOperation {
 		this.clipboardData = event.clipboardData
 		this.body = event.target.closest('body')
 
+		if ( this.hasClipboardKind('string','x-tinymce/html') ) {
+			return
+		}
+
 		if ( PasteOperation.#isEnabled ) {
 			this.#files = Array.from( this.clipboardData.files??[] )
 
 			if ( ! this.files.length || ! preferFiles ) {
-				this.#isAsync = Array.from( this.clipboardData.items ).filter( item => item.kind === 'string' && item.type === 'text/html' ).length > 0
+				this.#isAsync = this.hasClipboardKind('string','text/html') // Array.from( this.clipboardData.items ).filter( item => item.kind === 'string' && item.type === 'text/html' ).length > 0
 			}
 		}
 
@@ -102,13 +106,17 @@ class PasteOperation {
 		}
 	}
 
+	hasClipboardKind(kind,type) {
+		return Array.from( this.clipboardData.items ).filter( item => item.kind === kind && item.type === type ).length > 0
+	}
+
 	dumpClipboardData() {
 		const prefix = '[the paste]'
 		Array.from(this.clipboardData.files).forEach( el => console.log(prefix,el) )
 		Array.from(this.clipboardData.items).forEach( el => {
 			console.log(prefix,el,el.kind,el.type)
 			if ( 'string' === el.kind ) {
-				el.getAsString(s=>console.log(s))
+				el.getAsString(s=>console.log(prefix,s,el.kind,el.type))
 			} else {
 				console.log(prefix,el.getAsFile())
 			}
