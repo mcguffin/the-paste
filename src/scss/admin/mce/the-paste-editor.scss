@@ -1,5 +1,4 @@
-@import "mixins/index";
-@import "variables/index";
+@use "../../variables/index" as *;
 
 progress.the-paste-progress {
 	--bar-height: 4px;

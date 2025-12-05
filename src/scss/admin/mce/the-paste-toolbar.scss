@@ -1,5 +1,4 @@
-@import "mixins/index";
-@import "variables/index";
+@use "../../variables/index" as *;
 
 
 .mce-i-thepaste {

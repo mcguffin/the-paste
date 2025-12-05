@@ -1,6 +1,4 @@
-
-@import "mixins/index";
-@import "variables/index";
+@use "../variables/index" as *;
 
 #the-paste {
 	//*
