@@ -177,12 +177,17 @@ const Uploader = {
 						: 'file'
 				}, attachment )
 			}
+			/*
 			if ( tinymce.activeEditor ) {
+
 				tinymce.activeEditor.execCommand( 'mceInsertContent', false, newElement.innerHTML );
 				progress.remove()
 			} else {
 				progress.replaceWith( newElement.childNodes[0] )
 			}
+			/*/
+			progress.replaceWith( newElement.childNodes[0] )
+			//*/
 		}
 		uploader.upload()
 	},
