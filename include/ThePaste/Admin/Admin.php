@@ -110,7 +110,7 @@ class Admin extends Core\Singleton {
 				'options' => [
 					'editor'           => [
 						// 'auto_upload'       => true,
-						'debugMode'            => false,
+						'debugMode'            => constant('SCRIPT_DEBUG'),
 						'preferfiles'          => $user->tinymce,
 						'enabled'              => $user->tinymce_enabled,
 						'preferfiles_ajax_url' => add_query_arg( [

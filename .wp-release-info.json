@@ -1,9 +1,9 @@
 {
   "id": "https://github.com/mcguffin/the-paste/raw/master/.wp-release-info.json",
   "slug": "the-paste",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "url": "https://wordpress.org/plugins/the-paste/",
-  "package": "https://github.com/mcguffin/the-paste/releases/download/2.1.3/the-paste.zip",
-  "tested": "6.7",
+  "package": "https://github.com/mcguffin/the-paste/releases/download/2.1.4/the-paste.zip",
+  "tested": "6.9",
   "requires_php": "7.4"
 }
